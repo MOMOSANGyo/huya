@@ -16,7 +16,7 @@ npm install –g hyext
 
 ```
 cd fansGuessApp
-yarn
+hyext install
 ```
 
 ###  开发模式
