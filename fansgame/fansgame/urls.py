@@ -18,7 +18,7 @@ from django.conf.urls import url, include
 
 urlpatterns = [
 
-    # url(r'^anchor/', include('anchor.urls', namespace='anchor')),
+    url(r'^anchor/', include('anchor.urls', namespace='anchor')),
     #
     # url(r'^user/', include('user.urls', namespace='user')),
     #
