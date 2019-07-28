@@ -42,15 +42,16 @@ class GameUser(models.Model):  #表五
 
 class GameTime(models.Model):  #表6
     time = models.CharField(max_length=20) #游戏时长
+    unit = models.CharField(max_length=20,default="分钟")
 
     class Meta:
         db_table = 'gametime'
 
 class GameRecord(models.Model):  #表7
     anchorid = models.IntegerField() #主播id
-    personnum = models.IntegerField()  #玩游戏的人数
+    personnum = models.IntegerField(default=0)  #玩游戏的人数
     gametimeid = models.IntegerField()  #表6主键，游戏时长
-    truepersonnum = models.IntegerField(null=True)  #总的答对人数（十个词语都对的总人数）
+    truepersonnum = models.IntegerField(default=0)  #总的答对人数（十个词语都对的总人数）
     class Meta:
         db_table = 'gamerecord'
 

@@ -4,7 +4,7 @@ from anchor import views
 
 urlpatterns = [
     # 主播首页
-    url(r'^index/', views.index, name='index'),
+    url(r'^index/', views.index, name='index'),#zaccc.lzok.top/index/
     # 等待游戏开始页面
     url(r'^waiting_start/$',views.waiting_start,name='waiting_start'),
     # 词条展示页面

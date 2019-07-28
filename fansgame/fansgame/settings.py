@@ -25,7 +25,7 @@ SECRET_KEY = '4!5b=*o)u6esg!c29!&=74%jn0+05b*wd4r0vxk$k3iz1=l)$_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -130,12 +130,13 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
-# 跨域增加忽略
+
+# CORS_ORIGIN_WHITELIST = (
+#     'http://127.0.0.1:8000'
+# )
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
-CORS_ORIGIN_WHITELIST = (
-"https://0.0.0.0:9000",
-)
+
 CORS_ALLOW_METHODS = (
     'DELETE',
     'GET',
@@ -145,6 +146,7 @@ CORS_ALLOW_METHODS = (
     'PUT',
     'VIEW',
 )
+
 CORS_ALLOW_HEADERS = (
     'XMLHttpRequest',
     'X_FILENAME',
@@ -156,4 +158,6 @@ CORS_ALLOW_HEADERS = (
     'user-agent',
     'x-csrftoken',
     'x-requested-with',
+    'Pragma',
 )
+

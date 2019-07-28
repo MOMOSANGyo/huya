@@ -7,35 +7,39 @@ from random import randint
 
 from django.core.paginator import Paginator
 from django.db import connection
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 
-from anchor.models import WordCategory, SmallCategory, AnchorWord
+from anchor.models import *
 
-# 主播首页
+
+
 def index(request):
+    category = WordCategory.objects.filter(parentid=0)
+    data = {}
+    for i in category:
+        data[i.categoryname] = []
+    smallcategory = WordCategory.objects.exclude(parentid=0)
+    for small in smallcategory:
+        for big in category:
+            if small.parentid == big.id:
+                data[big.categoryname].append(small.categoryname)
+
+    data['time'] = []
+    gametime = GameTime.objects.all()
+    for time in gametime:
+        data['time'].append(time.time)
     if request.method == 'POST':
-        code = request.POST.get('code')
-        print(code)
-    # 获取词语表词语内容
+        test = request.POST.get("request")
+        return HttpResponse(json.dumps({'data': data}, ensure_ascii=False),
+                            content_type="application/json,charset=utf-8")
 
-    dict={}
-    words = WordCategory.objects.exclude(parentid=0)
-    for wordd in words:
-        list = []
-        for i in wordd.smallcategory_set.all():
-            # print(wordd.categoryname,i.word)
-            a = i.word
-            list.append(a)
-        dict[wordd.categoryname]=list
 
-    # 获取主播自定义词语内容
-    anchor_words = AnchorWord.objects.filter(anchorid=100)[0]
-    dict[anchor_words.categoryname]=anchor_words.anchorsmallword_set.all()[0].word
-    # print(anchor_words.categoryname,anchor_words.anchorsmallword_set.all()[0].word)
-    # 获取游戏开始时间 从前端获取
-    print(dict)
-    return HttpResponse(json.dumps({'data':dict},ensure_ascii=False),content_type="application/json,charset=utf-8")
+
+
+
+
+
 
 # 等待开始
 def waiting_start(request):
@@ -67,3 +71,5 @@ def ranking_list(request,page):
     # 展示主播得分
     # 展示粉丝得分
     return None
+
+
