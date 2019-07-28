@@ -1,0 +1,104 @@
+@function size($px) {
+  @return $px / 2 ;
+}
+
+.selectbox-bg {
+  width: size(320px);
+  border-radius: size(24px);
+  background-color: #474747;
+}
+.time-list {
+  width: size(270px);
+  margin: 0 auto;
+}
+
+.select-li {
+  box-sizing: border-box;
+  color: #ffffff;
+  font-size: size(20px);
+  height: size(48px);
+  line-height: size(48px);
+  border-bottom: 1px solid #898989;
+  &:hover {
+    color: #000000;
+    font-size: size(26px);
+    line-height: size(48px);
+    background-color: #f1574f;
+  }
+  &:last-of-type {
+    border: none;
+  }
+}
+
+.cascaderbox-container {
+  width: size(416px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  .class-bg {
+    width: size(96px);
+    border-top-left-radius: size(8px);
+    border-bottom-left-radius: size(8px);
+    background-color: #f1574f;
+  }
+  .detail-bg {
+    width: size(320px);
+    border-top-left-radius: size(24px);
+    border-top-right-radius: size(24px);
+    border-bottom-right-radius: size(24px);
+    background-color: #474747;
+  }
+}
+
+.class-list {
+  position: relative;
+  width: size(86px);
+  margin-left: size(10px);
+}
+
+.class-li {
+  box-sizing: border-box;
+  color: #ffffff;
+  font-size: size(20px);
+  height: size(48px);
+  line-height: size(48px);
+  border-bottom: 1px solid #898989;
+  &:last-of-type {
+    border: none;
+  }
+}
+
+.class-li-selected {
+  color: #f1574f;
+  width: size(106px);
+  margin-left: size(-20px);
+  border-top-left-radius: size(8px);
+  border-bottom-left-radius: size(8px);
+  font-size: size(26px);
+  line-height: size(48px);
+  background-color: #2b2b2b;
+  border: none;
+}
+
+.detail-list {
+  width: size(270px);
+  margin: 0 auto;
+}
+
+.detail-li {
+  box-sizing: border-box;
+  color: #ffffff;
+  font-size: size(20px);
+  height: size(48px);
+  line-height: size(48px);
+  border-bottom: 1px solid #898989;
+  &:hover {
+    color: #000000;
+    font-size: size(26px);
+    line-height: size(48px);
+    background-color: #4355ff;
+  }
+  &:last-of-type {
+    border: none;
+  }
+}

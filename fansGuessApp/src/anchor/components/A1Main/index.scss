@@ -1,0 +1,126 @@
+@function size($px) {
+  @return $px / 2;
+}
+
+.a1-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background-color: #2b2b2b;
+}
+
+.a1-container .title-img {
+  margin-top: size(32px);
+  background-image: url(./images/title.png);
+  width: size(624px);
+  height: size(428px);
+  background-size: cover;
+}
+
+.a1-introduce {
+  margin-top: size(32px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: size(686px);
+  height: size(226px);
+  background-image: linear-gradient(
+		#2b2b2b, 
+		#2b2b2b), 
+	linear-gradient(
+		#000000, 
+		#000000);
+	background-blend-mode: normal, 
+		normal;
+	box-shadow: size(5px) size(8px) size(27px) 0px
+		rgba(11, 14, 14, 0.45);
+	border-style: solid;
+	border-width: size(4px);
+	border-image-source: linear-gradient(90deg, 
+		#f1574f 0%, 
+		#4355ff 100%);
+  border-image-slice: 1;
+}
+
+.a1-introduce .introduce-text {
+  text-align: left;
+  vertical-align: text-top;
+  width: size(624px);
+	height: size(171px);
+	font-family: PingFangSC-Regular;
+	font-size: size(20px);
+	font-weight: normal;
+	font-stretch: normal;
+	line-height: size(30px);
+	letter-spacing: 0px;
+	color: #ffffff;
+}
+
+.select-button {
+  color: #ffffff;
+  width: size(462px);
+  margin-top: size(32px);
+  height: size(128px);
+  .select {
+    position: relative;
+    text-align: center;
+    width: size(320px);
+    font-size: size(20px);
+    height: size(48px);
+    line-height: size(48px);
+    border-radius: size(24px);
+    background-color: #474747 !important;
+    color: #ffffff !important;
+    .select-icon {
+      position: absolute;
+      right: size(16px);
+      top: size(14px);
+    }
+  }
+}
+
+.select-button .category {
+  width: size(462px);
+  display: flex; 
+  justify-content: space-between;
+}
+
+.select-button .start-time {
+  margin-top: size(32px);
+  width: size(462px);
+  display: flex; 
+  justify-content: space-between;
+}
+
+.ant-cascader-menus {
+  background-color: #474747 !important;
+  color: #ffffff !important;
+}
+.ant-select-dropdown {
+  background-color: #474747 !important;
+  color: #ffffff !important;
+}
+
+.start-button {
+  width: size(686px);
+  height: size(88px) !important;
+  font-size: size(26px) !important;
+  margin-top: size(128px);
+  border: 0px !important;
+  color: #ffffff !important;
+  background-color: #f1574f !important;
+}
+
+.time-box {
+  position: absolute;
+  top: size(590px);
+  left: size(270px);
+}
+
+.cascader-box {
+  position: absolute;
+  bottom: size(324px);
+  right: size(128px);
+}

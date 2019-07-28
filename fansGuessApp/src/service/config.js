@@ -5,7 +5,7 @@ var config = {
    maxSettingActionTime: 50,
    defaultActionTime: 3,
    extUuid: '',
-   baseUrl: isDebug ? '' : '',
+   baseUrl: 'http://zaccc.lzok.top',
    port: isDebug ? 17050 : 80,
    settingStateMap: {
        unstart: 0,

@@ -1,19 +1,18 @@
 import CONFIG from './config';
-import eventBus from './eventBus';
 
-const { extUuid, baseUrl, port } = CONFIG;
+const { baseUrl, port } = CONFIG;
 
-var util = {
-    request({service, method = 'GET', param = {}}) {
+var api = {
+    request({service, method = 'POST', param = {}}) {
         var requestParam = {
             host: baseUrl,
-            param: {extUuid, ...param},
+            param: {...param},
             port: port,
             httpMethod: method,
-            path: `/speedRace/${service}`
+            path: `/anchor/${service}`
         }
 
-        console.log('请求', requestParam);
+        console.log('-----请求------', requestParam);
 
 
         return new Promise((resolve, reject) => {
@@ -55,4 +54,4 @@ var util = {
     
 }
 
-export default util;
+export default api;
