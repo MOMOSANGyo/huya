@@ -1,0 +1,47 @@
+@function size($px) {
+  @return $px / 2;
+}
+
+.a2-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background-image: url(./images/a2-bg.png);
+  background-size: cover;
+  .img-box {
+    margin-top: size(254px);
+    width: size(686px);
+    height: size(314px);
+  }
+  .pig-loading {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.join-text {
+  margin-top: size(112px);
+  font-size: size(28px);
+  .join-number {
+    font-size: size(56px);
+  }
+}
+
+.time-text{
+  font-size: size(28px);
+  .time-number {
+    font-size: size(56px);
+  }
+}
+
+.start-btn {
+  width: size(686px);
+  height: size(88px) !important;
+  font-size: size(26px) !important;
+  margin-top: size(254px);
+  border: 0px !important;
+  color: #ffffff !important;
+  background-color: #f1574f !important;
+}
