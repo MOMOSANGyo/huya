@@ -1,16 +1,15 @@
 import React from 'react'
 import './index.scss'
 import {Button} from 'antd'
-import TimeProgress from '../../../common/TimeProgress'
 
-const PlayView = (props) => {
+const ScoreView = (props) => {
     return (
-      <div className="a4-container">
-      	<TimeProgress theme="black" style={{marginTop: 40}} />
+      <div className="a1-container">
+      	
         <div>Main</div>
         <Button onClick={() => {props.history.push('/loading')}}>邀请</Button>
       </div>
     )
 }
 
-export default PlayView
+export default ScoreView

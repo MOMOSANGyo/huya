@@ -4,44 +4,75 @@
 
 .a2-container {
   display: flex;
+  z-index: -2;
   flex-direction: column;
   align-items: center;
   height: 100%;
   width: 100%;
   background-image: url(./images/a2-bg.png);
   background-size: cover;
+  .a2-close {
+    z-index: 1;
+    width: size(64px);
+    height: size(64px);
+    position: absolute;
+    top: 0px;
+    right: size(16px);
+    background-image: url(./images/close.png);
+    background-size: cover;
+    &:hover {
+      background-image: url(./images/close-focus.png);
+      background-size: cover;
+    }
+  }
   .img-box {
+    z-index: 1;
     margin-top: size(254px);
     width: size(686px);
     height: size(314px);
   }
   .pig-loading {
+    z-index: 1;
     width: 100%;
     height: 100%;
   }
 }
 
 .join-text {
+  z-index: 1;
   margin-top: size(112px);
   font-size: size(28px);
   .join-number {
+    z-index: 1;
     font-size: size(56px);
   }
 }
 
 .time-text{
+  z-index: 1;
   font-size: size(28px);
   .time-number {
+    z-index: 1;
     font-size: size(56px);
   }
 }
 
 .start-btn {
+  z-index: 1;
+  position: absolute !important;
   width: size(686px);
   height: size(88px) !important;
   font-size: size(26px) !important;
-  margin-top: size(254px);
+  bottom: size(16px);
   border: 0px !important;
   color: #ffffff !important;
   background-color: #f1574f !important;
+}
+
+.black-bg {
+  position: absolute;
+  width: 100%;
+  background-color: #2b2b2b;
+  bottom: 0px;
+  z-index: 0;
 }

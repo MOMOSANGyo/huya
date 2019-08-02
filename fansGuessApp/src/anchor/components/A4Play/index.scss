@@ -1,0 +1,10 @@
+.a4-container {
+  display: flex;
+  z-index: -2;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background-image: url(../../assets/images/a4-bg1.png);
+  background-size: cover;
+}
