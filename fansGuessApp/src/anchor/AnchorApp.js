@@ -5,6 +5,8 @@ import MainView from './components/A1Main'
 import LoadingView from './components/A2Loading'
 import PrepareView from './components/A3Prepare'
 import PlayView from './components/A4Play'
+import ResultView from './components/A5Result'
+import ScoreView from './components/A6Score'
 import 'antd/dist/antd.css'
 import './assets/scss/common.scss'
 import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
@@ -18,6 +20,8 @@ class AnchorApp extends React.Component {
         <Route path="/loading" component={LoadingView} />
         <Route path="/prepare" component={PrepareView} />
         <Route path="/play" component={PlayView} />
+        <Route path="/result" component={ResultView} />
+        <Route path="/score" component={ScoreView} />
       </Router>
     )
   }

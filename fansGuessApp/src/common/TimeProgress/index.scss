@@ -1,0 +1,36 @@
+@function size($px) {
+  @return $px / 2;
+}
+
+
+.time-progress-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .progress-bg {
+    height: size(35px);
+    width: size(512px);
+    margin: auto size(24px);
+    background-size: 100% 100%;
+    z-index: 1;
+  }
+
+  .progress-filler {
+    position: absolute;
+    height: size(25px);
+    top: 50%;
+    left: size(106px);
+    transform: translateY(-50%);
+
+
+  }
+
+  .title-text {
+    font-size: size(20px);
+  }
+  .progress-number {
+    font-size: size(36px);
+    width: size(44px);
+  }
+}

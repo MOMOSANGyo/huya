@@ -12,14 +12,26 @@ const MainView = (props) => {
   const [category, setCategory] = useState("王者荣耀");
   const [classBoxVis, setClassBoxVis] = useState(false);
 
+  async function init() {
+    console.log('--request---');
+    hyExt.request({
+      header: {
+      },
+      url: 'http://zaccc.lzok.top/anchor/index/',
+      method: 'POST',
+      dataType: 'json',
+      data: {}
+    }).then((res) => {
+      hyExt.logger.info('调用成功', res);
+      console.log('--data--',res);
+    }).catch(err => {
+      hyExt.logger.warn('调用失败', err)
+      console.log('---err--', err);
+    });
+  }
   useEffect(() => {
-    async function init() {
-      const data = await api.request({service: 'index/', method: 'POST',param: {request: '---真爱猜词----'}});
-      console.log('---data--', data);
-    }
-
+    console.log('--------init------');
     init();
-
   },[]);
 
 

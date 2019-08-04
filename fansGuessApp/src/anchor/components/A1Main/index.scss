@@ -3,6 +3,7 @@
 }
 
 .a1-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -104,10 +105,11 @@
 }
 
 .start-button {
+  position: absolute !important;
   width: size(686px);
   height: size(88px) !important;
   font-size: size(26px) !important;
-  margin-top: size(128px);
+  bottom: size(16px);
   border: 0px !important;
   color: #ffffff !important;
   background-color: #f1574f !important;

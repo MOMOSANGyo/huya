@@ -8,7 +8,7 @@ var api = {
             host: baseUrl,
             param: {...param},
             port: port,
-            httpMethod: method,
+            method: method,
             path: `/anchor/${service}`
         }
 
