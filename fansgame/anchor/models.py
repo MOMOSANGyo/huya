@@ -18,7 +18,7 @@ class SmallCategory(models.Model): #表2
 
 class AnchorWord(models.Model): #表3
     categoryname = models.CharField(max_length=20, null=True)  # 板块名称
-    anchorid = models.IntegerField() #主播id
+    anchorid = models.CharField(max_length=48,null=True) #主播id
     class Meta:
         db_table = 'anchorword'
 
@@ -32,7 +32,7 @@ class AnchorSmallWord(models.Model): #表4
 
 class GameUser(models.Model):  #表五
     gameid = models.ForeignKey('GameRecord', on_delete=models.SET_NULL,null=True) #游戏id
-    userid = models.IntegerField() #用户id
+    userid = models.CharField(max_length=48,null=True) #用户id
     usertime = models.DateTimeField(auto_now_add=True) #用户提交答案的时间
     useranswer = models.CharField(max_length=64,null=True) #用户提交的答案
     answerbool = models.IntegerField() #判断答案是否正确 1为正确
@@ -48,18 +48,20 @@ class GameTime(models.Model):  #表6
         db_table = 'gametime'
 
 class GameRecord(models.Model):  #表7
-    anchorid = models.IntegerField() #主播id
+    anchorid = models.CharField(max_length=48,null=True) #主播id
     personnum = models.IntegerField(default=0)  #玩游戏的人数
-    gametimeid = models.IntegerField()  #表6主键，游戏时长
+    gametimeid = models.IntegerField(null=True)  #表6主键，游戏时长
     truepersonnum = models.IntegerField(default=0)  #总的答对人数（十个词语都对的总人数）
+    wordsmallcategoryid = models.IntegerField(null=True) #表1主键
+    roomdid = models.CharField(max_length=48)
     class Meta:
         db_table = 'gamerecord'
 
 class GameWord(models.Model): #表8
     wordid = models.IntegerField() #词语表id
-    anchordefined = models.IntegerField() #主播是否自定义 1代表自定义
+    anchordefined = models.IntegerField(default=0) #主播是否自定义 1代表自定义
     round = models.IntegerField(null=True) #回合数
-    gameid = models.ForeignKey('GameRecord', on_delete=models.SET_NULL,null=True) #游戏id
+    gameid = models.IntegerField() #游戏id
     personnum = models.IntegerField(null=True) #每回合答对的人数
     class Meta:
         db_table = 'gameword'
@@ -67,3 +69,6 @@ class GameWord(models.Model): #表8
 class GameStatus(models.Model):
     gameid = models.IntegerField() #游戏id
     gamestatus = models.IntegerField() #游戏状态，0,1,2
+
+class Test(models.Model):
+    test = models.CharField(max_length=20)
