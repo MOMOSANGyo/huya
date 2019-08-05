@@ -26,7 +26,7 @@ const PrepareView = (props) => {
           <ul>
           {
             listdata.map((item, i) => {
-              return <li className="detail-text">{item}</li>
+              return <li key={i} className="detail-text">{item}</li>
             })
           }
           </ul>

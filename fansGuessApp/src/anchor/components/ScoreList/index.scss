@@ -1,0 +1,78 @@
+@function size($px) {
+  @return $px / 2;
+}
+
+@mixin flex-row {
+  display        : flex;
+  flex-direction : row;
+  justify-content: center;
+  align-items    : center;
+}
+
+@mixin flex-column {
+  display        : flex;
+  flex-direction : column;
+  justify-content: center;
+  align-items    : center;
+}
+
+.scorelist-container {
+  width: size(686px);
+  border-radius: size(8px);
+  color: #ffffff;
+  background-color : rgba(0, 0, 0, 0.5);
+  .scorelist-header {
+    padding: 0 size(16px);
+    height: size(44px);
+    background-color : rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    .title {
+      font-size: size(26px);
+      line-height: size(44px);
+    }
+    .people {
+      font-size: size(22px);
+      line-height: size(44px);
+    }
+  }
+}
+
+.scorelist-body {
+  .con_list {
+    font-size     : size(22px);
+    display       : flex;
+    flex-direction: row;
+    align-items   : center;
+    height        : size(66px);
+    margin-top: size(16px);
+    margin-bottom: size(16px);
+    .avatar {
+        margin-left: size(44px);
+        margin-right: size(12px);
+        display    : inline;
+        .ava_img {
+            width : size(52px);
+            height: size(52px);
+            border-radius: 50%;
+        }
+    }
+
+    .list_name {
+        width        : size(352px);
+        margin-left  : size(12px);
+        text-overflow: ellipsis;
+        white-space  : nowrap;
+        overflow     : hidden;
+        height       : size(32px);
+        line-height  : size(32px);
+        text-align: left;
+    }
+    .list_time {
+        width: size(150px);
+        margin-left: size(80px);
+    }
+  }
+}

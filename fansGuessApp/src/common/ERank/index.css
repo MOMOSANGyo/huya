@@ -1,0 +1,112 @@
+.erank {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.erank .erank_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.erank .erank_container .erank_header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 12px;
+  height: 22px;
+  border-bottom: 1px #cfcfcf solid;
+}
+
+.erank .erank_container .erank_header .erank_header_span1 {
+  line-height: 22px;
+  margin-left: 18px;
+  width: 145px;
+  text-align: left;
+}
+
+.erank .erank_container .erank_header .erank_header_span2 {
+  width: 36px;
+}
+
+.erank .erank_container .erank_header .erank_header_span3 {
+  width: 83px;
+  margin-right: 18px;
+  text-align: right;
+}
+
+.erank .erank_container .erank_con {
+  height: 239px;
+  border-radius: 4px;
+}
+
+.erank .erank_container .erank_con .erank_con_list {
+  width: 300px;
+  font-size: 11px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 33px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.erank .erank_container .erank_con .erank_con_list .list_pre {
+  line-height: 22px;
+  margin-left: 18px;
+  width: 145px;
+  text-align: left;
+}
+
+.erank .erank_container .erank_con .erank_con_list .list_pre .erank_list_index {
+  height: 25px;
+  line-height: 25px;
+  font-size: 12px;
+}
+
+.erank .erank_container .erank_con .erank_con_list .list_pre .avatar {
+  margin-left: 10px;
+  margin-right: 5px;
+  display: inline;
+}
+
+.erank .erank_container .erank_con .erank_con_list .list_pre .avatar .ava_img {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+}
+
+.erank .erank_container .erank_con .erank_con_list .list_pre .list_name {
+  width: 130px;
+  margin-left: 6px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  height: 16px;
+  line-height: 16px;
+  text-align: left;
+}
+
+.erank .erank_container .erank_con .erank_con_list .list_score {
+  width: 36px;
+}
+
+.erank .erank_container .erank_con .erank_con_list .list_time {
+  width: 83px;
+  margin-right: 18px;
+  text-align: right;
+}
+
+.erank .erank_btn {
+  width: 24px;
+  height: 24px;
+  border: 0;
+  margin-left: 6px;
+  cursor: pointer;
+}
