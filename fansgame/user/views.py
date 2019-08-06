@@ -19,11 +19,13 @@ def index(request):
 
         record = GameRecord.objects.filter(anchorid=token_data["profileId"],roomdid=token_data["roomId"]).last()
         status = GameStatus.objects.get(gameid=record.id)
+        time = GameTime.objects.get(id=record.gametimeid)
         if not status.gamestatus:
 
 
             data = {
-                "gameid":record.id
+                "gameid":record.id,
+                "time":time.time
             }
             print(data)
             return JsonResponse(data)
@@ -171,13 +173,19 @@ def displayanswer(request):
         pass_data = json.loads(request.body)  # 解析前端传过来的参数
 
         questionnum = GameWord.objects.get(id = pass_data["gamewordid"])
-        answer = GameUser.objects.get(userid=token_data['userId'],gameid=pass_data["gameid"]).useranswer
+        answer = GameUser.objects.get(userid=token_data['userId'],gameid=pass_data["gameid"],gamewordid=pass_data["gamewordid"]).useranswer
 
         num = GameUser.objects.filter(gameid=pass_data["gameid"]).count()
         info = GameUser.objects.filter(gameid=pass_data["gameid"]).order_by("usertime")
         infomation = []
         for inf in info:
-            infomation.append([inf.userid,inf.usertime,inf.useranswer])
+            infomation.append({
+                "userid":inf.userid,
+                "time":inf.usertime,
+                "useranswer":inf.useranswer
+            })
+
+            # infomation.append([inf.userid,inf.usertime,inf.useranswer])
         total = GameRecord.objects.get(id = pass_data["gameid"]).personnum
 
 
@@ -241,7 +249,11 @@ def public(request):
         infomation = GameUser.objects.filter(gameid=pass_data["gameid"],gamewordid=pass_data["gamewordid"],answerbool=1)
         info = []
         for fo in infomation:
-            info.append([fo.userid,fo.usertime])
+            # info.append([fo.userid,fo.usertime])
+            info.append({
+                "userid":fo.userid,
+                "usertime":fo.usertime
+            })
 
         wrong = GameUser.objects.filter(gameid=pass_data["gameid"],gamewordid=pass_data["gamewordid"],answerbool=0)
         wronganswer = []
@@ -278,17 +290,28 @@ def last(request):
         pass_data = json.loads(request.body)  # 解析前端传过来的参数
         total = GameRecord.objects.get(id=pass_data["gameid"]).personnum
         gameuser = GameUser.objects.filter(gameid=pass_data["gameid"], gamewordid=pass_data["gamewordid"]).values("userid").distinct()
-        gameuserinfo = {}
+        gameuserinfo = []
         for u in gameuser:
-            gameuserinfo[u["userid"]]=[]
-        for k in gameuserinfo.keys():
-            score = GameUser.objects.filter(userid=k,gameid=pass_data["gameid"],answerbool=1).count()
-            time = GameUser.objects.filter(userid=k,gameid=pass_data["gameid"])
+            score = GameUser.objects.filter(userid=u["userid"], gameid=pass_data["gameid"], answerbool=1).count()
+            time = GameUser.objects.filter(userid=u["userid"], gameid=pass_data["gameid"])
             total_time = 0
             for t in time:
-                total_time=total_time+int(t.usertime)
-            gameuserinfo[k].append(total_time)
-            gameuserinfo[k].append(score)
+                total_time = total_time + int(t.usertime)
+            gameuserinfo.append({
+                "usrid": u["userid"],
+                "usertime": total_time,
+                "userscore": score
+            })
+        # for u in gameuser:
+        #     gameuserinfo[u["userid"]]=[]
+        # for k in gameuserinfo.keys():
+        #     score = GameUser.objects.filter(userid=k,gameid=pass_data["gameid"],answerbool=1).count()
+        #     time = GameUser.objects.filter(userid=k,gameid=pass_data["gameid"])
+        #     total_time = 0
+        #     for t in time:
+        #         total_time=total_time+int(t.usertime)
+        #     gameuserinfo[k].append(total_time)
+        #     gameuserinfo[k].append(score)
             userrecord = UserRecord(gameid=pass_data["gameid"],useid=token_data['userId'],total_score=score,total_time=total_time)
             userrecord.save()
 

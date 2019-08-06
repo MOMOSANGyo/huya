@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^wait/', views.waitt, name='wait'),#zaccc.lzok.top/anchor/wait/
     url(r'^join/', views.join, name='join'),  # zaccc.lzok.top/anchor/join/
     url(r'^quit/', views.quit, name='quit'),  # zaccc.lzok.top/anchor/quit/
+    url(r'^begin/', views.begin, name='begin'),  # zaccc.lzok.top/anchor/begin/
     url(r'^word/', views.word, name='word'),  # zaccc.lzok.top/anchor/word/
     url(r'^wordinfo/', views.wordinfo, name='wordinfo'),  # zaccc.lzok.top/anchor/wordinfo/
     url(r'^wordgrade/', views.wordgrade, name='wordgrade'),  # zaccc.lzok.top/anchor/wordgrade/

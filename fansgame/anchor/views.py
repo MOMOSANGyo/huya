@@ -136,6 +136,23 @@ def quit(request):
     return HttpResponse('oka2')
 
 
+def begin(request):
+    if request.method == 'POST':
+        a = request.META.get("HTTP_AUTHORIZATION")
+        token_data = jwt.decode(a, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
+        print(token_data)  # 打印解析后的token
+
+        pass_data = json.loads(request.body)  # 解析前端传过来的参数
+        status = GameStatus.objects.get(gameid=pass_data["gameid"])
+        status.gamestatus=3
+        status.save()
+        data = {
+            "response":"ok"
+        }
+        print(data)
+        return JsonResponse(data)
+
+    return HttpResponse('oka2')
 
 def join(request):
     if request.method == 'POST':
@@ -343,5 +360,4 @@ def last(request):
         return JsonResponse(data)
 
     return HttpResponse('oka6')
-
 
