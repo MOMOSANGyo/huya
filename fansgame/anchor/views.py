@@ -12,6 +12,7 @@ from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 import requests, json
 from anchor.models import *
+from django.db.models import Sum
 import jwt
 
 
@@ -22,6 +23,7 @@ def index(request):
 
         category = WordCategory.objects.filter(parentid=0)
         data = {}
+
         for i in category:
             data[i.categoryname] = []
         smallcategory = WordCategory.objects.exclude(parentid=0)
@@ -154,3 +156,144 @@ def join(request):
     return HttpResponse('oka3')
 
 
+def word(request):
+    if request.method == 'POST':
+        a = request.META.get("HTTP_AUTHORIZATION")
+        token_data = jwt.decode(a, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
+        print(token_data)  # 打印解析后的token
+
+        pass_data = json.loads(request.body)  # 解析前端传过来的参数
+        status = 0
+        wordlist = []
+        gamenum = GameWord.objects.filter(gameid=pass_data["gameid"],used=0).first()
+        gamewordid = gamenum.id
+        wordlist.append(gamenum.round)
+        if gamenum.round == 10:
+            status =1
+        word = SmallCategory.objects.get(id = gamenum.wordid)
+        wordlist.append(word.word)
+        gamenum.used =1
+        gamenum.save()
+        # sign
+        # if gamenum.round == 10:
+
+
+        data = {
+            "wordlist":wordlist,
+            "gamewordid":gamewordid,
+            "status":status
+        }
+        print(data)
+        return JsonResponse(data)
+
+    return HttpResponse('oka4')
+#判断词语进行到那里 从10到1的转换
+def wordinfo(request):
+    if request.method == 'POST':
+        a = request.META.get("HTTP_AUTHORIZATION")
+        token_data = jwt.decode(a, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
+        print(token_data)  # 打印解析后的token
+
+        pass_data = json.loads(request.body)  # 解析前端传过来的参数
+
+        total = GameRecord.objects.get(id=pass_data["gameid"]).personnum
+        num = GameUser.objects.filter(gameid=pass_data["gameid"]).count()
+        wordid = GameWord.objects.get(id = pass_data["gamewordid"])
+        realanswer = SmallCategory.objects.get(id = wordid.wordid).word
+        infolist = []
+        user = GameUser.objects.filter(gameid=pass_data["gameid"],gamewordid=pass_data["gamewordid"])
+        for u in user:
+            infolist.append([u.userid,u.usertime])
+
+        data = {
+            "total":total,
+            "num":num,
+            "realanswer":realanswer,
+            "userlist":infolist
+        }
+        print(data)
+        return JsonResponse(data)
+
+    return HttpResponse('oka4')
+
+
+def wordgrade(request):
+    if request.method == 'POST':
+        a = request.META.get("HTTP_AUTHORIZATION")
+        token_data = jwt.decode(a, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
+        print(token_data)  # 打印解析后的token
+
+        pass_data = json.loads(request.body)  # 解析前端传过来的参数
+        gamerecord = GameRecord.objects.get(id = pass_data["gameid"])
+        gamerecord.anchorscore=gamerecord.anchorscore+pass_data["score"]
+        gamerecord.save()
+        num = GameWord.objects.get(id = pass_data["gamewordid"])
+        word = SmallCategory.objects.get(id = num.wordid).word
+        total = GameRecord.objects.get(id=pass_data["gameid"]).personnum
+        realnum = GameUser.objects.filter(gameid = pass_data["gameid"],gamewordid=pass_data["gamewordid"],answerbool=1).count()
+        userinfo =[]
+        user = GameUser.objects.filter(gameid = pass_data["gameid"],gamewordid=pass_data["gamewordid"],answerbool=1)
+        for u in user:
+            userinfo.append([u.userid,u.usertime])
+        wronglist =[]
+        wrong = GameUser.objects.filter(gameid=pass_data["gameid"], gamewordid=pass_data["gamewordid"], answerbool=0)
+        for w in wrong:
+            wronglist.append(w.useranswer)
+
+        # gameuser = GameUser.objects.filter(gameid=pass_data["gameid"], gamewordid=pass_data["gamewordid"]).values("userid").distinct()
+        # gameuserinfo = {}
+        # for u in gameuser:
+        #     gameuserinfo[u["userid"]]=[]
+        #
+        # for k in gameuserinfo.keys():
+        #     score = GameUser.objects.filter(userid=k,gameid=pass_data["gameid"],gamewordid=pass_data["gamewordid"],answerbool=1).count()
+        #     time = GameUser.objects.filter(userid=k,gameid=pass_data["gameid"],gamewordid=pass_data["gamewordid"]).aggregate(sum("usertime"))
+        #     gameuserinfo[k].append(score,time)
+
+        data = {
+            "questionnum":num.round,
+            "realanswer":word,
+            "total":total,
+            "realnum":realnum,
+            "winInfo":userinfo,
+            "wronganswer":wronglist
+        }
+        # print(gameuserinfo)
+        return JsonResponse(data)
+    return HttpResponse('oka5')
+
+def last(request):
+    if request.method == 'POST':
+        a = request.META.get("HTTP_AUTHORIZATION")
+        token_data = jwt.decode(a, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
+        print(token_data)  # 打印解析后的token
+
+        pass_data = json.loads(request.body)  # 解析前端传过来的参数
+        total = GameRecord.objects.get(id=pass_data["gameid"]).personnum
+        gameuser = GameUser.objects.filter(gameid=pass_data["gameid"], gamewordid=pass_data["gamewordid"]).values("userid").distinct()
+        gameuserinfo = {}
+        for u in gameuser:
+            gameuserinfo[u["userid"]]=[]
+        for k in gameuserinfo.keys():
+            score = GameUser.objects.filter(userid=k,gameid=pass_data["gameid"],answerbool=1).count()
+            time = GameUser.objects.filter(userid=k,gameid=pass_data["gameid"])
+            total_time = 0
+            for t in time:
+                total_time=total_time+int(t.usertime)
+            gameuserinfo[k].append(total_time)
+            gameuserinfo[k].append(score)
+
+        score = GameRecord.objects.get(id=pass_data["gameid"]).anchorscore
+        status = GameStatus.objects.get(gameid=pass_data["gameid"])
+        status.gamestatus =2
+        status.save()
+        print(gameuserinfo)
+        data = {
+            "total":total,
+            "info":gameuserinfo,
+            "score":score
+        }
+
+        return JsonResponse(data)
+
+    return HttpResponse('oka6')

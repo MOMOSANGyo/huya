@@ -31,14 +31,15 @@ class AnchorSmallWord(models.Model): #表4
         db_table = 'anchorsmallword'
 
 class GameUser(models.Model):  #表五
-    gameid = models.ForeignKey('GameRecord', on_delete=models.SET_NULL,null=True) #游戏id
+    gameid = models.IntegerField() #游戏id
     userid = models.CharField(max_length=48,null=True) #用户id
-    usertime = models.DateTimeField(auto_now_add=True) #用户提交答案的时间
+    usertime = models.IntegerField(default=61) #用户提交答案的时间
     useranswer = models.CharField(max_length=64,null=True) #用户提交的答案
     answerbool = models.IntegerField() #判断答案是否正确 1为正确
-    gamewordid = models.ForeignKey('GameWord', on_delete=models.SET_NULL,null=True) #游戏词语表id/外键/八表
+    gamewordid = models.IntegerField() #游戏词语表id/外键/八表
     class Meta:
         db_table = 'gameuser'
+        ordering = ['usertime']
 
 class GameTime(models.Model):  #表6
     time = models.CharField(max_length=20) #游戏时长
@@ -51,7 +52,7 @@ class GameRecord(models.Model):  #表7
     anchorid = models.CharField(max_length=48,null=True) #主播id
     personnum = models.IntegerField(default=0)  #玩游戏的人数
     gametimeid = models.IntegerField(null=True)  #表6主键，游戏时长
-    truepersonnum = models.IntegerField(default=0)  #总的答对人数（十个词语都对的总人数）
+    anchorscore = models.IntegerField(default=0)  #主播得分
     wordsmallcategoryid = models.IntegerField(null=True) #表1主键
     roomdid = models.CharField(max_length=48)
     class Meta:
@@ -62,7 +63,8 @@ class GameWord(models.Model): #表8
     anchordefined = models.IntegerField(default=0) #主播是否自定义 1代表自定义
     round = models.IntegerField(null=True) #回合数
     gameid = models.IntegerField() #游戏id
-    personnum = models.IntegerField(null=True) #每回合答对的人数
+    personnum = models.IntegerField(null=True,default=0) #每回合答对的人数
+    used = models.IntegerField(default=0)
     class Meta:
         db_table = 'gameword'
 
@@ -72,3 +74,20 @@ class GameStatus(models.Model):
 
 class Test(models.Model):
     test = models.CharField(max_length=20)
+
+class UserRecord(models.Model):#不用了
+    gameid = models.IntegerField()
+    useid = models.CharField(max_length=128)
+    total_score = models.IntegerField(default=0)
+    total_time = models.IntegerField(default=0)
+
+    class Meta:
+        db_table = "userrecord"
+
+class Info(models.Model):
+    userid = models.IntegerField()
+    username = models.CharField(max_length= 48)
+    pricture = models.CharField(max_length=128)
+
+    class Mete:
+        db_table = "info"
