@@ -1,0 +1,114 @@
+@function size($px) {
+  @return $px / 2;
+}
+
+.result-container {
+  width: size(650px);
+  height: size(245px);
+  .result-img {
+    width: size(650px);
+    position: absolute;
+    left: 0px;
+    bottom: size(25px);
+    z-index: 2;
+  }
+}
+.progress-wrap {
+  position: absolute;
+  left: size(7px);
+  width: size(200px);
+  bottom: size(0px);
+  height: size(98px);
+  min-width: size(50px);
+  max-width: size(586px);
+}
+.progerss-box {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  height: size(98px);
+  animation: fillerMove 0.5s cubic-bezier(0.19, 1, 0.22, 1) 0.5s;
+  animation-fill-mode: forwards;
+  .result-icon {
+    position: absolute;
+    width: size(100px);
+    height: size(98px);
+    background-size: cover;
+    right: size(-50px);
+    bottom: 0px;
+    z-index: 3;
+  }
+  .result-filler {
+    position: absolute;
+    height: size(32px);
+    left: 0px;
+    bottom: size(33px);
+    overflow: hidden;
+    width: 100%;
+    z-index: 1;
+    .filler-one {
+      position: absolute;
+      height: size(16px);
+      top: 0px;
+      left: 0px;
+      width: size(159px);
+      background-color: #ae0052;
+    }
+    .filler-two {
+      position: absolute;
+      height: size(16px);
+      top: size(16px);
+      left: 0px;
+      width: size(159px);
+      background-color: #db0268;
+    }
+    .filler-three {
+      position: absolute;
+      height: size(16px);
+      left: size(159px);
+      top: 0px;
+      width: size(318px);
+      background-color: #4100d4;
+    }
+    .filler-four {
+      position: absolute;
+      height: size(16px);
+      top: size(16px);
+      left: size(159px);
+      width: size(318px);
+      background-color: #4e00ff;
+    }
+    .filler-five {
+      position: absolute;
+      height: size(16px);
+      left: size(477px);
+      top: 0px;
+      width: size(159px);
+      background-color: #ae0052;
+    }
+    .filler-six {
+      position: absolute;
+      height: size(16px);
+      left: size(477px);
+      top: size(16px);
+      width: size(159px);
+      background-color: #db0268;
+    }
+  }
+}
+
+@keyframes fillerMove {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.icon-animation {
+  animation: iconRotate 0.4s linear 1s;
+}
+
+@keyframes iconRotate {
+  0%   { transform: rotate(17deg); }
+  25%  { transform: rotate(-34deg); }
+  50%  { transform: rotate(34deg); }
+  100% { transform: rotate(-17deg); }
+}

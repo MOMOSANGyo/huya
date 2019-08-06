@@ -1,0 +1,113 @@
+@function size($px) {
+  @return $px / 2;
+}
+
+@mixin flex-row {
+  display        : flex;
+  flex-direction : row;
+  justify-content: center;
+  align-items    : center;
+}
+
+@mixin flex-column {
+  display        : flex;
+  flex-direction : column;
+  justify-content: center;
+  align-items    : center;
+}
+
+.ranklist-container {
+  width: size(600px);
+  border-radius: size(8px);
+  color: #ffffff;
+  background-color : rgba(0, 0, 0, 0.5);
+  .ranklist-header {
+    padding: 0 size(36px);
+    height: size(44px);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    .title {
+      font-size: size(24px);
+      line-height: size(44px);
+    }
+  }
+  .slice {
+    height: 1px;
+    border-bottom: 1px solid #cfcfcf;
+    margin-left: size(6px);
+    margin-right: size(6px);
+  }
+}
+
+.ranklist-body {
+  .con_list {
+    font-size     : size(22px);
+    display       : flex;
+    flex-direction: row;
+    align-items   : center;
+    height        : size(50px);
+    margin-top: size(16px);
+    margin-bottom: size(16px);
+    padding: 0 size(36px);
+    .list_index{
+      height: size(50px);
+      line-height: size(50px);
+      font-size: size(24px);
+    }
+    .avatar {
+        margin-left: size(16px);
+        margin-right: size(12px);
+        display    : inline;
+        .ava_img {
+            width : size(50px);
+            height: size(50px);
+            border-radius: 50%;
+        }
+    }
+
+    .list_name {
+        width        : size(168px);
+        margin-left  : size(12px);
+        font-size: size(22px);
+        text-overflow: ellipsis;
+        white-space  : nowrap;
+        overflow     : hidden;
+        height       : size(32px);
+        line-height  : size(32px);
+        text-align: left;
+    }
+    .list_score {
+        width        : size(168px);
+        margin-left  : size(12px);
+        font-size: size(22px);
+        text-overflow: ellipsis;
+        white-space  : nowrap;
+        overflow     : hidden;
+        height       : size(32px);
+        line-height  : size(32px);
+        text-align: center;
+    }
+    .list_time {
+        width: size(150px);
+        font-size: size(22px);
+        text-align: right;
+    }
+}
+}
+
+.ranklist {
+  width: size(718px);
+  display        : flex;
+  flex-direction : row;
+  justify-content: flex-end;
+  align-items    : center;
+  .rank_btn{
+    width: size(48px);
+    height: size(48px);
+    border: none;
+    margin-left: size(12px);
+    cursor: pointer;
+}
+}
