@@ -23,14 +23,14 @@ def index(request):
 
         category = WordCategory.objects.filter(parentid=0)
         data = {}
-
+        data["category"] = {}
         for i in category:
-            data[i.categoryname] = []
+            data["category"][i.categoryname] = []
         smallcategory = WordCategory.objects.exclude(parentid=0)
         for small in smallcategory:
             for big in category:
                 if small.parentid == big.id:
-                    data[big.categoryname].append(small.categoryname)
+                    data["category"][big.categoryname].append(small.categoryname)
 
 
         data['time']=[]
@@ -90,6 +90,23 @@ def wait(request):
         gametime = GameTime.objects.get(id=gamerecord.gametimeid)
         data = {
             "time":gametime.time,
+            # "num":gamerecord.personnum
+        }
+        print(data)
+        return JsonResponse(data)
+
+    return HttpResponse('oka2')
+
+def waitt(request):
+    if request.method == 'POST':
+        a = request.META.get("HTTP_AUTHORIZATION")
+        token_data = jwt.decode(a, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
+
+        pass_data = json.loads(request.body)  # 解析前端传过来的参数
+        gamerecord = GameRecord.objects.get(id=pass_data["gameid"])
+        gametime = GameTime.objects.get(id=gamerecord.gametimeid)
+        data = {
+            # "time": gametime.time,
             "num":gamerecord.personnum
         }
         print(data)
@@ -136,11 +153,12 @@ def join(request):
         wordidlist = random.sample(wordid,10)
         n=0
         for i in wordidlist:
-            n=n+1
+
             word = SmallCategory.objects.get(id=i)
             wordlist.append(word.word)
             gameword =GameWord(wordid=i,round=n,gameid=pass_data["gameid"],personnum=0)
             gameword.save()
+            n=n+1
 
         status = GameStatus.objects.get(gameid=pass_data["gameid"])
         status.gamestatus=3
@@ -164,14 +182,15 @@ def word(request):
 
         pass_data = json.loads(request.body)  # 解析前端传过来的参数
         status = 0
-        wordlist = []
+
+
         gamenum = GameWord.objects.filter(gameid=pass_data["gameid"],used=0).first()
         gamewordid = gamenum.id
-        wordlist.append(gamenum.round)
+        wordnumber =  gamenum.round
         if gamenum.round == 10:
             status =1
         word = SmallCategory.objects.get(id = gamenum.wordid)
-        wordlist.append(word.word)
+        wordtext = word.word
         gamenum.used =1
         gamenum.save()
         # sign
@@ -179,7 +198,8 @@ def word(request):
 
 
         data = {
-            "wordlist":wordlist,
+            "wordnumber":wordnumber,
+            "wordtext":wordtext,
             "gamewordid":gamewordid,
             "status":status
         }
@@ -203,7 +223,12 @@ def wordinfo(request):
         infolist = []
         user = GameUser.objects.filter(gameid=pass_data["gameid"],gamewordid=pass_data["gamewordid"])
         for u in user:
-            infolist.append([u.userid,u.usertime])
+            infolist.append({
+                "usrid":u.userid,
+                "usertime":u.usertime
+            })
+
+            # infolist.append([u.userid,u.usertime])
 
         data = {
             "total":total,
@@ -234,7 +259,12 @@ def wordgrade(request):
         userinfo =[]
         user = GameUser.objects.filter(gameid = pass_data["gameid"],gamewordid=pass_data["gamewordid"],answerbool=1)
         for u in user:
-            userinfo.append([u.userid,u.usertime])
+            userinfo.append({
+                "usrid":u.userid,
+                "usertime":u.usertime
+            })
+
+            # userinfo.append([u.userid,u.usertime])
         wronglist =[]
         wrong = GameUser.objects.filter(gameid=pass_data["gameid"], gamewordid=pass_data["gamewordid"], answerbool=0)
         for w in wrong:
@@ -271,17 +301,33 @@ def last(request):
         pass_data = json.loads(request.body)  # 解析前端传过来的参数
         total = GameRecord.objects.get(id=pass_data["gameid"]).personnum
         gameuser = GameUser.objects.filter(gameid=pass_data["gameid"], gamewordid=pass_data["gamewordid"]).values("userid").distinct()
-        gameuserinfo = {}
+        gameuserinfo = []
         for u in gameuser:
-            gameuserinfo[u["userid"]]=[]
-        for k in gameuserinfo.keys():
-            score = GameUser.objects.filter(userid=k,gameid=pass_data["gameid"],answerbool=1).count()
-            time = GameUser.objects.filter(userid=k,gameid=pass_data["gameid"])
+            score = GameUser.objects.filter(userid=u["userid"], gameid=pass_data["gameid"], answerbool=1).count()
+            time = GameUser.objects.filter(userid=u["userid"],gameid=pass_data["gameid"])
             total_time = 0
             for t in time:
                 total_time=total_time+int(t.usertime)
-            gameuserinfo[k].append(total_time)
-            gameuserinfo[k].append(score)
+            gameuserinfo.append({
+                "usrid":u["userid"],
+                "usertime":total_time,
+                "userscore":score
+            })
+        # for u in gameuser:
+        #     gameuserinfo[u["userid"]]=[]
+        # for k in gameuserinfo.keys():
+        #     score = GameUser.objects.filter(userid=k,gameid=pass_data["gameid"],answerbool=1).count()
+        #     time = GameUser.objects.filter(userid=k,gameid=pass_data["gameid"])
+        #     total_time = 0
+        #     for t in time:
+        #         total_time=total_time+int(t.usertime)
+            # gameuserinfo.append({
+            #     "usrid":k,
+            #     "usertime":total_time,
+            #     "userscore":score
+            # })
+            # gameuserinfo[k].append(total_time)
+            # gameuserinfo[k].append(score)
 
         score = GameRecord.objects.get(id=pass_data["gameid"]).anchorscore
         status = GameStatus.objects.get(gameid=pass_data["gameid"])
@@ -297,3 +343,5 @@ def last(request):
         return JsonResponse(data)
 
     return HttpResponse('oka6')
+
+
