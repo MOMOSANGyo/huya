@@ -1,0 +1,77 @@
+@function size($px) {
+    @return $px / 2;
+}
+
+.success {
+    width           : 100%;
+    height          : 100%;
+    background-image: url('./assets/bg.png');
+
+    .success_flex {
+        height         : 530px;
+        display        : flex;
+        justify-content: space-around;
+        align-items    : center;
+        flex-direction : column;
+        color          : #fff;
+
+        .success_title {
+            height: size(468px);
+            width : size(624px);
+        }
+
+        .suc_p {
+            margin-bottom: 5px;
+        }
+
+        .success_tick {
+            max-width: 50px;
+        }
+
+        .success_p1 {
+            font-size: size(40px);
+        }
+
+        .success_p2 {
+            font-size: size(28px);
+            .success_p2_time{
+                margin-right: 2px;
+            }
+        }
+
+    }
+
+    .success_button {
+        width          : 376px;
+        margin-bottom  : size(16px);
+        display        : flex;
+        justify-content: space-around;
+        position       : absolute;
+        bottom         : 0;
+
+        div {
+            line-height: 44px;
+            font-size  : 13px;
+            cursor     : pointer;
+        }
+
+        .success_btn_one {
+            width           : size(330px);
+            color           : #fff;
+            height          : 44px;
+            background-color: #f1574f;
+            margin-right    : 13px;
+            border-radius   : size(8px);
+            margin-left     : size(32px);
+        }
+    }
+
+    .success_btn_two {
+        width        : size(330px);
+        height       : 44px;
+        color        : #f1574f;
+        border       : #f1574f solid 1px;
+        border-radius: size(8px);
+        margin-right : size(32px);
+    }
+}

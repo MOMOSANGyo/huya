@@ -1,0 +1,70 @@
+@mixin flex-row {
+    display        : flex;
+    flex-direction : row;
+    justify-content: center;
+    align-items    : center;
+}
+
+@mixin flex-column {
+    display       : flex;
+    flex-direction: column;
+}
+
+@function size($px) {
+    @return $px / 2;
+}
+
+
+.eres{
+    @include flex-column();
+    width: 100%;
+    height: 100%;
+    background-color: #2b2b2b;
+    color:#fff;
+    align-items: center;
+    justify-content: space-between;
+    .eres_tit{
+        margin-top: size(40px);
+    }
+    .eres_img{
+        width: size(652px);
+        height: size(379px);
+        margin-top: size(-60px);
+    }
+    .eres_score{
+        font-size: size(80px);
+    }
+    .eres_res {
+    height       : size(144px);
+    width        : size(600px);
+    border-top   : 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    @include flex-row();
+
+    .eres_res_one {
+        width: size(300px);
+        @include flex-column();
+        justify-content: center;
+        align-items    : center;
+        font-size      : size(28px);
+        .eres_font {
+            font-size: size(40px);
+            margin-right: size(10px);
+        }
+    }
+} 
+.eres_erank{
+    margin-left: size(60px);
+}  
+     .eres_btn {
+     color           : #fff;
+     font-size       : 13px;
+     width           : 343px;
+     height          : 44px;
+     line-height     : 44px;
+     border-radius   : 8px;
+     background-color: #f1574f;
+     cursor          : pointer;
+     margin-bottom: size(10px);
+ }
+}

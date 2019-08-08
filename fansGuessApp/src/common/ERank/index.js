@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import image1 from './btn.png'
+import image2 from './btn2.png'
 import './index.scss'
 
 
@@ -19,7 +21,7 @@ function List(props){
                             <span className="list_name">{item.name}</span>
                             </span>
                     
-                            <span className="list_score">{item.score}</span>
+                            <span className="list_score">{item.score}分</span>
                             <span className="list_time">{item.time}</span>
                             
                         </div>
@@ -76,7 +78,7 @@ class ERank extends Component {
                     <span className="erank_header_span3">用时</span>
                 </div>
                
-                <div className="erank_con" style={{height:(this.state.number*41+8 +'px')}}>
+                <div className="erank_con" style={{height:(this.state.number*33+8 +'px')}}>
                    <List res = {this.state.res} 
                    currentPage={this.state.currentPage} 
                    number={this.state.number}
@@ -85,7 +87,7 @@ class ERank extends Component {
                
                 </div>
                 <div onClick={this.Switch.bind(this)}>
-                    <img className="erank_btn" src={require("./btn.png")} />
+                    <img className="erank_btn" src={this.props.image ? image1 : image2} />
                 </div>
             </div>
             

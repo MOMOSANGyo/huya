@@ -1,0 +1,13 @@
+.rule {
+  color: #fff;
+}
+
+.rule .rule_title {
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+.rule .rule_content {
+  text-align: left;
+  font-size: 10px;
+}

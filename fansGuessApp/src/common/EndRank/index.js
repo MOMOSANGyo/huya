@@ -4,7 +4,7 @@ import './index.scss'
 
 function List(props){
     return(
-        (Object.prototype.toString.call(props.res) == "[object Array]") ?
+        (Object.prototype.toString.call(props.res) == "[object Array]") &&
             (
                 <div >
                     {props.res.map((item, index) =>
@@ -20,7 +20,7 @@ function List(props){
                         </div>
                     )}
                 </div>
-            ) : (<div>请重新进入</div>)
+            ) 
 
     )
 }
@@ -89,7 +89,7 @@ class EndRank extends Component {
                 let endindex = startindex + this.state.fNumber;
 
                 let item = this.state.allfRes.slice(startindex, endindex);
-                console.log(item);
+               
                 this.setState({
                     fCurrentPage: this.state.fCurrentPage + 1,
                     fRes: item,
@@ -118,14 +118,14 @@ class EndRank extends Component {
                 <div className="endrank_container">
                     <div className="endrank_header">
                         <div className="header_t"
-                            style={{ backgroundColor: this.state.isTrue ? '#4355ff' : '#000000' }}
+                            style={{ backgroundColor: this.state.isTrue ? '#4355ff' : '#000000', zIndex:this.state.isTrue?'99':'0'}}
                             onClick={this.changeTrue.bind(this)}>答对排名</div>
 
                         <div className="header_f"
-                            style={{ backgroundColor: this.state.isTrue ? '#000000' : '#f1574f' }}
+                            style={{ backgroundColor: this.state.isTrue ? '#000000' : '#f1574f', zIndex:this.state.isTrue?'0':'99' }}
                             onClick={this.changeFalse.bind(this)}>错误回答</div>
                     </div>
-                <div className="endrank_con" style={{height:this.state.isTrue?(this.state.number*41 + 8  +'px'):this.state.fNumber*33+'px'}}>
+                <div className="endrank_con" style={{height:this.state.isTrue?(this.state.number*33 + 8  +'px'):this.state.fNumber*33+'px'}}>
                    {this.state.isTrue ? 
                    <List res = {this.state.res} 
                    currentPage={this.state.currentPage} 

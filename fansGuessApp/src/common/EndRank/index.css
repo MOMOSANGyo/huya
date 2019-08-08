@@ -20,15 +20,17 @@
 }
 
 .endrank .endrank_header .header_t {
-  width: 62px;
+  width: 64px;
   background-color: #4355ff;
   border-radius: 4px;
+  margin-right: -2px;
 }
 
 .endrank .endrank_header .header_f {
-  width: 62px;
+  width: 64px;
   background-color: #2b2b2b;
   border-radius: 4px;
+  margin-left: -2px;
 }
 
 .endrank .endrank_container {
@@ -40,7 +42,7 @@
 
 .endrank .endrank_container .endrank_con {
   width: 300px;
-  height: 300px;
+  height: 247px;
   border-radius: 4px;
   color: #ffffff;
   background-color: rgba(0, 0, 0, 0.5);
@@ -57,9 +59,8 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  height: 33px;
+  height: 25px;
   margin-top: 8px;
-  margin-bottom: 8px;
 }
 
 .endrank .endrank_container .endrank_con .endrank_con_list .endrank_list_index {
@@ -76,8 +77,8 @@
 }
 
 .endrank .endrank_container .endrank_con .endrank_con_list .avatar .ava_img {
-  width: 26px;
-  height: 26px;
+  width: 25px;
+  height: 25px;
   border-radius: 50%;
 }
 
@@ -102,5 +103,6 @@
   height: 24px;
   border: 0;
   margin-left: 6px;
+  margin-top: 28px;
   cursor: pointer;
 }

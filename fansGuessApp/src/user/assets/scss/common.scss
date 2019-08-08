@@ -2,10 +2,14 @@
 @import "partial/base";
 @import "partial/flex";
 
+@font-face {
+    font-family: "PingFangSC Light";
+    src        : url('../../PingFangSCRegular.ttf');
+}
 html,
 body {
     position: relative;
-    font-family: "微软雅黑", "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+    font-family: "PingFangSC Light","微软雅黑", "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
     margin: 0;
     padding: 0;
     height: 100%;
@@ -14,6 +18,8 @@ body {
 }
 
 #root, #aroot{
-	padding-top:100px;
-	text-align:center;
+    text-align:center;
+    position: relative;
+    height: 100%;
+    width: 100%;
 }
