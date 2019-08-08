@@ -1,9 +1,20 @@
-import React, { Component } from 'react'
+import React, { Component, useState, useEffect } from 'react'
 import './index.scss'
 
 
 function ScoreList(props) {
+  const [listdata, setListData] = useState(props.res);
 
+  useEffect(() => {
+    if(props.res.length > 7) {
+      const data = props.res.slice(0, 7);
+      setListData(data);
+    }
+    else
+    {
+      setListData(props.res);
+    }
+  },[props.res]);
   return(
     <div className={`scorelist-container ${props.className}`}>
       <div className="scorelist-header">
@@ -14,11 +25,11 @@ function ScoreList(props) {
       {(Array.isArray (props.res)) ?
           (
               <div >
-                  {props.res.slice(0, 7).map((item, index) =>
+                  {listdata.map((item, index) =>
                       <div key={index} className="con_list">
                           <span>
                               <div className="avatar">
-                                  <img className="ava_img" src={require(`${item.url}`)}></img>
+                                  <img className="ava_img" src={item.url}></img>
                               </div>
                           </span>
                           <span className="list_name">{item.name}</span>

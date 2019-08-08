@@ -75,6 +75,7 @@ const PlayView = (props) => {
 
   useEffect(() => {
     init();
+
   }, [])
 
   useInterval(async () => {
@@ -109,8 +110,8 @@ const PlayView = (props) => {
         <div style={{marginTop: 24, whiteSpace: 'pre'}}>类别:{`${category}`}     字数:{`${len}`}</div>
         <div className="word-container">
           {
-            words.split('').map(item => {
-              return (<div className="word-box">
+            words.split('').map((item,i) => {
+              return (<div className="word-box" key={i}>
                 {item}
               </div>)
             })
