@@ -3,7 +3,7 @@ import './index.scss'
 import {Button} from 'antd'
 import ResultProgress from '../ResultProgerss'
 import EndRank from '../../../common/EndRank'
-import { getGameWordGrade } from '../../anchorModel'
+import { getGameWordGrade, nextWord } from '../../anchorModel'
 import { getGameID, setGameWordID, getGameWordID } from '../../../utils/util'
 import { gameBg } from '../../assets/imgConfig'
 
@@ -87,6 +87,12 @@ const ResultView = (props) => {
   }
 
   function handleClick() {
+    const gameid = getGameID();
+    console.log('=======handleClick===========', gameid);
+    const payload = {
+      gameid: gameid,
+    }
+    nextWord(payload);
     if(gameStatus == 0) {
       props.history.push('/play');
     }
