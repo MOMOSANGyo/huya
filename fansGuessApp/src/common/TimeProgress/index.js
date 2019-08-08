@@ -1,14 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import blackBg from '../images/progress-black.png'
 import purpleBg from '../images/progress-purple.png'
 import './index.scss'
 import classnames from 'classnames'
 import { useInterval } from '../../utils/useHooks'
 function TimeProgress(props) {
+  const {time = 60, onChange} = props;
   const [count, setCount] = useState(0);
   useInterval(() => {
     setCount(count + 1);
-  }, count < 60 ? 1000 : null);
+  }, count < time ? 1000 : null);
+
+  useEffect(() => {
+    onChange && onChange(count);
+  }, [count]);
+
+
   return(
     <div style={{ ...props.style, position: 'relative' }}>
       <div className="time-progress-container">
@@ -26,7 +33,7 @@ function TimeProgress(props) {
         ></div>
         <div className="progress-number" 
           style={{ color: props.theme === 'black'? '#2b2b2b' : '#d7579f' }}
-        >{60 - count}</div>
+        >{time - count}</div>
       </div>
     </div>
   );
