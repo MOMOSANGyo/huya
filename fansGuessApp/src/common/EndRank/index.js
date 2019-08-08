@@ -100,25 +100,32 @@ class EndRank extends Component {
 
    changeTrue(){
        this.setState({
-           isTrue:!this.state.isTrue
+           isTrue:true,
        })
    }
+
+    changeFalse() {
+        this.setState({
+            isTrue: false,
+        })
+    }
     
     render() {
         
         return (
             <div className="endrank">
-                <div className="endrank_header">
-                    <div className="header_t" 
-                     style={{ backgroundColor: this.state.isTrue ? '#4355ff' : '#000000'}}
-                     onClick={this.changeTrue.bind(this)}>答对排名</div>
-
-                    <div className="header_f" 
-                    style={{ backgroundColor: this.state.isTrue ? '#000000' : '#f1574f' }}
-                    onClick={this.changeTrue.bind(this)}>错误回答</div>
-                </div>
+               
                 <div className="endrank_container">
-                <div className="endrank_con" style={{height:this.state.isTrue?(this.state.number*49 +'px'):this.state.fNumber*33+'px'}}>
+                    <div className="endrank_header">
+                        <div className="header_t"
+                            style={{ backgroundColor: this.state.isTrue ? '#4355ff' : '#000000' }}
+                            onClick={this.changeTrue.bind(this)}>答对排名</div>
+
+                        <div className="header_f"
+                            style={{ backgroundColor: this.state.isTrue ? '#000000' : '#f1574f' }}
+                            onClick={this.changeFalse.bind(this)}>错误回答</div>
+                    </div>
+                <div className="endrank_con" style={{height:this.state.isTrue?(this.state.number*41 + 8  +'px'):this.state.fNumber*33+'px'}}>
                    {this.state.isTrue ? 
                    <List res = {this.state.res} 
                    currentPage={this.state.currentPage} 
@@ -126,9 +133,10 @@ class EndRank extends Component {
                    /> : 
                    <FalseList res={this.state.fRes} number="props.fNumber"/>}
                 </div>
-                <div onClick={this.Switch.bind(this)}>
-                        <img className="endrank_btn" src={require("./btn.png")} />
+                
                 </div>
+                <div onClick={this.Switch.bind(this)}>
+                    <img className="endrank_btn" src={require("./btn.png")} />
                 </div>
             </div>
             

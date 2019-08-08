@@ -16,7 +16,7 @@
     align-items    : center;
 }
 .endrank {
-    @include flex-column();
+    @include flex-row();
     .endrank_header{
         @include flex-row();
         height: size(40px);
@@ -39,7 +39,7 @@
         }
     }
     .endrank_container{
-        @include flex-row();
+        @include flex-column();
     .endrank_con{
         width: size(600px);
         height: size(600px);
@@ -92,12 +92,13 @@
         }
     }
     }
-    .endrank_btn{
-        width: size(48px);
-        height: size(48px);
-        border: 0;
-        margin-left: size(12px);
-        cursor: pointer;
-    }
+    
+}
+.endrank_btn {
+    width      : size(48px);
+    height     : size(48px);
+    border     : 0;
+    margin-left: size(12px);
+    cursor     : pointer;
 }
 }

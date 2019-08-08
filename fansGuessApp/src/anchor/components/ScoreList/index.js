@@ -22,7 +22,7 @@ function ScoreList(props) {
                               </div>
                           </span>
                           <span className="list_name">{item.name}</span>
-                          <span className="list_time">{item.time}</span>
+                          <span className="list_time">{item.usertime}</span>
                       </div>
                   )}
               </div>

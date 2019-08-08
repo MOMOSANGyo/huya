@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './index.scss'
 import {Button} from 'antd'
 import RankList from '../RankList';
+import ERank from '../../../common/ERank'
 import { scoreImg } from './config'
 import { getGameLastInfo } from '../../anchorModel'
 import { getGameID, getGameWordID } from '../../../utils/util'
@@ -87,11 +88,11 @@ const ScoreView = (props) => {
       <div className="a6-container">
         <div style={{ marginTop: 20,  }}>我的得分</div>
         <div className="totalscore-text" 
-          style={{backgroundImage: `url(${scoreImg[lastScore-1]})`}}
+          style={{backgroundImage: `url(${scoreImg[lastScore]})`}}
         >
         </div>
         <div className="show-text">{renderText()}</div>
-      	<RankList res={arr} />
+      	<ERank res={listData} number={4} length={totalNum} />
         <div className="btn-container">
           <Button className="again-btn" onClick={() => {props.history.push('/main')}}>再来一局</Button>
           <Button className="quit-btn" onClick={() => {props.history.push('/main')}}>退出游戏</Button>

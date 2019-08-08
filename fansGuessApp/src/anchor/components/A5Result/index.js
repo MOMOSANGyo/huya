@@ -111,7 +111,7 @@ const ResultView = (props) => {
           '#ff6b6b': '#ffde00' }}
         >{winNum}</span>
       {renderText()}</div>
-        <EndRank res={arr} fRes={fRes} number={5} fNumber={2} />
+        <EndRank res={listData} fRes={errWords} number={5} fNumber={5} />
       <Button className="next-btn" onClick={handleClick}>下一题</Button>
     </div>
     )
