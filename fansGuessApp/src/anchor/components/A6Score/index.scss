@@ -1,0 +1,51 @@
+@function size($px) {
+  @return $px / 2;
+}
+
+.a6-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  color: #ffffff;
+  background-color: #2b2b2b;
+  .totalscore-text {
+    width: size(638px);
+    height: size(470px);
+    background-size: cover;
+  }
+}
+.show-text {
+  font-family: 'HYLiLiangHeiJ';
+  font-size: size(34px);
+  color: #ffffff;
+}
+
+.btn-container {
+  position: absolute;
+  width: size(686px);
+  height: size(88px) !important;
+  font-size: size(26px) !important;
+  bottom: size(16px);
+  display: flex;
+  justify-content: space-between;
+
+  .again-btn {
+    width: size(330px) !important;
+    height: size(88px) !important;
+    border: 0px !important;
+    color: #ffffff !important;
+    background-color: #f1574f !important;
+  }
+  
+  .quit-btn {
+    width: size(330px) !important;
+    height: size(88px) !important;
+    border: 1px solid #f1574f !important;
+    color: #f1574f !important;
+    background-color: #2b2b2b !important;
+  }
+}
+

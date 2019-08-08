@@ -9,11 +9,10 @@
   align-items: center;
   height: 100%;
   width: 100%;
-  background-image: url(../../assets/images/a4-bg1.png);
   background-size: cover;
   .tips {
     color: #000000;
-    font-size: size(20px);
+    font-size: size(26px);
     line-height: size(80px);
   }
 
@@ -22,6 +21,7 @@
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
+    align-items: center;
     width: size(636px);
     height: size(156px);
     .word-box {

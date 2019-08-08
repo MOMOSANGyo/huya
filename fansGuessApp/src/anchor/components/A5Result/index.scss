@@ -9,7 +9,6 @@
   align-items: center;
   height: 100%;
   width: 100%;
-  background-image: url(../../assets/images/a4-bg1.png);
   background-size: cover;
   .question-header {
     margin-top: size(16px);
@@ -31,6 +30,14 @@
       font-size: size(22px);
       text-align: center;
     }
+  }
+}
+.result-text {
+  font-family: 'HYLiLiangHeiJ';
+  font-size: size(36px);
+  color: #ffffff;
+  .result-people {
+    font-size: size(70px);
   }
 }
 

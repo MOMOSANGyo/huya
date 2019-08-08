@@ -1,9 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './index.scss'
 import {Button} from 'antd'
 import ResultProgress from '../ResultProgerss'
 import EndRank from '../../../common/EndRank'
+import { getGameWordGrade } from '../../anchorModel'
+import { getGameID, setGameWordID, getGameWordID } from '../../../utils/util'
+import { gameBg } from '../../assets/imgConfig'
 
+const numberText = [
+  '第一题',
+  '第二题',
+  '第三题',
+  '第四题',
+  '第五题',
+  '第六题',
+  '第七题',
+  '第八题',
+  '第九题',
+  '第十题',
+]
 let arr = [
   {
     url: "./icon.png",
@@ -18,17 +33,87 @@ let fRes = [
 ]
 
 const ResultView = (props) => {
-    return (
-      <div className="a5-container">
-        <div className="question-header">
-          <span className="h-number">第一题</span>
-          <span className="h-text">奥尔良烤鸡翅</span>
-        </div>
-      	<ResultProgress style={{ marginTop: 8 }} rightPeople={13} totle={20} />
-          <EndRank res={arr} fRes={fRes} number={3} fNumber={2} />
-        <Button className="next-btn" onClick={() => {props.history.push('/score')}}>下一题</Button>
-      
+  const [gameNumber, setGameNumber] = useState(0);
+  const [listData, setListData] = useState([]);
+  const [errWords, setErrWords] = useState([]);
+  const [words, setWords] = useState("");
+  const [winNum, setWinNum] = useState(0);
+  const [totalNum, setTotalNum] = useState(0);
+  const [gameStatus, setGameStatus] = useState(0);
+
+  async function init() {
+    const gameid = getGameID();
+    const gamewordid = getGameWordID();
+    console.log('=======a5getGameID===========', gameid, gamewordid);
+    const payload = {
+      gameid: gameid,
+      gamewordid: gamewordid
+    }
+    const res = await getGameWordGrade(payload);
+    console.log('====getGameWordGrade=====',res);
+    const questionnum = res.questionnum;
+    setGameNumber(questionnum);
+    const realanswer = res.realanswer;
+    setWords(realanswer);
+    const realnum = res.realnum;
+    setWinNum(realnum);
+    const total = res.total;
+    setTotalNum(total);
+    const status = res.status;
+    setGameStatus(status);
+    const winInfo = res.winInfo;
+    setListData(winInfo);
+    const wronganswer = res.wronganswer;
+    setErrWords(wronganswer);
+    
+  }
+
+  useEffect(() => {
+    init();
+  }, []);
+
+  function renderText() {
+    let res = ""
+    if(winNum < Math.floor(totalNum/4)) {
+      res = " 人猜对，太少了，不行啊";
+    }
+    else if( winNum > Math.floor((totalNum/4) * 3)) {
+      res = " 人猜对，太多了，不行啊";
+    }
+    else {
+      res = " 人猜对，厉害了！"
+    }
+    return res;
+  }
+
+  function handleClick() {
+    if(gameStatus == 0) {
+      props.history.push('/play');
+    }
+    else {
+      props.history.push('/score');
+    }
+  }
+
+
+  return (
+    <div className="a5-container" 
+      style={{ backgroundImage: `url(${gameBg[gameNumber]})` }} 
+    >
+      <div className="question-header">
+        <span className="h-number">{numberText[gameNumber]}</span>
+        <span className="h-text">{words}</span>
       </div>
+      <ResultProgress style={{ marginTop: 8 }} rightPeople={winNum} totle={totalNum} />
+      <div className="result-text" >{`共 `}
+        <span className="result-people"
+          style={{ color: (winNum < Math.floor(totalNum/4) || winNum > Math.floor((totalNum/4) *3))?
+          '#ff6b6b': '#ffde00' }}
+        >{winNum}</span>
+      {renderText()}</div>
+        <EndRank res={arr} fRes={fRes} number={5} fNumber={2} />
+      <Button className="next-btn" onClick={handleClick}>下一题</Button>
+    </div>
     )
 }
 
