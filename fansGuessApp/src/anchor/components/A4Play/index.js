@@ -47,7 +47,7 @@ const numberText = [
 const PlayView = (props) => {
   const [category, setCategory] = useState("");
   const [gameNumber, setGameNumber] = useState(0);
-  const [len, setLen] = useState("111");
+  const [len, setLen] = useState("");
   const [listData, setListData] = useState([]);
   const [words, setWords] = useState("");
   const [userNum, setUserNum] = useState(0);
@@ -121,7 +121,6 @@ const PlayView = (props) => {
           })
         }
       </div>
-      <Button onClick={() => {props.history.push('/result')}}>邀请</Button>
       <ScoreList className="score-list" res={listData} num={userNum} total={totalNum} />
       <div className="tips">只有5-15人猜对答案才能获胜哦</div>
     </div>
