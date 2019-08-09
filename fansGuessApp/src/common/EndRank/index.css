@@ -59,8 +59,9 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  height: 25px;
-  margin-top: 8px;
+  height: 33px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .endrank .endrank_container .endrank_con .endrank_con_list .endrank_list_index {

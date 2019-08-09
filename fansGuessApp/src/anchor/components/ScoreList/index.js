@@ -33,7 +33,7 @@ function ScoreList(props) {
                               </div>
                           </span>
                           <span className="list_name">{item.name}</span>
-                          <span className="list_time">{item.usertime}</span>
+                          <span className="list_time">{item.time}秒</span>
                       </div>
                   )}
               </div>

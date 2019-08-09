@@ -40,6 +40,7 @@ const ResultView = (props) => {
   const [winNum, setWinNum] = useState(0);
   const [totalNum, setTotalNum] = useState(0);
   const [gameStatus, setGameStatus] = useState(0);
+  const [success, setSuccess] = useState(false);
 
   async function init() {
     const gameid = getGameID();
@@ -65,7 +66,7 @@ const ResultView = (props) => {
     setListData(winInfo);
     const wronganswer = res.wronganswer;
     setErrWords(wronganswer);
-    
+    setSuccess(true);
   }
 
   useEffect(() => {
@@ -117,7 +118,7 @@ const ResultView = (props) => {
           '#ff6b6b': '#ffde00' }}
         >{winNum}</span>
       {renderText()}</div>
-        <EndRank res={listData} fRes={errWords} number={5} fNumber={5} />
+        {success && <EndRank res={listData} fRes={errWords} number={5} fNumber={5} />}
       <Button className="next-btn" onClick={handleClick}>下一题</Button>
     </div>
     )

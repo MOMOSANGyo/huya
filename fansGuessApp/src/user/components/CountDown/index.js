@@ -4,8 +4,8 @@ export default class CountDown extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      minute: 0,
-      second: 0
+      minute: '00',
+      second: '00'
     }
   }
   componentDidMount() {

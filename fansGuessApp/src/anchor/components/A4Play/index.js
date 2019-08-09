@@ -52,6 +52,7 @@ const PlayView = (props) => {
   const [words, setWords] = useState("");
   const [userNum, setUserNum] = useState(0);
   const [totalNum, setTotalNum] = useState(0);
+  const [success, setSuccess] = useState(false);
 
   async function init() {
     const gameid = getGameID();
@@ -96,6 +97,7 @@ const PlayView = (props) => {
       setTotalNum(total);
       const listdata = res.userlist;
       setListData(listdata);
+      setSuccess(true);
     }
     
   }, 1000);
@@ -121,7 +123,7 @@ const PlayView = (props) => {
           })
         }
       </div>
-      <ScoreList className="score-list" res={listData} num={userNum} total={totalNum} />
+      {success && <ScoreList className="score-list" res={listData} num={userNum} total={totalNum} />}
       <div className="tips">只有5-15人猜对答案才能获胜哦</div>
     </div>
     )

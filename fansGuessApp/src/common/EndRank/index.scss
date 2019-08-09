@@ -58,8 +58,9 @@
         display       : flex;
         flex-direction: row;
         align-items   : center;
-        height        : size(50px);
-        margin-top: size(16px);
+        height        : size(66px);
+        padding-top: size(16px);
+        padding-bottom: size(16px);
         
         .endrank_list_index{
             height: size(50px);

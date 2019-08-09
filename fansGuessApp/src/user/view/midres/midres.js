@@ -82,6 +82,20 @@ class MidRes extends Component{
         {
             clearInterval(this.timer);
             this.props.history.push('/res')
+            // if (this.state.questionNum <= 8) {
+            //     this.props.history.push('/res')
+            // } else {
+            //     console.log('---end---')
+            //     console.log('---end---')
+
+            //     console.log('---end---')
+
+
+            //     console.log('---end---')
+
+            //     this.props.history.push('/end')
+            // }
+
         }
         this.setState({
             count:count
