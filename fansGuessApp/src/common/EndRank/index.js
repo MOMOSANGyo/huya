@@ -3,6 +3,7 @@ import './index.scss'
 
 
 function List(props){
+<<<<<<< HEAD
     console.log('props.res');
     console.log('props.res');
 
@@ -10,6 +11,9 @@ function List(props){
     console.log('props.res');
 
     console.log(props.res);
+=======
+    console.log('======props=====', props);
+>>>>>>> 0e95b42a896c294f5e02b3d13c3df22aa9377bb7
     return(
         (Object.prototype.toString.call(props.res) == "[object Array]") &&
             (
@@ -118,7 +122,7 @@ class EndRank extends Component {
     }
     
     render() {
-        
+        console.log('==render==', this.state);
         return (
             <div className="endrank">
                
