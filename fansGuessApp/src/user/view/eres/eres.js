@@ -2,16 +2,7 @@ import '../config'
 import React,{Component} from 'react';
 import ERank from '../../../common/ERank/index'
 
-import image1 from './assets/1pb.png'
-import image2 from './assets/1pb.png'
-import image3 from './assets/3pb.png'
-import image4 from './assets/4pb.png'
-import image5 from './assets/5pb.png'
-import image6 from './assets/6pb.png'
-import image7 from './assets/7pb.png'
-import image8 from './assets/8pb.png'
-import image9 from './assets/9pb.png'
-import image10 from './assets/10pb.png'
+
 
 import './eres.scss';
 
@@ -47,6 +38,7 @@ class ERes extends Component{
                     info: data.info,
                     score: data.score,
                     img:true,
+                    imgUrl:myScoreUrl
                 })
                 this.props.history.push('/midres')
             }

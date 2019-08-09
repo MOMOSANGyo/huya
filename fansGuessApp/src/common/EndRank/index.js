@@ -8,7 +8,7 @@ function List(props){
             (
                 <div >
                     {props.res.map((item, index) =>
-                        <div key={index} className="endrank_con_list">
+                        <div key={index} className="endrank_con_list" style={{ backgroundColor: item.name === "我" ? 'rgba(0, 0, 0, 0.7)' : 'rgba(0, 0, 0, 0.5)' }}>
                             <span className="endrank_list_index">{props.currentPage * props.number + (index + 1)}</span>
                             <span>
                                 <div className="avatar">
@@ -31,7 +31,7 @@ function FalseList(props){
             (
                 <div >
                     {props.res.map((item, index) =>
-                        <div key={index} className="endrank_false_list">
+                        <div key={index} className="endrank_false_list" style={{ backGroundColor: props.myanswer && 'rgba(0, 0, 0, 0.7)' }}>
                             {item}
                         </div>
                     )}

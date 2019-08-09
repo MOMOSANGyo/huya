@@ -16,7 +16,9 @@
 }
 .playing{
     height: 100%;
+    width: 100%;
     background-image: url('./assets/bg.png');
+    background-size: cover;
     .playing_header{
         display: flex;
         flex-direction: column;

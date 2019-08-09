@@ -5,8 +5,20 @@ import TimeProgress from '../../../common/TimeProgress'
 import Input from '../../../common/Input/index'
 import './midres.scss'
 import Rank from '../../../common/rank';
+import { gameBg } from '../../assets/imgConfig'
 
-//样式大部分可以与playing页面公用
+const numberText = [
+    '第一题',
+    '第二题',
+    '第三题',
+    '第四题',
+    '第五题',
+    '第六题',
+    '第七题',
+    '第八题',
+    '第九题',
+    '第十题',
+]
 class MidRes extends Component{
     constructor(props) {
         super(props);
@@ -41,6 +53,7 @@ class MidRes extends Component{
 
             if (statusCode == 200) {
                 let answer = [...data.answer]
+                global.info.myanswer = data.answer;
                 this.setState({
                     questionNum: data.questionNum,
                     answer: answer,
@@ -125,9 +138,10 @@ class MidRes extends Component{
         console.log('global.info.remaintime');
          console.log(global.info.remaintime);
         return(
-            <div className="midres">
+            <div className="midres" style={{
+                backgroundImage: `url(${gameBg[this.state.questionNum]})`}}>
                 <div className="midres_header">
-                    <div className="midres_tit">第{this.state.questionNum}题</div>
+                    <div className="midres_tit">{numberText[this.state.questionNum]}</div>
                     <TimeProgress theme='black' time={global.info.remaintime}/>
                 </div>
                 <div className="midres_content">

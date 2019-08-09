@@ -3,7 +3,20 @@ import React, {Component} from 'react'
 import TimeProgress from '../../../common/TimeProgress'
 import Input from '../../../common/Input/index'
 import './playing.scss'
+import { gameBg } from '../../assets/imgConfig'
 
+const numberText = [
+    '第一题',
+    '第二题',
+    '第三题',
+    '第四题',
+    '第五题',
+    '第六题',
+    '第七题',
+    '第八题',
+    '第九题',
+    '第十题',
+]
 
 class Playing extends Component{
     constructor(props) {
@@ -77,6 +90,7 @@ class Playing extends Component{
         if (count === 60) {
             clearInterval(this.timer);
             this.submit();
+            this.props.history.push('/res')
         }
         this.setState({
             count: count
@@ -128,9 +142,9 @@ class Playing extends Component{
     render(){
         
         return(
-            <div className="playing">
+            <div className="playing" style={{ backgroundImage: `url(${gameBg[this.state.questionNum]})` }}>
                 <div className="playing_header">
-                <div className="playing_tit">第{this.state.questionNum}题</div>
+                    <div className="playing_tit">{numberText[this.state.questionNum]}</div>
                 <TimeProgress theme='black' time={60}/>
                 </div>
                 <div className="playing_content">

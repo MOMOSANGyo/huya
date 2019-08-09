@@ -4,7 +4,21 @@ import EndRank from '../../../common/EndRank/index'
 import correct from './assets/true.png'
 import mistake from './assets/false.png'
 import './result.scss'
+import '../config'
+import { gameBg } from '../../assets/imgConfig'
 
+const numberText = [
+    '第一题',
+    '第二题',
+    '第三题',
+    '第四题',
+    '第五题',
+    '第六题',
+    '第七题',
+    '第八题',
+    '第九题',
+    '第十题',
+]
 class ResultView extends Component {
     constructor(props) {
         super(props);
@@ -48,6 +62,11 @@ class ResultView extends Component {
                 "gamewordid": global.info.gamewordid
             }
         }).then(({ data, statusCode }) => {
+            console.log('---/resdata---')
+            console.log('---/resdata---')
+            console.log('---/resdata---')
+            console.log('---/resdata---')
+            console.log(data);
             if (statusCode == 200) {
                 if (data.questionNum === 10)
                 {
@@ -67,10 +86,7 @@ class ResultView extends Component {
             }
         }
     
-                console.log('---/resdata---')
-                console.log('---/resdata---')
-                console.log('---/resdata---')
-                console.log('---/resdata---')
+              
                 this.setState({
                     questionNum: data.questionNum,
                     infomation: data.info,
@@ -89,7 +105,7 @@ class ResultView extends Component {
                 
             }
         }).catch(err => {
-            hyExt.logger.warn('调用失败', err)
+            console.log(err);
         })
     }
 
@@ -97,76 +113,30 @@ class ResultView extends Component {
         this.props.history.push('end')
     }
     render() {
-        // let arr = [
-        //     { url:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564857128706&di=7e521e55fbc426898dc335e737049bf6&imgtype=0&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F47%2F97%2F5bade9846f0a5_610.jpg',
-        //     score:'88',
-        //     name: "clearlove",
-        //      time: '1秒' },
-        //     {
-        //         url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564857128706&di=7e521e55fbc426898dc335e737049bf6&imgtype=0&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F47%2F97%2F5bade9846f0a5_610.jpg',
-        //         score: '88',
-        //         name: "clearlove",
-        //         time: '1秒'
-        //     },
-        //     {
-        //         url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564857128706&di=7e521e55fbc426898dc335e737049bf6&imgtype=0&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F47%2F97%2F5bade9846f0a5_610.jpg',
-        //         score: '88',
-        //         name: "clearlove",
-        //         time: '1秒'
-        //     },
-        //     {
-        //         url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564857128706&di=7e521e55fbc426898dc335e737049bf6&imgtype=0&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F47%2F97%2F5bade9846f0a5_610.jpg',
-        //         score: '88',
-        //         name: "clearlove",
-        //         time: '1秒'
-        //     },
-        //     {
-        //         url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564857128706&di=7e521e55fbc426898dc335e737049bf6&imgtype=0&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F47%2F97%2F5bade9846f0a5_610.jpg',
-        //         score: '88',
-        //         name: "clearlove",
-        //         time: '1秒'
-        //     }, {
-        //         url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564857128706&di=7e521e55fbc426898dc335e737049bf6&imgtype=0&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F47%2F97%2F5bade9846f0a5_610.jpg',
-        //         score: '88',
-        //         name: "clearlove",
-        //         time: '1秒'
-        //     },
-        //     {
-        //         url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564857128706&di=7e521e55fbc426898dc335e737049bf6&imgtype=0&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F47%2F97%2F5bade9846f0a5_610.jpg',
-        //         score: '88',
-        //         name: "clearlove",
-        //         time: '1秒'
-        //     },
-        //     {
-        //         url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564857128706&di=7e521e55fbc426898dc335e737049bf6&imgtype=0&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F47%2F97%2F5bade9846f0a5_610.jpg',
-        //         score: '88',
-        //         name: "clearlove",
-        //         time: '1秒'
-        //     },
-        //     {
-        //         url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564857128706&di=7e521e55fbc426898dc335e737049bf6&imgtype=0&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F47%2F97%2F5bade9846f0a5_610.jpg',
-        //         score: '88',
-        //         name: "clearlove",
-        //         time: '1秒'
-        //     },
-        // ]
-        // let fRes = ['错误回答']
+        console.log('------global.info.myanswer----')
+        console.log('------global.info.myanswer----')
+
+        console.log('------global.info.myanswer----')
+        console.log('------global.info.myanswer----')
+        console.log(global.info.myanswer)
+
         return (
-            <div className="result">
+            <div className="result" 
+                style={{ backgroundImage: `url(${gameBg[this.state.questionNum]})` }}>
                 {this.state.answerbool ?
                 <div className="result_header">
-                    <div className="result_header_index">第{this.state.questionNum}题</div>
+                        <div className="result_header_index">{numberText[this.state.questionNum]}</div>
                     <div className="result_header_tit">{this.state.realanswer}</div>
                 </div>
                 :
                 <div className="result_header_f">
                     <div className="result_header1">
-                        <div className="result_header_index">{this.state.questionNum}</div>
+                            <div className="result_header_index">{numberText[this.state.questionNum]}</div>
                         <div className="result_header_tit">{this.state.realanswer}</div>
                     </div>
                     <div className="result_header2">
                         <div className="result_header_index2">我的回答</div>
-                        <div className="result_header_tit2">{this.state.wrongAnswer}</div>
+                        <div className="result_header_tit2">{global.info.myanswer}</div>
                     </div>
                 </div>
                 }
@@ -207,7 +177,13 @@ class ResultView extends Component {
                 <div className="result_footer">
                     
                     <div className="result_footer_endrank">
-                        {this.state.success && <EndRank fRes={this.state.wrongAnswer} fNumber={7} res={this.state.infomation} number={this.state.end ? 6 :7 } />}
+                        {this.state.success && 
+                        <EndRank 
+                        fRes={this.state.wrongAnswer} 
+                        fNumber={7} 
+                        res={this.state.infomation} 
+                        number={this.state.end ? 6 :7 }
+                        myanswer = {global.info.myanswer} />}
                     </div>
                     <div className="result_footer_one">共{this.state.totalnum}人参加游戏，{this.state.rightNum}人回答正确</div>
                 </div>

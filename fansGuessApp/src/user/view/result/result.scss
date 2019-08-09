@@ -16,6 +16,7 @@
 .result {
     height: 100%;
     background-image: url('./assets/bg.png');
+    background-size: cover;
     @include flex-column();
      justify-content: space-between;
     align-items    : center;

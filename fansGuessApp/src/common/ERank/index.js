@@ -10,7 +10,7 @@ function List(props){
             (
                 <div >
                     {props.res.map((item, index) =>
-                        <div key={index} className="erank_con_list">
+                        <div key={index} className="erank_con_list" style={{ backgroundColor: item.name === "我" && '#4355ff' }}>
                             <span className="list_pre">
                             <span className="erank_list_index">{props.currentPage * props.number + (index + 1)}</span>
                             <span>
