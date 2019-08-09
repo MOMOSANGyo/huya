@@ -75,53 +75,53 @@ class MidRes extends Component{
         })
     }
     render(){
-        let info = [
-            {
-                'username': "haha", 
-            'time': 6, 
-            'useranswer': "西红柿炒蛋"
-            },
-            {
-                'username': "jiejie",
-                'time': 9,
-                'useranswer': "妲己陪你玩"
-            },
-            {
-                'username': "yiyi",
-                'time': 11,
-                'useranswer': "满血把你送回家"
-            },
-            {
-                'username': "haha",
-                'time': 6,
-                'useranswer': "西红柿炒蛋"
-            },
-            {
-                'username': "jiejie",
-                'time': 9,
-                'useranswer': "妲己陪你玩"
-            },
-            {
-                'username': "yiyi",
-                'time': 11,
-                'useranswer': "满血把你送回家"
-            },
-            {
-                'username': "haha",
-                'time': 6,
-                'useranswer': "西红柿炒蛋"
-            },
-            {
-                'username': "jiejie",
-                'time': 9,
-                'useranswer': "妲己陪你玩"
-            },
-            {
-                'username': "yiyi",
-                'time': 11,
-                'useranswer': "满血把你送回家"
-            }
-        ]
+        // let info = [
+        //     {
+        //         'username': "haha", 
+        //     'time': 6, 
+        //     'useranswer': "西红柿炒蛋"
+        //     },
+        //     {
+        //         'username': "jiejie",
+        //         'time': 9,
+        //         'useranswer': "妲己陪你玩"
+        //     },
+        //     {
+        //         'username': "yiyi",
+        //         'time': 11,
+        //         'useranswer': "满血把你送回家"
+        //     },
+        //     {
+        //         'username': "haha",
+        //         'time': 6,
+        //         'useranswer': "西红柿炒蛋"
+        //     },
+        //     {
+        //         'username': "jiejie",
+        //         'time': 9,
+        //         'useranswer': "妲己陪你玩"
+        //     },
+        //     {
+        //         'username': "yiyi",
+        //         'time': 11,
+        //         'useranswer': "满血把你送回家"
+        //     },
+        //     {
+        //         'username': "haha",
+        //         'time': 6,
+        //         'useranswer': "西红柿炒蛋"
+        //     },
+        //     {
+        //         'username': "jiejie",
+        //         'time': 9,
+        //         'useranswer': "妲己陪你玩"
+        //     },
+        //     {
+        //         'username': "yiyi",
+        //         'time': 11,
+        //         'useranswer': "满血把你送回家"
+        //     }
+        // ]
         console.log('global.info.remaintime');
          console.log(global.info.remaintime);
         return(
@@ -141,7 +141,11 @@ class MidRes extends Component{
                     </div>
                 </div>
                 <div className="midres_footer">
-                    {this.state.input && <Rank res={this.state.infomation} totalnum={this.state.totalnum}/>}
+                    {this.state.input && 
+                    <Rank res={this.state.infomation} 
+                          totalnum={this.state.totalnum}
+                          num={this.state.num}
+                    />}
                 </div>
             </div>
         )

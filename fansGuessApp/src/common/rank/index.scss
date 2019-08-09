@@ -8,10 +8,11 @@
     height:size(522px);
     border-radius: size(8px);
     color:#ffffff;
+     background-color: rgba(0, 0, 0, 0.5);
     .rank_title{
         height: size(44px);
         line-height: size(44px);
-        background-color: rgba(0, 0, 0, 0.8);
+        background-color: rgba(0, 0, 0, 0.6);
         border-top-left-radius: size(8px);
         border-top-right-radius: size(8px);
         display: flex;
@@ -28,7 +29,6 @@
     }
     .rank_content{
         height: size(478px);
-        background-color: rgba(0, 0, 0, 0.6);
         border-bottom-left-radius: size(8px);
         border-bottom-right-radius: size(8px);
         .rank_con_list{

@@ -21,6 +21,7 @@ class ResultView extends Component {
             status: null,
             end: false,
             answerbool:1,
+            success:false,
         }
         this.request = this.request.bind(this)
         this.end = this.end.bind(this)
@@ -65,6 +66,11 @@ class ResultView extends Component {
                         this.props.history.push('/playing')
             }
         }
+    
+                console.log('---/resdata---')
+                console.log('---/resdata---')
+                console.log('---/resdata---')
+                console.log('---/resdata---')
                 this.setState({
                     questionNum: data.questionNum,
                     infomation: data.info,
@@ -72,11 +78,12 @@ class ResultView extends Component {
                     score: data.score, 
                     rightNum:data.rightNum,  
                     totalnum:data.totalnum,
-                    wrongAnswer:dat.wrongAnswer,
+                    wrongAnswer:data.wrongAnswer,
                     right_rate: data.right_rate, 
                     speed_rate: data.speed_rate,
                     status: data.status,
                     answerbool: data.answerbool,
+                    success:true,
                 })
 
                 
@@ -90,60 +97,60 @@ class ResultView extends Component {
         this.props.history.push('end')
     }
     render() {
-        let arr = [
-            { url:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564857128706&di=7e521e55fbc426898dc335e737049bf6&imgtype=0&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F47%2F97%2F5bade9846f0a5_610.jpg',
-            score:'88',
-            name: "clearlove",
-             time: '1秒' },
-            {
-                url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564857128706&di=7e521e55fbc426898dc335e737049bf6&imgtype=0&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F47%2F97%2F5bade9846f0a5_610.jpg',
-                score: '88',
-                name: "clearlove",
-                time: '1秒'
-            },
-            {
-                url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564857128706&di=7e521e55fbc426898dc335e737049bf6&imgtype=0&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F47%2F97%2F5bade9846f0a5_610.jpg',
-                score: '88',
-                name: "clearlove",
-                time: '1秒'
-            },
-            {
-                url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564857128706&di=7e521e55fbc426898dc335e737049bf6&imgtype=0&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F47%2F97%2F5bade9846f0a5_610.jpg',
-                score: '88',
-                name: "clearlove",
-                time: '1秒'
-            },
-            {
-                url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564857128706&di=7e521e55fbc426898dc335e737049bf6&imgtype=0&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F47%2F97%2F5bade9846f0a5_610.jpg',
-                score: '88',
-                name: "clearlove",
-                time: '1秒'
-            }, {
-                url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564857128706&di=7e521e55fbc426898dc335e737049bf6&imgtype=0&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F47%2F97%2F5bade9846f0a5_610.jpg',
-                score: '88',
-                name: "clearlove",
-                time: '1秒'
-            },
-            {
-                url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564857128706&di=7e521e55fbc426898dc335e737049bf6&imgtype=0&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F47%2F97%2F5bade9846f0a5_610.jpg',
-                score: '88',
-                name: "clearlove",
-                time: '1秒'
-            },
-            {
-                url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564857128706&di=7e521e55fbc426898dc335e737049bf6&imgtype=0&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F47%2F97%2F5bade9846f0a5_610.jpg',
-                score: '88',
-                name: "clearlove",
-                time: '1秒'
-            },
-            {
-                url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564857128706&di=7e521e55fbc426898dc335e737049bf6&imgtype=0&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F47%2F97%2F5bade9846f0a5_610.jpg',
-                score: '88',
-                name: "clearlove",
-                time: '1秒'
-            },
-        ]
-        let fRes = ['错误回答']
+        // let arr = [
+        //     { url:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564857128706&di=7e521e55fbc426898dc335e737049bf6&imgtype=0&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F47%2F97%2F5bade9846f0a5_610.jpg',
+        //     score:'88',
+        //     name: "clearlove",
+        //      time: '1秒' },
+        //     {
+        //         url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564857128706&di=7e521e55fbc426898dc335e737049bf6&imgtype=0&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F47%2F97%2F5bade9846f0a5_610.jpg',
+        //         score: '88',
+        //         name: "clearlove",
+        //         time: '1秒'
+        //     },
+        //     {
+        //         url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564857128706&di=7e521e55fbc426898dc335e737049bf6&imgtype=0&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F47%2F97%2F5bade9846f0a5_610.jpg',
+        //         score: '88',
+        //         name: "clearlove",
+        //         time: '1秒'
+        //     },
+        //     {
+        //         url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564857128706&di=7e521e55fbc426898dc335e737049bf6&imgtype=0&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F47%2F97%2F5bade9846f0a5_610.jpg',
+        //         score: '88',
+        //         name: "clearlove",
+        //         time: '1秒'
+        //     },
+        //     {
+        //         url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564857128706&di=7e521e55fbc426898dc335e737049bf6&imgtype=0&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F47%2F97%2F5bade9846f0a5_610.jpg',
+        //         score: '88',
+        //         name: "clearlove",
+        //         time: '1秒'
+        //     }, {
+        //         url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564857128706&di=7e521e55fbc426898dc335e737049bf6&imgtype=0&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F47%2F97%2F5bade9846f0a5_610.jpg',
+        //         score: '88',
+        //         name: "clearlove",
+        //         time: '1秒'
+        //     },
+        //     {
+        //         url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564857128706&di=7e521e55fbc426898dc335e737049bf6&imgtype=0&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F47%2F97%2F5bade9846f0a5_610.jpg',
+        //         score: '88',
+        //         name: "clearlove",
+        //         time: '1秒'
+        //     },
+        //     {
+        //         url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564857128706&di=7e521e55fbc426898dc335e737049bf6&imgtype=0&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F47%2F97%2F5bade9846f0a5_610.jpg',
+        //         score: '88',
+        //         name: "clearlove",
+        //         time: '1秒'
+        //     },
+        //     {
+        //         url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564857128706&di=7e521e55fbc426898dc335e737049bf6&imgtype=0&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F47%2F97%2F5bade9846f0a5_610.jpg',
+        //         score: '88',
+        //         name: "clearlove",
+        //         time: '1秒'
+        //     },
+        // ]
+        // let fRes = ['错误回答']
         return (
             <div className="result">
                 {this.state.answerbool ?
@@ -152,7 +159,7 @@ class ResultView extends Component {
                     <div className="result_header_tit">{this.state.realanswer}</div>
                 </div>
                 :
-                <div className="result_header">
+                <div className="result_header_f">
                     <div className="result_header1">
                         <div className="result_header_index">{this.state.questionNum}</div>
                         <div className="result_header_tit">{this.state.realanswer}</div>
@@ -182,7 +189,7 @@ class ResultView extends Component {
                     </div>
                     <div className="result_res_one">
                         <div>累积得分</div>
-                        <div ><span className="result_font">{this.state.score}}</span>分</div>
+                        <div ><span className="result_font">{this.state.score}</span>分</div>
                     </div>
                 </div>
                 :
@@ -200,7 +207,7 @@ class ResultView extends Component {
                 <div className="result_footer">
                     
                     <div className="result_footer_endrank">
-                    <EndRank fRes={fRes} fNumber={5} res={arr} number={this.state.end ? 6 :7 } />
+                        {this.state.success && <EndRank fRes={this.state.wrongAnswer} fNumber={7} res={this.state.infomation} number={this.state.end ? 6 :7 } />}
                     </div>
                     <div className="result_footer_one">共{this.state.totalnum}人参加游戏，{this.state.rightNum}人回答正确</div>
                 </div>
