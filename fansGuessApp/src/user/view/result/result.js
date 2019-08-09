@@ -81,7 +81,7 @@ class ResultView extends Component {
                         console.log('---/playing---')
                         console.log('---/playing---')
                         this.props.history.push('/playing')
-                    } else {
+                    } else if(data.questionNum === 9){
                         this.props.history.push('/end');
                     }
                 }

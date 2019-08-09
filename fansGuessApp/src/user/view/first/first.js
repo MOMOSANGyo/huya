@@ -32,20 +32,19 @@ class First extends Component {
             },
             url: 'http://zaccc.lzok.top/user/index/',
             method: 'POST',
-            dataType: 'json',
+            dataType: 'Text',
             data: {
                
             }
         }).then((res) => {
-            hyExt.logger.info('调用成功', res);
+            console.log(res);
             global.info.gameid = res.data.gameid;
-            if(res.data.time)
+            if(res.data.time !== "0")
             {
                 this.props.history.push('/home2')
             }else{
                 this.props.history.push('/home')
-            }
-            
+            } 
             console.log('--data--', res);
         }).catch(err => {
             hyExt.logger.warn('调用失败', err)

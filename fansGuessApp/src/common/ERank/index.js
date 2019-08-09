@@ -22,7 +22,11 @@ function List(props){
                             </span>
                     
                             <span className="list_score">{item.score}分</span>
-                            <span className="list_time">{item.time}</span>
+                            {item.time > 60 ?
+                            <span className="list_time">{item.time / 60}分{item.time % 60}秒</span>
+                            :
+                            <span className="list_time">{item.time}秒</span>
+                            }
                             
                         </div>
                     )}

@@ -7,15 +7,23 @@ import './home.scss'
 class Home extends Component{
     constructor(props) {
         super(props);
-        this.state ={
+        this.state = {
             count: 0,
+            time: 0,
+            success: false,
         }
-        this.sendData = this.sendData.bind(this)
+        this.join = this.join.bind(this);
+        this.init = this.init.bind(this);
+        // this.showModal = this.showModal.bind(this)
+        // this.hideModal = this.hideModal.bind(this)
     }
 
- 
-    //发送请求
-    sendData(){
+
+    componentDidMount() {
+        this.init();
+    }
+    
+    init() {
         console.log(global.info.gameid);
         hyExt.request({
             header: {
@@ -27,13 +35,51 @@ class Home extends Component{
                 "gameid": global.info.gameid
             }
         }).then((res) => {
-            hyExt.logger.info('调用成功', res);
-            this.props.history.push('/success')
             console.log('--data--', res);
+            this.setState({
+                count: res.data.num,
+                time: res.data.time,
+                success: true
+            })
+            // this.props.history.push('/playing')
+            console.log('--data--', this.state.time);
+
         }).catch(err => {
             hyExt.logger.warn('调用失败', err)
             console.log('---err--', err);
         });
+    }
+
+
+    //发送请求
+    join() {
+        hyExt.context.getUserInfo().then(userInfo => {
+            hyExt.request({
+                header: {
+                },
+                url: 'http://zaccc.lzok.top/user/join/',
+                method: 'POST',
+                dataType: 'json',
+                data: {
+                    "gameid": global.info.gameid,
+                    'name': userInfo.userNick,
+                    'picture': userInfo.userAvatarUrl
+                }
+            }).then((res) => {
+                hyExt.logger.info('调用成功', res);
+                this.props.history.push('/success')
+            }).catch(err => {
+                hyExt.context.showToast('获取用户信息失败').then(() => {
+                    hyExt.logger.info('显示成功')
+                }).catch(err => {
+                    hyExt.logger.warn('显示失败', err)
+                })
+                console.log('---err--', err);
+            });
+        }).catch(err => {
+            hyExt.logger.warn('获取用户信息失败', err)
+        })
+
 
     }
     render() {
@@ -49,7 +95,7 @@ class Home extends Component{
                 </div>
                 <Rule />
                 </div>
-                <div className="btn_one" onClick={this.sendData}>立即参加</div>
+                <div className="btn_one" onClick={this.join}>立即参加</div>
             </div>
         )
     }

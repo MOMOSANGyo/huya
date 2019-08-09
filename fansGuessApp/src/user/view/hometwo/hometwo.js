@@ -23,9 +23,7 @@ class HomeTwo extends Component {
     componentDidMount() {
         this.init();
     }
-    componentWillUnmount() {
-        clearInterval(this.timer);
-    }
+   
     init(){
         console.log(global.info.gameid);
         hyExt.request({
@@ -55,17 +53,7 @@ class HomeTwo extends Component {
 
    
 
-    showModal  ()  {
-        this.setState({
-            visible: true,
-        });
-    };
-
-    hideModal ()  {
-        this.setState({
-            visible: false,
-        });
-    };
+    
     //发送请求
     join() {
         hyExt.context.getUserInfo().then(userInfo => {

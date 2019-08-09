@@ -16,7 +16,7 @@ import SuccessTwo from './user/view/successtwo/successtwo'
 
 import 'antd/dist/antd.css'
 import './user/assets/scss/common.scss'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import HomeTwo from './user/view/hometwo/hometwo';
 
 
