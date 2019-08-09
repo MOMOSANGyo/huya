@@ -4,7 +4,7 @@ import './index.scss'
 
 function ScoreList(props) {
   const [listdata, setListData] = useState(props.res);
-
+  console.log('----listdata---', listdata);
   useEffect(() => {
     if(props.res.length > 7) {
       const data = props.res.slice(0, 7);
@@ -33,7 +33,7 @@ function ScoreList(props) {
                               </div>
                           </span>
                           <span className="list_name">{item.name}</span>
-                          <span className="list_time">{item.usertime}</span>
+                          <span className="list_time">{item.time}秒</span>
                       </div>
                   )}
               </div>

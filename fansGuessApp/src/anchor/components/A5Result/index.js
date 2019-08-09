@@ -62,8 +62,10 @@ const ResultView = (props) => {
     const status = res.status;
     setGameStatus(status);
     const winInfo = res.winInfo;
+    console.log('======winInfo========', winInfo);
     setListData(winInfo);
     const wronganswer = res.wronganswer;
+    console.log('======wronganswer========', wronganswer);
     setErrWords(wronganswer);
     
   }
@@ -100,7 +102,7 @@ const ResultView = (props) => {
       props.history.push('/score');
     }
   }
-
+  console.log('------result-----', listData, errWords);
 
   return (
     <div className="a5-container" 
