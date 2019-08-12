@@ -138,7 +138,7 @@ STATICFILES_DIRS = [
 CORS_ALLOW_CREDENTIALS = True # res.header("Access-Control-Allow-Credentials", "true");
 CORS_ORIGIN_ALLOW_ALL = True  #res.header("Access-Control-Allow-Origin", "*");
 CORS_ALLOW_HEADERS = ("*") #  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Allow-Credentials");
-CORS_ORIGIN_WHITELIST = ('*','localhost：8080')
+CORS_ORIGIN_WHITELIST = ('*','localhost：8080','localhost：8081')
 CORS_ALLOW_METHODS = (
     'DELETE',
     'GET',

@@ -15,4 +15,5 @@ urlpatterns = [
     url(r'^wordinfo/', views.wordinfo, name='wordinfo'),  # zaccc.lzok.top/anchor/wordinfo/
     url(r'^wordgrade/', views.wordgrade, name='wordgrade'),  # zaccc.lzok.top/anchor/wordgrade/
     url(r'^last/', views.last, name='last'),  # zaccc.lzok.top/anchor/last/
+    url(r'^next/', views.next, name='next'),  # zaccc.lzok.top/anchor/next/
 ]

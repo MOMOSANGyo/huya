@@ -55,6 +55,7 @@ class GameRecord(models.Model):  #表7
     anchorscore = models.IntegerField(default=0)  #主播得分
     wordsmallcategoryid = models.IntegerField(null=True) #表1主键
     roomdid = models.CharField(max_length=48)
+    time = models.IntegerField() #时间戳
     class Meta:
         db_table = 'gamerecord'
 
@@ -77,7 +78,7 @@ class Test(models.Model):
 
 class UserRecord(models.Model):#不用了
     gameid = models.IntegerField()
-    useid = models.CharField(max_length=128)
+    useid = models.CharField(max_length=256)
     total_score = models.IntegerField(default=0)
     total_time = models.IntegerField(default=0)
 
@@ -85,8 +86,8 @@ class UserRecord(models.Model):#不用了
         db_table = "userrecord"
 
 class Info(models.Model):
-    userid = models.IntegerField()
-    username = models.CharField(max_length= 48)
+    userid = models.CharField(max_length=128)
+    username = models.CharField(max_length= 128)
     pricture = models.CharField(max_length=128)
 
     class Mete:

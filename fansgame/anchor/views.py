@@ -14,6 +14,7 @@ import requests, json
 from anchor.models import *
 from django.db.models import Sum
 import jwt
+import time,datetime
 
 
 def index(request):
@@ -50,8 +51,8 @@ def invite(request):
     if request.method == 'POST':
         a = request.META.get("HTTP_AUTHORIZATION")
         token_data = jwt.decode(a, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
-
-        gamerecord = GameRecord(anchorid=token_data["profileId"], personnum=0,roomdid=token_data["roomId"])
+        t = int(time.time())
+        gamerecord = GameRecord(anchorid=token_data["profileId"], personnum=0,roomdid=token_data["roomId"],time=t)
         gamerecord.save()
 
         gameid = GameRecord.objects.filter(anchorid=token_data["profileId"]).last()
@@ -59,7 +60,7 @@ def invite(request):
         gamestatus.save()
 
         pass_data = json.loads(request.body)  # 解析前端传过来的参数
-
+        print(pass_data)
         gamewordid = WordCategory.objects.get(categoryname=pass_data["categoryname"]).id
         gameid = gameid.id
 
@@ -86,6 +87,7 @@ def wait(request):
 
 
         pass_data = json.loads(request.body)  # 解析前端传过来的参数
+        print(pass_data)
         gamerecord = GameRecord.objects.get(id = pass_data["gameid"])
         gametime = GameTime.objects.get(id=gamerecord.gametimeid)
         data = {
@@ -103,6 +105,7 @@ def waitt(request):
         token_data = jwt.decode(a, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
 
         pass_data = json.loads(request.body)  # 解析前端传过来的参数
+        print(pass_data)
         gamerecord = GameRecord.objects.get(id=pass_data["gameid"])
         gametime = GameTime.objects.get(id=gamerecord.gametimeid)
         data = {
@@ -122,7 +125,7 @@ def quit(request):
         print(token_data)  # 打印解析后的token
 
         pass_data = json.loads(request.body)  # 解析前端传过来的参数
-
+        print(pass_data)
         status = GameStatus.objects.get(gameid=pass_data["gameid"])
         status.gamestatus = 2
         status.save()
@@ -143,6 +146,7 @@ def begin(request):
         print(token_data)  # 打印解析后的token
 
         pass_data = json.loads(request.body)  # 解析前端传过来的参数
+        print(pass_data)
         status = GameStatus.objects.get(gameid=pass_data["gameid"])
         status.gamestatus=3
         status.save()
@@ -159,7 +163,7 @@ def join(request):
         a = request.META.get("HTTP_AUTHORIZATION")
         token_data = jwt.decode(a, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
         pass_data = json.loads(request.body)  # 解析前端传过来的参数
-
+        print(pass_data)
         record = GameRecord.objects.get(id=pass_data["gameid"])
         wordlist = []
         select_word = SmallCategory.objects.filter(categoryid=record.wordsmallcategoryid)
@@ -168,6 +172,22 @@ def join(request):
             wordid.append(word.id)
         category = WordCategory.objects.get(id=record.wordsmallcategoryid)
         wordidlist = random.sample(wordid,10)
+
+#(优化 只处理同一room同一主播id下的gameid的wordid)
+        # deleword = GameWord.objects.filter(used=0)
+        # for d in deleword:
+        #     word = GameWord.objects.get(id = d.id)
+        #     word.used=1
+        #     word.save()
+
+        delewords = GameRecord.objects.filter(anchorid=token_data["profileId"],roomdid=token_data["roomId"])
+        for dd in delewords:
+            deleword = GameWord.objects.filter(gameid=dd.id,used=0)
+            for d in deleword:
+                word = GameWord.objects.get(id=d.id)
+                word.used = 1
+                word.save()
+
         n=0
         for i in wordidlist:
 
@@ -180,6 +200,12 @@ def join(request):
         status = GameStatus.objects.get(gameid=pass_data["gameid"])
         status.gamestatus=3
         status.save()
+
+
+
+        gamenum = GameWord.objects.filter(gameid=pass_data["gameid"], used=0).first()
+        gamenum.used = 1
+        gamenum.save()
 
         data = {
             "word":wordlist,
@@ -198,33 +224,56 @@ def word(request):
         print(token_data)  # 打印解析后的token
 
         pass_data = json.loads(request.body)  # 解析前端传过来的参数
-        status = 0
+        print(pass_data)
+        status = GameStatus.objects.get(gameid=pass_data["gameid"])
+        status.gamestatus=1
+        status.save()
 
-
-        gamenum = GameWord.objects.filter(gameid=pass_data["gameid"],used=0).first()
+        categoryid = GameRecord.objects.get(id = pass_data["gameid"])
+        category = WordCategory.objects.get(id = categoryid.wordsmallcategoryid).categoryname
+        gamenum = GameWord.objects.filter(gameid=pass_data["gameid"],used=1).last()
         gamewordid = gamenum.id
         wordnumber =  gamenum.round
-        if gamenum.round == 10:
-            status =1
         word = SmallCategory.objects.get(id = gamenum.wordid)
         wordtext = word.word
-        gamenum.used =1
+        length = len(word.word)
+
+
         gamenum.save()
-        # sign
-        # if gamenum.round == 10:
 
 
         data = {
+            "category":category,
+            "length":length,
             "wordnumber":wordnumber,
             "wordtext":wordtext,
-            "gamewordid":gamewordid,
-            "status":status
+            "gamewordid":gamewordid
         }
         print(data)
         return JsonResponse(data)
 
     return HttpResponse('oka4')
 #判断词语进行到那里 从10到1的转换
+
+def next(request):
+    if request.method == 'POST':
+        a = request.META.get("HTTP_AUTHORIZATION")
+        token_data = jwt.decode(a, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
+        print(token_data)  # 打印解析后的token
+
+        pass_data = json.loads(request.body)  # 解析前端传过来的参数
+        print(pass_data)
+        gamenum = GameWord.objects.filter(gameid=pass_data["gameid"], used=1).last()
+        if gamenum.round<9:
+            tgamenum = GameWord.objects.get(id=gamenum.id+1)
+            tgamenum.used=1
+            tgamenum.save()
+        data = {}
+        print(data)
+        return JsonResponse(data)
+
+    return HttpResponse('oka4')
+
 def wordinfo(request):
     if request.method == 'POST':
         a = request.META.get("HTTP_AUTHORIZATION")
@@ -232,17 +281,20 @@ def wordinfo(request):
         print(token_data)  # 打印解析后的token
 
         pass_data = json.loads(request.body)  # 解析前端传过来的参数
-
+        print(pass_data)
         total = GameRecord.objects.get(id=pass_data["gameid"]).personnum
-        num = GameUser.objects.filter(gameid=pass_data["gameid"]).count()
+        num = GameUser.objects.filter(gameid=pass_data["gameid"],gamewordid=pass_data["gamewordid"]).count()
         wordid = GameWord.objects.get(id = pass_data["gamewordid"])
         realanswer = SmallCategory.objects.get(id = wordid.wordid).word
         infolist = []
         user = GameUser.objects.filter(gameid=pass_data["gameid"],gamewordid=pass_data["gamewordid"])
         for u in user:
+            us = Info.objects.get(userid=u.userid)
             infolist.append({
                 "usrid":u.userid,
-                "usertime":u.usertime
+                "url":us.pricture,
+                "name":us.username,
+                "time":u.usertime
             })
 
             # infolist.append([u.userid,u.usertime])
@@ -266,9 +318,7 @@ def wordgrade(request):
         print(token_data)  # 打印解析后的token
 
         pass_data = json.loads(request.body)  # 解析前端传过来的参数
-        gamerecord = GameRecord.objects.get(id = pass_data["gameid"])
-        gamerecord.anchorscore=gamerecord.anchorscore+pass_data["score"]
-        gamerecord.save()
+        print(pass_data)
         num = GameWord.objects.get(id = pass_data["gamewordid"])
         word = SmallCategory.objects.get(id = num.wordid).word
         total = GameRecord.objects.get(id=pass_data["gameid"]).personnum
@@ -276,16 +326,22 @@ def wordgrade(request):
         userinfo =[]
         user = GameUser.objects.filter(gameid = pass_data["gameid"],gamewordid=pass_data["gamewordid"],answerbool=1)
         for u in user:
+            us = Info.objects.get(userid=u.userid)
             userinfo.append({
                 "usrid":u.userid,
-                "usertime":u.usertime
+                "url": us.pricture,
+                "name": us.username,
+                "time":u.usertime
             })
 
             # userinfo.append([u.userid,u.usertime])
         wronglist =[]
         wrong = GameUser.objects.filter(gameid=pass_data["gameid"], gamewordid=pass_data["gamewordid"], answerbool=0)
+        print(wrong,"+++++++++++")
         for w in wrong:
             wronglist.append(w.useranswer)
+            print(w.useranswer,"++++++++++++++++")
+        print(wronglist,"++++++++++++++++++++")
 
         # gameuser = GameUser.objects.filter(gameid=pass_data["gameid"], gamewordid=pass_data["gamewordid"]).values("userid").distinct()
         # gameuserinfo = {}
@@ -297,13 +353,28 @@ def wordgrade(request):
         #     time = GameUser.objects.filter(userid=k,gameid=pass_data["gameid"],gamewordid=pass_data["gamewordid"]).aggregate(sum("usertime"))
         #     gameuserinfo[k].append(score,time)
 
+        status = 0
+        if num.round==9:
+            status=1
+
+
+        score = 0
+        if realnum>=total/4 and realnum<=total*3/4 :
+            score=1
+
+        gamerecord = GameRecord.objects.get(id=pass_data["gameid"])
+        gamerecord.anchorscore = gamerecord.anchorscore + score
+        gamerecord.save()
+
         data = {
             "questionnum":num.round,
             "realanswer":word,
             "total":total,
             "realnum":realnum,
             "winInfo":userinfo,
-            "wronganswer":wronglist
+            "wronganswer":wronglist,
+            "status":status,
+            "score":score
         }
         # print(gameuserinfo)
         return JsonResponse(data)
@@ -316,6 +387,7 @@ def last(request):
         print(token_data)  # 打印解析后的token
 
         pass_data = json.loads(request.body)  # 解析前端传过来的参数
+        print(pass_data)
         total = GameRecord.objects.get(id=pass_data["gameid"]).personnum
         gameuser = GameUser.objects.filter(gameid=pass_data["gameid"], gamewordid=pass_data["gamewordid"]).values("userid").distinct()
         gameuserinfo = []
@@ -323,11 +395,14 @@ def last(request):
             score = GameUser.objects.filter(userid=u["userid"], gameid=pass_data["gameid"], answerbool=1).count()
             time = GameUser.objects.filter(userid=u["userid"],gameid=pass_data["gameid"])
             total_time = 0
+            us = Info.objects.get(userid=u["userid"])
             for t in time:
                 total_time=total_time+int(t.usertime)
             gameuserinfo.append({
                 "usrid":u["userid"],
-                "usertime":total_time,
+                "url": us.pricture,
+                "name": us.username,
+                "time":total_time,
                 "userscore":score
             })
         # for u in gameuser:
@@ -360,4 +435,5 @@ def last(request):
         return JsonResponse(data)
 
     return HttpResponse('oka6')
+
 
