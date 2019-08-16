@@ -23,7 +23,7 @@ function List(props){
                     
                             <span className="list_score">{item.score}分</span>
                             {item.time > 60 ?
-                            <span className="list_time">{item.time / 60}分{item.time % 60}秒</span>
+                            <span className="list_time">{Math.floor(item.time / 60)}分{item.time % 60}秒</span>
                             :
                             <span className="list_time">{item.time}秒</span>
                             }
@@ -71,13 +71,12 @@ class ERank extends Component {
    }
 
     
-    render() {
-        
+    render() { 
         return (
             <div className="erank">
                 <div className="erank_container">
                 <div className="erank_header">
-                    <span className="erank_header_span1">排名(共20人)</span>
+                    <span className="erank_header_span1">排名(共{this.state.total}人)</span>
                     <span className="erank_header_span2">总分</span>
                     <span className="erank_header_span3">用时</span>
                 </div>

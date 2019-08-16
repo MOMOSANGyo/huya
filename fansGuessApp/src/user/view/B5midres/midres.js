@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { withRouter } from "react-router-dom";
-
+import { Spin } from 'antd'
 import TimeProgress from '../../../common/TimeProgress'
 import Input from '../../../common/Input/index'
 import './midres.scss'
+import '../../assets/scss/loading.scss'
 import Rank from '../../../common/rank';
 import { gameBg } from '../../assets/imgConfig'
 
@@ -19,21 +20,49 @@ const numberText = [
     '第九题',
     '第十题',
 ]
-class MidRes extends Component{
+class MidRes extends Component {
     constructor(props) {
         super(props);
-        this.state={
+        this.state = {
             questionNum: null,
             answer: '',
             infomation: [],
-            num:0,
-            totalnum:0,
-            count:global.info.remaintime,
-            input:false,
+            num: 0,
+            totalnum: 0,
+            count: global.info.remaintime,
+            input: false,
+            loading: true,
         }
+        this.getResult = this.getResult.bind(this);
     }
-    
+
     componentWillMount() {
+
+    }
+
+    componentDidMount() {
+        this.timer = setInterval(() => {
+            this.count();
+        }, 1000);
+        this.restimer = setInterval(() => {
+            this.getResult();
+        }, 1000);
+    }
+
+    count() {
+        let count = this.state.count;
+        count = count - 1;
+        if (count === 0) {
+            clearInterval(this.timer);
+            clearInterval(this.restimer);
+            this.props.history.push('/res')
+        }
+        this.setState({
+            count: count
+        })
+    }
+
+    getResult() {
         hyExt.request({
             header: {
             },
@@ -42,13 +71,13 @@ class MidRes extends Component{
             dataType: 'json',
             data: {
                 "gameid": global.info.gameid,
-                "gamewordid":global.info.gamewordid
+                "gamewordid": global.info.gamewordid
             }
         }).then(({ data, statusCode }) => {
-            console.log('----data----')
-            console.log('----data----')
-            console.log('----data----')
-            console.log('----data----')
+            console.log('----B5data----')
+            console.log('----B5data----')
+            console.log('----B5data----')
+            console.log('----B5data----')
             console.log(data)
 
             if (statusCode == 200) {
@@ -57,51 +86,19 @@ class MidRes extends Component{
                 this.setState({
                     questionNum: data.questionNum,
                     answer: answer,
-                    infomation:data.infomation,
+                    infomation: data.infomation,
                     num: data.num,
-                    totalnum:data.totalnum,
-                    input:true, 
+                    totalnum: data.totalnum,
+                    input: true,
+                    loading: false,
                 })
             }
-            
+
         }).catch(err => {
             hyExt.logger.warn('调用失败', err)
         })
     }
-
-    componentDidMount() {
-        this.timer = setInterval(() => {
-            this.count();
-        }, 1000);
-    }
-    
-      count(){
-        let count = this.state.count;
-        count = count - 1;
-        if(count === 0)
-        {
-            clearInterval(this.timer);
-            this.props.history.push('/res')
-            // if (this.state.questionNum <= 8) {
-            //     this.props.history.push('/res')
-            // } else {
-            //     console.log('---end---')
-            //     console.log('---end---')
-
-            //     console.log('---end---')
-
-
-            //     console.log('---end---')
-
-            //     this.props.history.push('/end')
-            // }
-
-        }
-        this.setState({
-            count:count
-        })
-    }
-    render(){
+    render() {
         // let info = [
         //     {
         //         'username': "haha", 
@@ -150,33 +147,45 @@ class MidRes extends Component{
         //     }
         // ]
         console.log('global.info.remaintime');
-         console.log(global.info.remaintime);
-        return(
-            <div className="midres" style={{
-                backgroundImage: `url(${gameBg[this.state.questionNum]})`}}>
-                <div className="midres_header">
-                    <div className="midres_tit">{numberText[this.state.questionNum]}</div>
-                    <TimeProgress theme='black' time={global.info.remaintime}/>
+        console.log(global.info.remaintime);
+
+        if (this.state.loading) {
+            return (
+                <div className="loading"
+                    style={{ backgroundImage: `url(${gameBg[global.info.questionNum]})` }}
+                >
+                    <Spin tip="loading" />
                 </div>
-                <div className="midres_content">
-                    <div className="midres_con">
-                    <div className="midres_con_one">
-                        <span className="midres_span1">我的答案</span>
+            )
+        } else {
+            return (
+                <div className="midres" style={{
+                    backgroundImage: `url(${gameBg[this.state.questionNum]})`
+                }}>
+                    <div className="midres_header">
+                        <div className="midres_tit">{numberText[this.state.questionNum]}</div>
+                        <TimeProgress theme='black' time={global.info.remaintime} />
                     </div>
-                    <div className="midres_input">
-                        {this.state.input && <Input answer={this.state.answer} />}
+                    <div className="midres_content">
+                        <div className="midres_con">
+                            <div className="midres_con_one">
+                                <span className="midres_span1">我的答案</span>
+                            </div>
+                            <div className="midres_input">
+                                <Input answer={this.state.answer} />
+                            </div>
+                        </div>
                     </div>
+                    <div className="midres_footer">
+
+                        <Rank res={this.state.infomation}
+                            totalnum={this.state.totalnum}
+                            num={this.state.num}
+                        />
                     </div>
                 </div>
-                <div className="midres_footer">
-                    {this.state.input && 
-                    <Rank res={this.state.infomation} 
-                          totalnum={this.state.totalnum}
-                          num={this.state.num}
-                    />}
-                </div>
-            </div>
-        )
+            )
+        }
     }
 }
 

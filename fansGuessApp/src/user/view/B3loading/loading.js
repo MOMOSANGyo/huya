@@ -38,8 +38,8 @@ class LoadingView extends Component {
         if(count === 60)
         {
             clearInterval(this.timer);
-            clearInterval(this.timerReq);
-            this.props.history.push('/playing')
+            
+            // this.props.history.push('/playing')
         }
         this.setState({
             count:count,
@@ -81,7 +81,7 @@ class LoadingView extends Component {
     return (
         <div className="loading">
             <div className="loading_title">主播正在熟悉词语</div>
-            <TimeProgress theme='purple' time={60}/>
+            <TimeProgress theme='purple' left="user" />
             <div className="loading_content">词语类别：<span>{this.state.category}</span></div>
         </div>
     )

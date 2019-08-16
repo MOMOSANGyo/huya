@@ -28,7 +28,7 @@ function TimeProgress(props) {
         </div>
         <div className="progress-filler"
           style={{ backgroundColor: props.theme === 'black'? '#474747' : '#d7579f',
-           width: Math.floor((count/60)*232)
+           width: Math.floor((count/time)*232),left:props.left === 'user' ? '60px' :'53px'
         }}
         ></div>
         <div className="progress-number" 

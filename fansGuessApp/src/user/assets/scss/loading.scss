@@ -1,0 +1,12 @@
+@mixin flex-column {
+    display       : flex;
+    flex-direction: column;
+}
+
+.loading {
+    height          : 100%;
+    background-size : cover;
+    @include flex-column();
+    justify-content: center;
+    align-items    : center;
+}

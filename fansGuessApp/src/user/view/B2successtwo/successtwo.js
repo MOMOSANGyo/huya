@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import Rule from '../../components/Rule/index'
 import CountDown from '../../components/CountDown/index'
-import '../success/success.scss'
+import '../B2success/success.scss'
 
 class SuccessTwo extends Component {
     constructor(props) {

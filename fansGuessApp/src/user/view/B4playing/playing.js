@@ -44,16 +44,17 @@ class Playing extends Component{
                 "gameid": global.info.gameid
             }
         }).then(({ data, statusCode }) => {
-            console.log('----answer----')
-            console.log('----answer----')
-            console.log('----answer----')
-            console.log('----answer----')
+            console.log('----B4answer----')
+            console.log('----B4answer----')
+            console.log('----B4answer----')
+            console.log('----B4answer----')
             console.log(data)
             console.log('statusCode')
             console.log(statusCode)
 
             if (statusCode == 200) {
                 console.log('---200--')
+                //通过正确答案渲染输入框个数
                 let answer = [];
                 for (let i = 0; i < data.len; i++) {
                     answer.push('');
@@ -67,7 +68,8 @@ class Playing extends Component{
                     answer:answer,
                     input:true,
                 })
-                global.info.gamewordid = data.gamewordid
+                global.info.gamewordid = data.gamewordid;
+                global.info.questionNum = data.questionNum;
             }
         }).catch(err => {
             console.log('----answer----')
@@ -102,6 +104,7 @@ class Playing extends Component{
             let item = document.getElementById(i).value
             answer = answer + item;
         }
+        var b = answer.toUpperCase();
         console.log(answer)
         hyExt.request({
             header: {
@@ -112,7 +115,7 @@ class Playing extends Component{
             data: {
                 "gameid": global.info.gameid,
                 "gamewordid":global.info.gamewordid,
-                "answer":answer,
+                "answer":b,
                 "time": this.state.count,
             }
         }).then(({ data, statusCode }) => {

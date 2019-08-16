@@ -20,11 +20,24 @@ class MyInput extends Component {
     onChange(index,e){
         //效果还不是很好
         //let res = e.target.value.charAt(e.target.value.length - 1)
+
         let item = this.state.answer;
         item[index] = e.target.value;
         this.setState({
             answer:item
         })
+        console.log(e.target.value)
+
+        // let item = this.state.answer;
+        // console.log(e.target.value)
+        // for(let i = 0;i < e.target.value.length;i++)
+        // {
+        //     item[i] = e.target.value.charAt(i);
+        // }
+        // this.setState({
+        //     answer:item
+        // })
+        
     }
     render() {
         const content = (Object.prototype.toString.call(this.state.answer) == "[object Array]") ?
