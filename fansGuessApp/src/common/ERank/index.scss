@@ -18,7 +18,9 @@
 
 .erank {
     @include flex-row();
-
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
     .erank_container {
         @include flex-column();
         width           : size(600px);

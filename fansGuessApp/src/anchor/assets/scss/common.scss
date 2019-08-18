@@ -5,12 +5,17 @@
 html,
 body {
     position: relative;
-    font-family: "微软雅黑", "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+    font-family: "PingFangSC Light", "微软雅黑", "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
     margin: 0;
     padding: 0;
     height: 100%;
     background:transparent;
     overflow:auto;
+}
+
+@font-face {
+    font-family: "PingFangSC Light";
+    src        : url('../../../common/PingFangSCRegular.ttf');
 }
 
 @font-face {
@@ -21,6 +26,34 @@ body {
 #root, #aroot{
     text-align:center;
     position: relative;
-    height: 561px;
-    width: 359px;
+    height: 100%;
+    width: 100%;
+}
+
+/* 滚动条 */
+::-webkit-scrollbar-thumb:horizontal { /*水平滚动条的样式*/
+    width: 4px;
+    background-color: #CCCCCC;
+    border-radius: 6px;
+}
+::-webkit-scrollbar-track-piece {
+    background-color: #2b2b2b; /*滚动条的背景颜色*/
+    border-radius: 0; /*滚动条的圆角宽度*/
+}
+::-webkit-scrollbar {
+    width: 10px; /*滚动条的宽度*/
+    height: 8px; /*滚动条的高度*/
+}
+::-webkit-scrollbar-thumb:vertical { /*垂直滚动条的样式*/
+    height: 50px;
+    background-color: #999;
+    border-radius: 4px;
+    outline: 2px solid #2b2b2b;
+    outline-offset: -2px;
+    border: 2px solid #2b2b2b;
+}
+::-webkit-scrollbar-thumb:hover { /*滚动条的hover样式*/
+    height: 50px;
+    background-color: #9f9f9f;
+    border-radius: 4px;
 }

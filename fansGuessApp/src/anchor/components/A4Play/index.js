@@ -8,28 +8,28 @@ import { getGameWord, getGameWordInfo } from '../../anchorModel'
 import { getGameID, setGameWordID, getGameWordID } from '../../../utils/util'
 import { gameBg } from '../../assets/imgConfig'
 
-// let arr = [
-//   {
-//     url: "./icon.png",
-//     name: "user",
-//     time: "4秒"
-//   },
-//   {
-//     url: "./icon.png",
-//     name: "user",
-//     time: "5秒"
-//   },
-//   {
-//     url: "./icon.png",
-//     name: "user",
-//     time: "8秒"
-//   },
-//   {
-//     url: "./icon.png",
-//     name: "user",
-//     time: "3秒"
-//   }
-// ];
+let arr = [
+  {
+    url: "./icon.png",
+    name: "user",
+    time: "4秒"
+  },
+  {
+    url: "./icon.png",
+    name: "user",
+    time: "5秒"
+  },
+  {
+    url: "./icon.png",
+    name: "user",
+    time: "8秒"
+  },
+  {
+    url: "./icon.png",
+    name: "user",
+    time: "3秒"
+  }
+];
 
 const numberText = [
   '第一题',
@@ -52,16 +52,16 @@ const PlayView = (props) => {
   const [words, setWords] = useState("");
   const [userNum, setUserNum] = useState(0);
   const [totalNum, setTotalNum] = useState(0);
-  const [success, setSuccess] = useState(false);
+  const [startPolling, setStartPolling] = useState(false);
 
   async function init() {
     const gameid = getGameID();
-    console.log('=======a4getGameID===========', gameid);
+    console.log('=======A4init=====gameid======', gameid);
     const payload = {
       gameid: gameid
     }
     const res = await getGameWord(payload);
-    console.log('====getGameWord=====',res);
+    console.log('====A4init===gamewordid==',res);
     const gamewordid = res.gamewordid;
     setGameWordID(gamewordid);
     const categoryValue = res.category;
@@ -72,11 +72,11 @@ const PlayView = (props) => {
     setCategory(categoryValue);
     setLen(n);
     setWords(text);
+    setStartPolling(true);
   }
 
   useEffect(() => {
     init();
-
   }, [])
 
   useInterval(async () => {
@@ -96,11 +96,10 @@ const PlayView = (props) => {
       const total = res.total;
       setTotalNum(total);
       const listdata = res.userlist;
-      setListData(listdata);
-      setSuccess(true);
+      setListData(listdata.length && listdata || arr);
     }
-    
-  }, 1000);
+  }, startPolling? 1000: null);
+
   function changeTime(time) {
     if(time >= 60) {
       props.history.push('/result');
@@ -123,7 +122,7 @@ const PlayView = (props) => {
           })
         }
       </div>
-      {success && <ScoreList className="score-list" res={listData} num={userNum} total={totalNum} />}
+      <ScoreList className="score-list" res={listData} num={userNum} total={totalNum} />
       <div className="tips">只有5-15人猜对答案才能获胜哦</div>
     </div>
     )

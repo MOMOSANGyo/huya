@@ -7,6 +7,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
+  padding: size(16px) 0px;
   height: 100%;
   width: 100%;
   color: #ffffff;
@@ -24,11 +26,9 @@
 }
 
 .btn-container {
-  position: absolute;
   width: size(686px);
   height: size(88px) !important;
   font-size: size(26px) !important;
-  bottom: size(16px);
   display: flex;
   justify-content: space-between;
 

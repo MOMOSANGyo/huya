@@ -81,10 +81,11 @@ const MainView = (props) => {
             <span className="label-word">开始时间</span>
             <span className="select time-select" onClick={() => {setTimeBoxVis(true)}}>{time == "0"? "现在": `${time}分钟` }<Icon className="select-icon" fill="white" type="caret-down" /></span>
         </div>  
+        {classBoxVis && <div  className="cascader-box"><CascaderBox option={categoryOpt} onChange={handleClassChange}/></div>}
+        {timeBoxVis && <div  className="time-box"><SelectBox option={timpOpt} onChange={handleTimeChange} /></div>}
       </div> 
       <Button className="start-button" onClick={handleClick}>发出邀请</Button>
-      {classBoxVis && <div  className="cascader-box"><CascaderBox option={categoryOpt} onChange={handleClassChange}/></div>}
-      {timeBoxVis && <div  className="time-box"><SelectBox option={timpOpt} onChange={handleTimeChange} /></div>}
+      
     </div>
   )
 }

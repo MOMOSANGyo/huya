@@ -1,3 +1,4 @@
+import scorePhoto0 from './images/0p.png'
 import scorePhoto1 from './images/1p.png'
 import scorePhoto2 from './images/2p.png'
 import scorePhoto3 from './images/3p.png'
@@ -10,6 +11,7 @@ import scorePhoto9 from './images/9p.png'
 import scorePhoto10 from './images/10p.png'
 
 export const scoreImg = [
+  scorePhoto0,
   scorePhoto1,
   scorePhoto2,
   scorePhoto3,

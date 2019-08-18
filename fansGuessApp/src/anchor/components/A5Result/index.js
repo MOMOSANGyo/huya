@@ -113,14 +113,14 @@ const ResultView = (props) => {
         <span className="h-number">{numberText[gameNumber]}</span>
         <span className="h-text">{words}</span>
       </div>
-      <ResultProgress style={{ marginTop: 8 }} rightPeople={winNum} totle={totalNum} />
+      <ResultProgress rightPeople={winNum} totle={totalNum} />
       <div className="result-text" >{`共 `}
         <span className="result-people"
           style={{ color: (winNum < Math.floor(totalNum/4) || winNum > Math.floor((totalNum/4) *3))?
           '#ff6b6b': '#ffde00' }}
         >{winNum}</span>
       {renderText()}</div>
-        {success && <EndRank res={listData} fRes={errWords} number={5} fNumber={5} />}
+        {success && <EndRank res={listData} fRes={errWords} number={3} fNumber={3} />}
       <Button className="next-btn" onClick={handleClick}>下一题</Button>
     </div>
     )

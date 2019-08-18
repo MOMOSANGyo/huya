@@ -36,7 +36,7 @@ let arr = [
 
 const ScoreView = (props) => {
   const [listData, setListData] = useState([]);
-  const [lastScore, setLastScore] = useState(1);
+  const [lastScore, setLastScore] = useState(0);
   const [totalNum, setTotalNum] = useState(0);
   const [showtext, setShowText] = useState("这么强！你是魔鬼吗");
 
@@ -86,7 +86,7 @@ const ScoreView = (props) => {
 
     return (
       <div className="a6-container">
-        <div style={{ marginTop: 20,  }}>我的得分</div>
+        <div>我的得分</div>
         <div className="totalscore-text" 
           style={{backgroundImage: `url(${scoreImg[lastScore]})`}}
         >

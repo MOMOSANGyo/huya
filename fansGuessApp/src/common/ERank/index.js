@@ -57,6 +57,21 @@ class ERank extends Component {
         })
     }
 
+    static getDerivedStateFromProps(props, state) {
+        console.log('===getDerivedStateFromProps===', props);
+        if(state.allres !== props.res){
+            return{
+                res: props.res.slice(0, props.number),
+                allres: props.res,
+                length: props.res.length, 
+                number: props.number,
+            }
+        }
+        else {
+            return null;
+        }
+    }
+
     Switch(){
         if ((this.state.currentPage + 1) * this.state.number < this.state.length) {
             let startindex = (this.state.currentPage + 1) * this.state.number;

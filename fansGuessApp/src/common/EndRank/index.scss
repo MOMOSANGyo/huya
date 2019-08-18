@@ -17,6 +17,9 @@
 }
 .endrank {
     @include flex-row();
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
     .endrank_header{
         @include flex-row();
         height: size(40px);

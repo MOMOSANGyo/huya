@@ -7,11 +7,12 @@
   z-index: -2;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   height: 100%;
   width: 100%;
+  padding: size(16px) 0px;
   background-size: cover;
   .question-header {
-    margin-top: size(16px);
     display: flex;
     width: size(644px);
     .h-number {
@@ -42,12 +43,10 @@
 }
 
 .next-btn {
-  position: absolute !important;
   z-index: 1;
   width: size(686px);
   height: size(88px) !important;
   font-size: size(26px) !important;
-  bottom: size(16px);
   border: 0px !important;
   color: #ffffff !important;
   background-color: #f1574f !important;

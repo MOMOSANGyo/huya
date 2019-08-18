@@ -172,7 +172,7 @@ class MidRes extends Component {
                                 <span className="midres_span1">我的答案</span>
                             </div>
                             <div className="midres_input">
-                                <Input answer={this.state.answer} />
+                                <Input answer={this.state.answer} disabled={true}/>
                             </div>
                         </div>
                     </div>
