@@ -7,12 +7,15 @@
   z-index: -2;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
+  color: #ffffff;
   height: 100%;
   width: 100%;
+  padding: size(16px) 0px;
   background-image: url(./images/a2-bg.png);
   background-size: cover;
   .a2-close {
-    z-index: 1;
+    z-index: 5;
     width: size(64px);
     height: size(64px);
     position: absolute;
@@ -27,7 +30,6 @@
   }
   .img-box {
     z-index: 1;
-    margin-top: size(254px);
     width: size(686px);
     height: size(314px);
   }
@@ -40,7 +42,6 @@
 
 .join-text {
   z-index: 1;
-  margin-top: size(112px);
   font-size: size(28px);
   .join-number {
     z-index: 1;
@@ -59,11 +60,10 @@
 
 .start-btn {
   z-index: 1;
-  position: absolute !important;
+  position: relative !important;
   width: size(686px);
   height: size(88px) !important;
   font-size: size(26px) !important;
-  bottom: size(16px);
   border: 0px !important;
   color: #ffffff !important;
   background-color: #f1574f !important;

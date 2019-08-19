@@ -1,0 +1,51 @@
+.successtwo {
+  width: 100%;
+  height: 100%;
+  background-image: url("./assets/bg.png");
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  color: #fff;
+}
+
+.successtwo .successtwo_title {
+  width: 100%;
+  max-width: 300px;
+}
+
+.successtwo .suc_p {
+  margin-bottom: 5px;
+}
+
+.successtwo .successtwo_tick {
+  max-width: 50px;
+}
+
+.successtwo .successtwo_button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.successtwo .successtwo_button div {
+  line-height: 44px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.successtwo .successtwo_button .successtwo_btn_one {
+  width: 150px;
+  color: #fff;
+  height: 44px;
+  background-color: #f1574f;
+  margin-right: 13px;
+}
+
+.successtwo .successtwo_button .successtwo_btn_two {
+  width: 150px;
+  height: 44px;
+  color: #f1574f;
+  border: #f1574f solid 1px;
+}

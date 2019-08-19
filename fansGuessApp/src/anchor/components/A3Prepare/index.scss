@@ -6,6 +6,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
+  padding: size(16px) 0px;
   height: 100%;
   width: 100%;
   color: #ffffff;
@@ -13,19 +15,18 @@
 }
 
 .ok-btn {
-  position: absolute !important;
   z-index: 1;
   width: size(686px);
   height: size(88px) !important;
   font-size: size(26px) !important;
-  bottom: size(16px);
   border: 0px !important;
   color: #ffffff !important;
   background-color: #f1574f !important;
 }
 
 .prepare-words {
-  margin-top: size(38px);
+  height: size(360px);
+  overflow: auto;
   .detail-text {
     width: size(480px);
     height: size(48px);

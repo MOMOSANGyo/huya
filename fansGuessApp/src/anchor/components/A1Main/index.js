@@ -4,33 +4,30 @@ import api from '../../../service/api'
 import { Button, Icon, Cascader, Select } from 'antd'
 import SelectBox from '../TabControl/SelectBox'
 import CascaderBox from '../TabControl/CascaderBox'
+import { getInitData, setInviteData } from '../../anchorModel'
+import { setGameID } from '../../../utils/util'
 const MainView = (props) => {
   console.log('==========Main=============',props);
-  const [sourceData, setSourceData] = useState({});
-  const [time, setTime] = useState("现在");
+  const [categoryOpt, setCategoryOpt] = useState();
+  const [timpOpt, setTimpOpt] = useState();
+  const [time, setTime] = useState();
   const [timeBoxVis, setTimeBoxVis] = useState(false);
-  const [category, setCategory] = useState("王者荣耀");
+  const [category, setCategory] = useState();
   const [classBoxVis, setClassBoxVis] = useState(false);
 
   async function init() {
     console.log('--request---');
-    hyExt.request({
-      header: {
-      },
-      url: 'http://zaccc.lzok.top/anchor/index/',
-      method: 'POST',
-      dataType: 'json',
-      data: {}
-    }).then((res) => {
-      hyExt.logger.info('调用成功', res);
-      console.log('--data--',res);
-    }).catch(err => {
-      hyExt.logger.warn('调用失败', err)
-      console.log('---err--', err);
-    });
+    const initData = await getInitData()
+    console.log('=====getInitData=======', initData);
+    const { category, time } = initData;
+    setCategoryOpt(category);
+    setTimpOpt(time);
+    const data = Object.keys(category || []);
+
+    setCategory(category[data[0]][0]);
+    setTime(time[0]);
   }
   useEffect(() => {
-    console.log('--------init------');
     init();
   },[]);
 
@@ -48,6 +45,22 @@ const MainView = (props) => {
     }
     setClassBoxVis(false);
   }
+
+  async function handleInvite(payload) {
+    const res = await setInviteData(payload);
+    console.log('----invite----', res);
+    setGameID(res.gameid);
+    props.history.push('/loading');
+  }
+
+  function handleClick() {
+    const payload = {
+      categoryname: category,
+      time: time
+    }
+    handleInvite(payload);
+  }
+
   return (
     <div className="a1-container">
       <div className="title-img"></div>
@@ -66,12 +79,13 @@ const MainView = (props) => {
         </div>
         <div className="start-time">
             <span className="label-word">开始时间</span>
-            <span className="select time-select" onClick={() => {setTimeBoxVis(true)}}>{time}<Icon className="select-icon" fill="white" type="caret-down" /></span>
+            <span className="select time-select" onClick={() => {setTimeBoxVis(true)}}>{time == "0"? "现在": `${time}分钟` }<Icon className="select-icon" fill="white" type="caret-down" /></span>
         </div>  
+        {classBoxVis && <div  className="cascader-box"><CascaderBox option={categoryOpt} onChange={handleClassChange}/></div>}
+        {timeBoxVis && <div  className="time-box"><SelectBox option={timpOpt} onChange={handleTimeChange} /></div>}
       </div> 
-      <Button className="start-button" onClick={() => {props.history.push('/loading')}}>发出邀请</Button>
-      {classBoxVis && <div  className="cascader-box"><CascaderBox onChange={handleClassChange}/></div>}
-      {timeBoxVis && <div  className="time-box"><SelectBox onChange={handleTimeChange} /></div>}
+      <Button className="start-button" onClick={handleClick}>发出邀请</Button>
+      
     </div>
   )
 }

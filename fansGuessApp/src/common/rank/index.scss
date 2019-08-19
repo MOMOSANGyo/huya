@@ -1,0 +1,77 @@
+@function size($px) {
+    @return $px / 2;
+}
+
+
+.rank{
+    width:size(687px);
+    height:size(522px);
+    border-radius: size(8px);
+    color:#ffffff;
+     background-color: rgba(0, 0, 0, 0.5);
+    .rank_title{
+        height: size(44px);
+        line-height: size(44px);
+        background-color: rgba(0, 0, 0, 0.6);
+        border-top-left-radius: size(8px);
+        border-top-right-radius: size(8px);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        .rank_tit_span1{
+            margin-left: 8px;
+            font-size: 13px;
+        }
+        .rank_tit_span2{
+            margin-right: 8px;
+            font-size: size(22px);
+        }
+    }
+    .rank_content{
+        height: size(478px);
+        border-bottom-left-radius: size(8px);
+        border-bottom-right-radius: size(8px);
+        .rank_con_list{
+            font-size: size(22px);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            height: size(68px);
+            position: relative;
+            .avatar {
+                margin-left: size(44px);
+                display: inline;
+                .ava_img {
+                    width : size(52px);
+                    height: size(52px);
+                }
+            }
+            .list_name{
+               width: size(260px);
+                margin-left: size(12px);
+                text-overflow:ellipsis;
+                 white-space: nowrap;
+                 overflow: hidden;
+                 height: size(32px);
+                 line-height: size(32px);
+                 text-align: left;
+            }
+            .list_answer{
+                text-overflow:ellipsis; 
+                white-space: nowrap;
+                height: size(32px);
+                line-height: size(32px);
+                width: size(165px);
+                overflow: hidden;   
+                background-color: #000;
+                font-size: size(22px);
+                text-align: center;
+            }
+
+            .list_time{
+               position: absolute;
+               right: size(44px);
+            }
+        }
+    }
+}

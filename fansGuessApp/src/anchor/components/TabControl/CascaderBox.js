@@ -6,19 +6,19 @@ function CascaderBox(props) {
   const [value, setValue] = useState([true]);
   const [classKeys, setClassKeys] = useState(['游戏', '网络', '日常']);
   const [detailKeys, setDetailKeys] = useState(['王者荣耀','英雄联盟','LOL','绝地求生']);
-  const boxOption = {
+  const boxOption = props.option || {
     '游戏': ['王者荣耀','英雄联盟','LOL','绝地求生'],
     '网络': ['123','123','345','456'],
     '日常': ['asfsafsf','dsfasdf','weasdf']
   }
   
   useEffect(() => {
-    const data = Object.keys(boxOption);
+    const data = Object.keys(boxOption || []);
     console.log('--classKeys--', data);
     setClassKeys(data);
     setDetailKeys(boxOption[data[0]]);
 
-  }, []);
+  }, [props.option]);
 
 
   function handleClick(value) {

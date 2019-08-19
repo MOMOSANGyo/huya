@@ -16,12 +16,12 @@ var api = {
 
         console.log('-----请求------', requestParam);
         return new Promise((resolve, reject) => {
-            hyExt.requestEbs(requestParam)
-            .then(({ data, statusCode, header }) => {                
-                if(statusCode != 200 || !entity) {
+            hyExt.request(requestParam)
+            .then(({ data, statusCode, header }) => {               
+                if(statusCode != 200 || !data) {
                     console.log('接口异常', data);
                 }
-                console.log('响应', data, statusCode, header);
+                console.log('响应', data, statusCode, header );
                 const resp = typeof data == 'string' ? JSON.parse(data) : data;
                 resolve(resp);
             }).catch(err => {

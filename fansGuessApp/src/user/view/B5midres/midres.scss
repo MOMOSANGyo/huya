@@ -1,0 +1,54 @@
+@function size($px) {
+    @return $px / 2;
+}
+
+@mixin flex-row {
+    display        : flex;
+    flex-direction : row;
+    justify-content: center;
+    align-items    : center;
+}
+
+@mixin flex-column {
+    display        : flex;
+    flex-direction : column;
+    justify-content: center;
+    align-items    : center;
+}
+
+.midres {
+    height          : 100%;
+    background-image: url('./assets/bg.png');
+    background-size: cover;
+    position: relative;
+    .midres_header {
+        display        : flex;
+        flex-direction : column;
+        justify-content: center;
+        align-items    : center;
+
+        .midres_tit {
+            height     : size(56px);
+            font-size  : size(30px);
+            color      : #000000;
+            margin-top: size(28px);
+            margin-bottom:size(-18px);
+        }
+    }
+    .midres_content{
+        height: 170px;
+        @include flex-column();
+        .midres_con{
+            margin-top: size(-50px);
+        .midres_con_one{    
+                margin-bottom: size(16px);
+        }
+    }
+    }
+    .midres_footer{
+        position: absolute;
+        bottom: size(80px);
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}

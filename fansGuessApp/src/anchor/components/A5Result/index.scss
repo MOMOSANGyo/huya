@@ -7,12 +7,12 @@
   z-index: -2;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   height: 100%;
   width: 100%;
-  background-image: url(../../assets/images/a4-bg1.png);
+  padding: size(16px) 0px;
   background-size: cover;
   .question-header {
-    margin-top: size(16px);
     display: flex;
     width: size(644px);
     .h-number {
@@ -33,14 +33,20 @@
     }
   }
 }
+.result-text {
+  font-family: 'HYLiLiangHeiJ';
+  font-size: size(36px);
+  color: #ffffff;
+  .result-people {
+    font-size: size(70px);
+  }
+}
 
 .next-btn {
-  position: absolute !important;
   z-index: 1;
   width: size(686px);
   height: size(88px) !important;
   font-size: size(26px) !important;
-  bottom: size(16px);
   border: 0px !important;
   color: #ffffff !important;
   background-color: #f1574f !important;

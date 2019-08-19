@@ -1,0 +1,73 @@
+.success {
+  width: 100%;
+  height: 100%;
+  background-image: url("./assets/bg.png");
+}
+
+.success .success_flex {
+  height: 530px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  color: #fff;
+}
+
+.success .success_flex .success_title {
+  height: 234px;
+  width: 312px;
+}
+
+.success .success_flex .suc_p {
+  margin-bottom: 5px;
+}
+
+.success .success_flex .success_tick {
+  max-width: 50px;
+}
+
+.success .success_flex .success_p1 {
+  font-size: 20px;
+}
+
+.success .success_flex .success_p2 {
+  font-size: 14px;
+}
+
+.success .success_flex .success_p2 .success_p2_time {
+  margin-right: 2px;
+}
+
+.success .success_button {
+  width: 376px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-around;
+  position: absolute;
+  bottom: 0;
+}
+
+.success .success_button div {
+  line-height: 44px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.success .success_button .success_btn_one {
+  width: 165px;
+  color: #fff;
+  height: 44px;
+  background-color: #f1574f;
+  margin-right: 13px;
+  border-radius: 4px;
+  margin-left: 16px;
+}
+
+.success .success_btn_two {
+  width: 165px;
+  height: 44px;
+  color: #f1574f;
+  border: #f1574f solid 1px;
+  border-radius: 4px;
+  margin-right: 16px;
+}

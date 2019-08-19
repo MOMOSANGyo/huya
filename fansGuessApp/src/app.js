@@ -1,23 +1,39 @@
 import React from 'react'
 import { render } from 'react-dom'
-import classnames from 'classnames'
-import Avatar from './user/components/Avatar'
-import MainView from './anchor/components/A1Main'
-import LoadingView from './anchor/components/A2Loading'
-import PrepareView from './anchor/components/A3Prepare'
-import PlayView from './anchor/components/A4Play'
+
+
+
+import FirstOne from './user/view/B0first/first'
+import Home from './user/view/B1home/home'
+import Success from './user/view/B2success/success'
+import Loading from './user/view/B3loading/loading'
+import Playing from './user/view/B4playing/playing'
+import MidRes from './user/view/B5midres/midres'
+import ResultView from './user/view/B6result/result';
+import EndRes from './user/view/B7eres/eres'
+
+import SuccessTwo from './user/view/B2successtwo/successtwo'
+
 import 'antd/dist/antd.css'
 import './user/assets/scss/common.scss'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import HomeTwo from './user/view/B1hometwo/hometwo';
+
 
 render(
   (
     <Router>
       <Switch>
-        <Route exact path="/" component={MainView} />
-        <Route path="/loading" component={LoadingView} />
-        <Route path="/prepare" component={PrepareView} />
-        <Route path="/play" component={PlayView} />
+        <Route exact path="/" component={FirstOne} />
+        <Route path="/home" component={Home} />
+        <Route path="/home2" component={HomeTwo} />
+        <Route path="/success" component={Success} />
+        <Route path="/success2" component={SuccessTwo} />
+        <Route path="/loading" component={Loading} />
+        <Route path="/playing" component={Playing} />
+        <Route path="/midres" component={MidRes} />
+        <Route path="/res" component={ResultView}/>
+        <Route path="/end" component={EndRes} />
       </Switch>
     </Router>
   ),

@@ -18,13 +18,15 @@
 
 .erank {
     @include flex-row();
-
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
     .erank_container {
         @include flex-column();
         width           : size(600px);
         color           : #ffffff;
         background-color: rgba(0, 0, 0, 0.5);
-
+        border-radius: size(8px);
         .erank_header {
             display       : flex;
             flex-direction: row;
@@ -59,7 +61,7 @@
                 display       : flex;
                 flex-direction: row;
                 align-items   : center;
-                height        : size(66px);
+                height        : size(50px);
                 margin-top    : size(16px);
                 margin-bottom : size(16px);
                 .list_pre{

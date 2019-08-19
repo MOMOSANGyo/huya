@@ -1,0 +1,15 @@
+@function size($px) {
+    @return $px / 2;
+}
+
+.rule{
+    color:#fff;
+    .rule_title{
+        font-size: size(26px);
+        margin-bottom: size(32px);
+    }
+    .rule_content{
+        text-align: left;
+        font-size: size(20px);
+    }
+}

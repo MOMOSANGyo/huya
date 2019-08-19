@@ -3,12 +3,21 @@ import './index.scss'
 
 
 function List(props){
+    console.log('props.res');
+    console.log('props.res');
+
+    console.log('props.res');
+    console.log('props.res');
+
+    console.log(props.res);
+    console.log('======props=====', props);
+
     return(
-        (Object.prototype.toString.call(props.res) == "[object Array]") ?
+        (Object.prototype.toString.call(props.res) == "[object Array]") &&
             (
                 <div >
                     {props.res.map((item, index) =>
-                        <div key={index} className="endrank_con_list">
+                        <div key={index} className="endrank_con_list" style={{ backgroundColor: item.name === "我" ? 'rgba(0, 0, 0, 0.7)' : 'rgba(0, 0, 0, 0.5)' }}>
                             <span className="endrank_list_index">{props.currentPage * props.number + (index + 1)}</span>
                             <span>
                                 <div className="avatar">
@@ -16,11 +25,11 @@ function List(props){
                                 </div>
                             </span>
                             <span className="list_name">{item.name}</span>
-                            <span className="list_time">{item.time}</span>
+                            <span className="list_time">{item.time}秒</span>
                         </div>
                     )}
                 </div>
-            ) : (<div>请重新进入</div>)
+            ) 
 
     )
 }
@@ -31,7 +40,7 @@ function FalseList(props){
             (
                 <div >
                     {props.res.map((item, index) =>
-                        <div key={index} className="endrank_false_list">
+                        <div key={index} className="endrank_false_list" style={{ backGroundColor: props.myanswer && 'rgba(0, 0, 0, 0.7)' }}>
                             {item}
                         </div>
                     )}
@@ -89,7 +98,7 @@ class EndRank extends Component {
                 let endindex = startindex + this.state.fNumber;
 
                 let item = this.state.allfRes.slice(startindex, endindex);
-                console.log(item);
+               
                 this.setState({
                     fCurrentPage: this.state.fCurrentPage + 1,
                     fRes: item,
@@ -100,25 +109,32 @@ class EndRank extends Component {
 
    changeTrue(){
        this.setState({
-           isTrue:!this.state.isTrue
+           isTrue:true,
        })
    }
+
+    changeFalse() {
+        this.setState({
+            isTrue: false,
+        })
+    }
     
     render() {
-        
+        console.log('==render==', this.state);
         return (
             <div className="endrank">
-                <div className="endrank_header">
-                    <div className="header_t" 
-                     style={{ backgroundColor: this.state.isTrue ? '#4355ff' : '#000000'}}
-                     onClick={this.changeTrue.bind(this)}>答对排名</div>
-
-                    <div className="header_f" 
-                    style={{ backgroundColor: this.state.isTrue ? '#000000' : '#f1574f' }}
-                    onClick={this.changeTrue.bind(this)}>错误回答</div>
-                </div>
+               
                 <div className="endrank_container">
-                <div className="endrank_con" style={{height:this.state.isTrue?(this.state.number*49 +'px'):this.state.fNumber*33+'px'}}>
+                    <div className="endrank_header">
+                        <div className="header_t"
+                            style={{ backgroundColor: this.state.isTrue ? '#4355ff' : '#000000', zIndex:this.state.isTrue?'99':'0'}}
+                            onClick={this.changeTrue.bind(this)}>答对排名</div>
+
+                        <div className="header_f"
+                            style={{ backgroundColor: this.state.isTrue ? '#000000' : '#f1574f', zIndex:this.state.isTrue?'0':'99' }}
+                            onClick={this.changeFalse.bind(this)}>错误回答</div>
+                    </div>
+                <div className="endrank_con" style={{height:this.state.isTrue?(this.state.number*33 + 8  +'px'):this.state.fNumber*33+'px'}}>
                    {this.state.isTrue ? 
                    <List res = {this.state.res} 
                    currentPage={this.state.currentPage} 
@@ -126,9 +142,10 @@ class EndRank extends Component {
                    /> : 
                    <FalseList res={this.state.fRes} number="props.fNumber"/>}
                 </div>
-                <div onClick={this.Switch.bind(this)}>
-                        <img className="endrank_btn" src={require("./btn.png")} />
+                
                 </div>
+                <div onClick={this.Switch.bind(this)}>
+                    <img className="endrank_btn" src={require("./btn.png")} />
                 </div>
             </div>
             
