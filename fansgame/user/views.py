@@ -16,19 +16,18 @@ def index(request):
         token_data = jwt.decode(a, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
         print(token_data)
         record = GameRecord.objects.filter(anchorid=token_data["profileId"],roomdid=token_data["roomId"]).last()
-        statusbool = GameStatus.objects.filter(gameid=record.id).exists()
-        time = GameTime.objects.get(id=record.gametimeid)
-        if statusbool:
-            status = GameStatus.objects.get(gameid=record.id)
-            if not status.gamestatus:
-
-
+        if record:
+            if GameStatus.objects.get(gameid=record.id).gamestatus==0:
+                time = GameTime.objects.get(id=record.gametimeid)
                 data = {
-                    "gameid":record.id,
-                    "time":time.time
+                    "gameid": record.id,
+                    "time": time.time
                 }
                 print(data)
                 return JsonResponse(data)
+
+
+
 
         else:
             data ={}
@@ -203,11 +202,22 @@ def push(request):
             gameuser.save()
 
         data = {}
+        gameuser = GameUser.objects.filter(gameid=pass_data["gameid"], gamewordid=pass_data["gamewordid"]).values("userid").distinct()
+        for u in gameuser:
+            score = GameUser.objects.filter(userid=u["userid"], gameid=pass_data["gameid"], answerbool=1).count()
+            time = GameUser.objects.filter(userid=u["userid"], gameid=pass_data["gameid"])
+            total_time = 0
+            for t in time:
+                total_time = total_time + int(t.usertime)
+            userrecord = UserRecord.objects.get(gameid=pass_data["gameid"],useid=u['userid'])
+            userrecord.total_time = total_time
+            userrecord.total_score = score
+
+            userrecord.save()
         print(data)
         return JsonResponse(data)
 
     return HttpResponse('okb4')
-
 
 def displayanswer(request):
     if request.method == 'POST':
@@ -270,7 +280,7 @@ def public(request):
         pass_data = json.loads(request.body)  # 解析前端传过来的参数
         print(pass_data)
         questionnum = GameWord.objects.get(id=pass_data["gamewordid"])
-        answer = GameUser.objects.filter(userid=token_data['userId'], gameid=pass_data["gameid"]).last().useranswer
+        answer = GameUser.objects.filter(userid=token_data['userId'], gameid=pass_data["gameid"],gamewordid=pass_data["gamewordid"]).last().useranswer
         total = GameRecord.objects.get(id=pass_data["gameid"]).personnum
 
         gamestatus = GameStatus.objects.get(gameid=pass_data["gameid"]).gamestatus
@@ -338,11 +348,8 @@ def public(request):
             status = GameWord.objects.get(id=pass_data["gamewordid"] + 1).used
         else:
             status=0
-
-
-
-
-
+        rrate = str(int((1-rrate)*100))+"%"
+        srate = str(int((1-srate)*100))+"%"
 
 
         data = {
@@ -354,8 +361,8 @@ def public(request):
             "rightNum": num,
             "totalnum": total,
             "wrongAnswer":wronganswer,
-            "right_rate":1-rrate,
-            "speed_rate":1-srate,
+            "right_rate":rrate,
+            "speed_rate":srate,
             "status":status,
             "gamestatus":gamestatus
         }
@@ -374,34 +381,20 @@ def last(request):
         pass_data = json.loads(request.body)  # 解析前端传过来的参数
         print(pass_data)
         total = GameRecord.objects.get(id=pass_data["gameid"]).personnum
-        gameuser = GameUser.objects.filter(gameid=pass_data["gameid"], gamewordid=pass_data["gamewordid"]).values("userid").distinct()
-        gameuserinfo = []
-        # self = Info.objects.get(userid=token_data['userId']).username
-        for u in gameuser:
-            # us = Info.objects.get(userid=u.userid)
-            # name = us.username
-            # if name == self:
-            #     name = "我"
-
-            score = GameUser.objects.filter(userid=u["userid"], gameid=pass_data["gameid"], answerbool=1).count()
-            time = GameUser.objects.filter(userid=u["userid"], gameid=pass_data["gameid"])
-            total_time = 0
-            for t in time:
-                total_time = total_time + int(t.usertime)
-            # gameuserinfo.append({
-            #     "usrid": u["userid"],
-            #     "url": us.pricture,
-            #     "name": name,
-            #     "usertime": total_time,
-            #     "userscore": score
-            # })
-
-            userrecord = UserRecord.objects.get(gameid=pass_data["gameid"],useid=token_data['userId'])
-            userrecord.total_time = total_time
-            userrecord.total_score = score
-
-            userrecord.save()
+        # gameuser = GameUser.objects.filter(gameid=pass_data["gameid"], gamewordid=pass_data["gamewordid"]).values("userid").distinct()
+        # for u in gameuser:
+        #     score = GameUser.objects.filter(userid=u["userid"], gameid=pass_data["gameid"], answerbool=1).count()
+        #     time = GameUser.objects.filter(userid=u["userid"], gameid=pass_data["gameid"])
+        #     total_time = 0
+        #     for t in time:
+        #         total_time = total_time + int(t.usertime)
+        #     userrecord = UserRecord.objects.get(gameid=pass_data["gameid"],useid=u['userid'])
+        #     userrecord.total_time = total_time
+        #     userrecord.total_score = score
+        #
+        #     userrecord.save()
         self = Info.objects.get(userid=token_data['userId']).username
+        gameuserinfo = []
         record = UserRecord.objects.filter(gameid=pass_data["gameid"]).order_by("-total_score","total_time")
         for r in record:
             us = Info.objects.get(userid=r.useid)
@@ -432,11 +425,12 @@ def last(request):
             i+=1
             if r.useid == token_data['userId']:
                 vrate = 1 - i/total
-
         score = GameUser.objects.filter(userid=token_data['userId'],gameid=pass_data["gameid"],answerbool=1).count()
         status = GameStatus.objects.get(gameid=pass_data["gameid"])
         status.gamestatus =2
         status.save()
+        srate = str(srate*100)+"%"
+        vrate = str(vrate*100)+"%"
         print(gameuserinfo)
 
 

@@ -1,27 +1,16 @@
-import hashlib
-import json
-import os
-import re
-from datetime import datetime
-from random import randint
-import random
 
-from django.core.paginator import Paginator
-from django.db import connection
-from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
-from django.shortcuts import render, redirect
-import requests, json
+import random
+from django.http import HttpResponse, JsonResponse
+import json
 from anchor.models import *
-from django.db.models import Sum
 import jwt
-import time,datetime
+import time
 
 
 def index(request):
     if request.method == 'POST':
         a = request.META.get("HTTP_AUTHORIZATION")
         token_data = jwt.decode(a, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
-
         category = WordCategory.objects.filter(parentid=0)
         data = {}
         data["category"] = {}
@@ -52,6 +41,7 @@ def invite(request):
         a = request.META.get("HTTP_AUTHORIZATION")
         token_data = jwt.decode(a, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
         t = int(time.time())
+        #如果主播非正常退出的话 做一个判断如果在同一房间号同一主播下的游戏状态为0就不能够开始新游戏
         gamerecord = GameRecord(anchorid=token_data["profileId"], personnum=0,roomdid=token_data["roomId"],time=t)
         gamerecord.save()
 
@@ -225,9 +215,10 @@ def word(request):
 
         pass_data = json.loads(request.body)  # 解析前端传过来的参数
         print(pass_data)
-        status = GameStatus.objects.get(gameid=pass_data["gameid"])
-        status.gamestatus=1
-        status.save()
+        if GameStatus.objects.get(gameid=pass_data["gameid"]).gamestatus!=1:
+            status = GameStatus.objects.get(gameid=pass_data["gameid"])
+            status.gamestatus=1
+            status.save()
 
         categoryid = GameRecord.objects.get(id = pass_data["gameid"])
         category = WordCategory.objects.get(id = categoryid.wordsmallcategoryid).categoryname
@@ -254,25 +245,6 @@ def word(request):
 
     return HttpResponse('oka4')
 #判断词语进行到那里 从10到1的转换
-
-def next(request):
-    if request.method == 'POST':
-        a = request.META.get("HTTP_AUTHORIZATION")
-        token_data = jwt.decode(a, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
-        print(token_data)  # 打印解析后的token
-
-        pass_data = json.loads(request.body)  # 解析前端传过来的参数
-        print(pass_data)
-        gamenum = GameWord.objects.filter(gameid=pass_data["gameid"], used=1).last()
-        if gamenum.round<9:
-            tgamenum = GameWord.objects.get(id=gamenum.id+1)
-            tgamenum.used=1
-            tgamenum.save()
-        data = {}
-        print(data)
-        return JsonResponse(data)
-
-    return HttpResponse('oka4')
 
 def wordinfo(request):
     if request.method == 'POST':
@@ -310,6 +282,24 @@ def wordinfo(request):
 
     return HttpResponse('oka4')
 
+def next(request):
+    if request.method == 'POST':
+        a = request.META.get("HTTP_AUTHORIZATION")
+        token_data = jwt.decode(a, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
+        print(token_data)  # 打印解析后的token
+
+        pass_data = json.loads(request.body)  # 解析前端传过来的参数
+        print(pass_data)
+        gamenum = GameWord.objects.filter(gameid=pass_data["gameid"], used=1).last()
+        if gamenum.round<9:
+            tgamenum = GameWord.objects.get(id=gamenum.id+1)
+            tgamenum.used=1
+            tgamenum.save()
+        data = {}
+        print(gamenum.id)
+        return JsonResponse(data)
+
+    return HttpResponse('oka5')
 
 def wordgrade(request):
     if request.method == 'POST':
