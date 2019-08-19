@@ -8,28 +8,28 @@ import { getGameWord, getGameWordInfo } from '../../anchorModel'
 import { getGameID, setGameWordID, getGameWordID } from '../../../utils/util'
 import { gameBg } from '../../assets/imgConfig'
 
-let arr = [
-  {
-    url: "./icon.png",
-    name: "user",
-    time: "4秒"
-  },
-  {
-    url: "./icon.png",
-    name: "user",
-    time: "5秒"
-  },
-  {
-    url: "./icon.png",
-    name: "user",
-    time: "8秒"
-  },
-  {
-    url: "./icon.png",
-    name: "user",
-    time: "3秒"
-  }
-];
+// let arr = [
+//   {
+//     url: "./icon.png",
+//     name: "user",
+//     time: "4秒"
+//   },
+//   {
+//     url: "./icon.png",
+//     name: "user",
+//     time: "5秒"
+//   },
+//   {
+//     url: "./icon.png",
+//     name: "user",
+//     time: "8秒"
+//   },
+//   {
+//     url: "./icon.png",
+//     name: "user",
+//     time: "3秒"
+//   }
+// ];
 
 const numberText = [
   '第一题',
@@ -96,7 +96,7 @@ const PlayView = (props) => {
       const total = res.total;
       setTotalNum(total);
       const listdata = res.userlist;
-      setListData(listdata.length && listdata || arr);
+      setListData(listdata || []);
     }
   }, startPolling? 1000: null);
 

@@ -91,7 +91,7 @@ class ERank extends Component {
             <div className="erank">
                 <div className="erank_container">
                 <div className="erank_header">
-                    <span className="erank_header_span1">排名(共{this.state.total}人)</span>
+                    <span className="erank_header_span1">排名(共{this.props.total}人)</span>
                     <span className="erank_header_span2">总分</span>
                     <span className="erank_header_span3">用时</span>
                 </div>
