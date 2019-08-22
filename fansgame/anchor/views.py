@@ -7,6 +7,10 @@ import jwt
 import time
 
 
+
+
+
+
 def index(request):
     if request.method == 'POST':
         a = request.META.get("HTTP_AUTHORIZATION")
@@ -33,6 +37,30 @@ def index(request):
 
     return HttpResponse('oka1')
 
+
+def pre(request):
+    if request.method == 'POST':
+        a = request.META.get("HTTP_AUTHORIZATION")
+        token_data = jwt.decode(a, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
+        gameid = GameRecord.objects.filter(anchorid=token_data["profileId"],roomdid=token_data["roomId"]).last()
+        gamestatus = GameStatus.objects.get(gameid=gameid.id).gamestatus
+        if gamestatus==1:
+            gameword = GameWord.objects.filter(gameid=gameid.id,used=1).last()
+            data={
+                "status":gamestatus,
+                "questionnum":gameword.round,
+                # "gameis":gameid.id
+            }
+
+        else:
+
+            data = {
+                "status":gamestatus
+            }
+        print(data)
+        return JsonResponse(data)
+
+    return HttpResponse('ok')
 
 
 
@@ -84,6 +112,9 @@ def wait(request):
             "time":gametime.time,
             # "num":gamerecord.personnum
         }
+        status = GameStatus.objects.get(gameid=pass_data["gameid"])
+        status.gamestatus = 4
+        status.save()
         print(data)
         return JsonResponse(data)
 
@@ -393,7 +424,7 @@ def last(request):
                 "url": us.pricture,
                 "name": us.username,
                 "time":total_time,
-                "userscore":score
+                "score":score
             })
         # for u in gameuser:
         #     gameuserinfo[u["userid"]]=[]

@@ -11,6 +11,7 @@ from anchor.models import *
 
 
 def index(request):
+    print(request.method)
     if request.method == 'POST':
         a = request.META.get("HTTP_AUTHORIZATION")
         token_data = jwt.decode(a, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
@@ -25,14 +26,12 @@ def index(request):
                 }
                 print(data)
                 return JsonResponse(data)
-
-
-
-
+            else:
+                data={}
+                return JsonResponse(data)
         else:
-            data ={}
+            data = {}
             return JsonResponse(data)
-
     return HttpResponse('okb0')
 
 
