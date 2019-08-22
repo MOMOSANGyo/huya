@@ -92,7 +92,7 @@ const ScoreView = (props) => {
         >
         </div>
         <div className="show-text">{renderText()}</div>
-      	<ERank res={listData} number={4} length={totalNum} />
+      	<ERank res={listData} number={4} total={totalNum} />
         <div className="btn-container">
           <Button className="again-btn" onClick={() => {props.history.push('/main')}}>再来一局</Button>
           <Button className="quit-btn" onClick={() => {props.history.push('/main')}}>退出游戏</Button>

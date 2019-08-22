@@ -13,17 +13,17 @@ class First extends Component {
         this.sendData = this.sendData.bind(this)
     }
 
-    
+
     componentDidMount() {
-     this.timer = setInterval(() => {
-        this.sendData();
-    }, 1000);
+        this.timer = setInterval(() => {
+            this.sendData();
+        }, 1000);
     }
-    
+
     componentWillUnmount() {
         clearInterval(this.timer);
     }
-    
+
 
     //发送请求
     sendData() {
@@ -34,18 +34,19 @@ class First extends Component {
             method: 'POST',
             dataType: 'Text',
             data: {
-               
+
             }
         }).then((res) => {
-            console.log(res);
+    
             global.info.gameid = res.data.gameid;
-            if(res.data.time !== "0")
-            {
-                this.props.history.push('/home2')
-            }else{
-                this.props.history.push('/home')
-            } 
-            console.log('--data--', res);
+            if (res.data.time) {
+                if (res.data.time !== "0") {
+                    this.props.history.push('/home2')
+                } else {
+                    this.props.history.push('/home')
+                }
+                console.log('--data--', res);
+            }
         }).catch(err => {
             hyExt.logger.warn('调用失败', err)
             console.log('---err--', err);
@@ -53,7 +54,7 @@ class First extends Component {
 
     }
     render() {
-        
+
         return (
             <div className="first">
                 <img className="first_title" src={require('./title_one.png')} />
@@ -61,7 +62,7 @@ class First extends Component {
                     <p className="first_p1">主播还未发出游戏邀请，期待一下吧</p>
                 </div>
                 <div className="first_rule">
-                <Rule />
+                    <Rule />
                 </div>
             </div>
         )
