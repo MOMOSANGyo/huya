@@ -3,7 +3,6 @@
 import os
 import sys
 
-
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'fansgame.settings')
     try:
@@ -17,5 +16,7 @@ def main():
     execute_from_command_line(sys.argv)
 
 
+
 if __name__ == '__main__':
     main()
+

@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from datetime import timedelta
+
+import djcelery
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -23,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '4!5b=*o)u6esg!c29!&=74%jn0+05b*wd4r0vxk$k3iz1=l)$_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -36,10 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'djcelery',
     'anchor',
     'user',
     'spectator',
-    'corsheaders'
+    'newanchor',
+    'newuser',
+    'corsheaders',
+
 ]
 
 MIDDLEWARE = [
@@ -149,5 +156,17 @@ CORS_ALLOW_METHODS = (
     'VIEW',
 ) #res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
 
+djcelery.setup_loader()
+BROKER_URL = "redis://:123@39.106.78.93:6379/6"
+CELERY_IMPORT = ('newanchor.tasks','newuser.tasks')
+CeLERY_TIMEZONE = TIME_ZONE
+CELERY_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
 
-
+CELERYBEAT_SCHEDULE = {
+    'schedule-test': {
+        'task': 'newanchor.tasks.process1',
+        'schedule': timedelta(seconds=10),'args': (5,)
+    },
+}

@@ -56,6 +56,11 @@ class GameRecord(models.Model):  #表7
     wordsmallcategoryid = models.IntegerField(null=True) #表1主键
     roomdid = models.CharField(max_length=48)
     time = models.IntegerField() #时间戳
+    token = models.CharField(max_length=512,default=0)#获取token
+    a1time = models.CharField(max_length=128,default=0)#a1页答题用时
+    a2atime = models.CharField(max_length=128,default=0)#a2页的等待加入的时间戳
+    a2btime = models.CharField(max_length=128,default=0)#a2页跳转节点的时间戳
+    a3time = models.CharField(max_length=128,default=0)#a3跳转到a4的时间戳
     class Meta:
         db_table = 'gamerecord'
 
@@ -66,6 +71,7 @@ class GameWord(models.Model): #表8
     gameid = models.IntegerField() #游戏id
     personnum = models.IntegerField(null=True,default=0) #每回合答对的人数
     used = models.IntegerField(default=0)
+    a4time = models.CharField(max_length=128,default=0)#答题页每道题结束时跳转页面那一刻的时间戳
     class Meta:
         db_table = 'gameword'
 
@@ -89,6 +95,6 @@ class Info(models.Model):
     userid = models.CharField(max_length=128)
     username = models.CharField(max_length= 128)
     pricture = models.CharField(max_length=128)
-
+    token = models.CharField(max_length=512)
     class Mete:
         db_table = "info"

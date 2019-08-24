@@ -15,6 +15,8 @@ def index(request):
     if request.method == 'POST':
         a = request.META.get("HTTP_AUTHORIZATION")
         token_data = jwt.decode(a, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
+        print(token_data)
+        print(a)
         category = WordCategory.objects.filter(parentid=0)
         data = {}
         data["category"] = {}
@@ -44,18 +46,20 @@ def pre(request):
         token_data = jwt.decode(a, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
         gameid = GameRecord.objects.filter(anchorid=token_data["profileId"],roomdid=token_data["roomId"]).last()
         gamestatus = GameStatus.objects.get(gameid=gameid.id).gamestatus
+        print(token_data)
         if gamestatus==1:
             gameword = GameWord.objects.filter(gameid=gameid.id,used=1).last()
             data={
                 "status":gamestatus,
                 "questionnum":gameword.round,
-                # "gameis":gameid.id
+                "gameid":gameid.id
             }
 
         else:
 
             data = {
-                "status":gamestatus
+                "status":gamestatus,
+                "gameid": gameid.id
             }
         print(data)
         return JsonResponse(data)
@@ -68,6 +72,7 @@ def invite(request):
     if request.method == 'POST':
         a = request.META.get("HTTP_AUTHORIZATION")
         token_data = jwt.decode(a, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
+        print(token_data)
         t = int(time.time())
         #如果主播非正常退出的话 做一个判断如果在同一房间号同一主播下的游戏状态为0就不能够开始新游戏
         gamerecord = GameRecord(anchorid=token_data["profileId"], personnum=0,roomdid=token_data["roomId"],time=t)
@@ -102,7 +107,7 @@ def wait(request):
     if request.method == 'POST':
         a = request.META.get("HTTP_AUTHORIZATION")
         token_data = jwt.decode(a, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
-
+        print(token_data)
 
         pass_data = json.loads(request.body)  # 解析前端传过来的参数
         print(pass_data)
@@ -124,7 +129,7 @@ def waitt(request):
     if request.method == 'POST':
         a = request.META.get("HTTP_AUTHORIZATION")
         token_data = jwt.decode(a, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
-
+        print(token_data)
         pass_data = json.loads(request.body)  # 解析前端传过来的参数
         print(pass_data)
         gamerecord = GameRecord.objects.get(id=pass_data["gameid"])
@@ -183,6 +188,7 @@ def join(request):
     if request.method == 'POST':
         a = request.META.get("HTTP_AUTHORIZATION")
         token_data = jwt.decode(a, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
+        print(token_data)
         pass_data = json.loads(request.body)  # 解析前端传过来的参数
         print(pass_data)
         record = GameRecord.objects.get(id=pass_data["gameid"])
