@@ -1,14 +1,15 @@
 from celery import task
-from time import sleep
+import time
 from anchor.models import *
 
 @task
-def process1(num):
+def process1():
     game = GameRecord.objects.filter(id=346).last().id
-    print(game)
-    for i  in range(num):
-        print(i)
-        sleep(2)
+    a= int(time.time())
+    if a == 1566651716:
+        print("ok")
+    else:
+        print("ooo")
 
 
 

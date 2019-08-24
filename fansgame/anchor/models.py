@@ -58,9 +58,9 @@ class GameRecord(models.Model):  #表7
     time = models.IntegerField() #时间戳
     token = models.CharField(max_length=512,default=0)#获取token
     a1time = models.CharField(max_length=128,default=0)#a1页答题用时
-    a2atime = models.CharField(max_length=128,default=0)#a2页的等待加入的时间戳
-    a2btime = models.CharField(max_length=128,default=0)#a2页跳转节点的时间戳
-    a3time = models.CharField(max_length=128,default=0)#a3跳转到a4的时间戳
+    a2atime = models.CharField(max_length=128,default=0)#a2页的等待加入的时间戳=now+间隔 用来重定位使用
+    a2btime = models.CharField(max_length=128,default=0)#a2页
+    a3time = models.CharField(max_length=128,default=0)#a3跳转到a4的时间戳 = now+60s（当前主播熟悉词语最长的时间）
     class Meta:
         db_table = 'gamerecord'
 

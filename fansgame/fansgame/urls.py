@@ -23,7 +23,7 @@ urlpatterns = [
     url(r'^user/', include('user.urls', namespace='user')),
     #
     url(r'^spectator/', include('spectator.urls', namespace='spectator')),
-    url(r'^newanchor', include('newanchor.urls', namespace='newanchor')),
-    url(r'^newuser', include('newuser.urls', namespace='newuser'))
+    url(r'^newanchor/', include('newanchor.urls', namespace='newanchor')),
+    url(r'^newuser/', include('newuser.urls', namespace='newuser'))
 ]
 #

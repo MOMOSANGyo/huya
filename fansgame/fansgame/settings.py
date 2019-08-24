@@ -26,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '4!5b=*o)u6esg!c29!&=74%jn0+05b*wd4r0vxk$k3iz1=l)$_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'djcelery',
+    # 'django_celery_results'
     'anchor',
     'user',
     'spectator',
@@ -158,7 +159,7 @@ CORS_ALLOW_METHODS = (
 
 djcelery.setup_loader()
 BROKER_URL = "redis://:123@39.106.78.93:6379/6"
-CELERY_IMPORT = ('newanchor.tasks','newuser.tasks')
+CELERY_IMPORT = ('newanchor.tasks')
 CeLERY_TIMEZONE = TIME_ZONE
 CELERY_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 CELERY_TASK_SERIALIZER = 'json'
@@ -167,6 +168,7 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERYBEAT_SCHEDULE = {
     'schedule-test': {
         'task': 'newanchor.tasks.process1',
-        'schedule': timedelta(seconds=10),'args': (5,)
+        'schedule': timedelta(seconds=1),
+        # 'args': (5,)
     },
 }
