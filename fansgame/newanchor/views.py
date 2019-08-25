@@ -373,3 +373,26 @@ def last(request):
         return JsonResponse(data)
 
     return HttpResponse('oka6')
+
+
+def pre(request):
+    if request.method == 'POST':
+        a = request.META.get("HTTP_AUTHORIZATION")
+        token_data = jwt.decode(a, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
+        gameid = GameRecord.objects.filter(anchorid=token_data["profileId"], roomdid=token_data["roomId"]).last()
+        gamestatus = GameStatus.objects.get(gameid=gameid.id).gamestatus
+        print(token_data)
+        data={}
+        if gamestatus == 1:
+            gameword = GameWord.objects.filter(gameid=gameid.id, used=1).last()
+            data = {
+                "status": gamestatus,
+                "questionnum": gameword.round,
+                "gameid": gameid.id
+            }
+
+
+
+        return JsonResponse(data)
+
+    return HttpResponse('ok')

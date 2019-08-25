@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^staticwordinfo/', views.staticwordinfo, name='staticwordinfo'),  # zaccc.lzok.top/newanchor/staticwordinfo/
     url(r'^next/', views.next, name='next'),  # zaccc.lzok.top/newanchor/next/
     url(r'^last/', views.last, name='last'),  # zaccc.lzok.top/newanchor/last/
+    url(r'^pre/', views.pre, name='pre'),  # zaccc.lzok.top/newanchor/pre/
 ]

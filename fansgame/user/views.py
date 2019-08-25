@@ -18,7 +18,7 @@ def index(request):
         print(token_data)
         record = GameRecord.objects.filter(anchorid=token_data["profileId"],roomdid=token_data["roomId"]).last()
         if record:
-            if GameStatus.objects.get(gameid=record.id).gamestatus==0:
+            if GameStatus.objects.get(gameid=record.id).gamestatus==0 or GameStatus.objects.get(gameid=record.id).gamestatus==4:
                 time = GameTime.objects.get(id=record.gametimeid)
                 data = {
                     "gameid": record.id,
