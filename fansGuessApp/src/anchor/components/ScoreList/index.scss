@@ -18,12 +18,12 @@
 
 .scorelist-container {
   width: size(686px);
-  height: size(468px);
+  height: size(634px);
   border-radius: size(8px);
   color: #ffffff;
   background-color : rgba(0, 0, 0, 0.5);
   .scorelist-header {
-    padding: 0 size(16px);
+    padding: 0px size(16px);
     height: size(44px);
     background-color : rgba(0, 0, 0, 0.6);
     display: flex;
@@ -48,8 +48,7 @@
     flex-direction: row;
     align-items   : center;
     height        : size(66px);
-    margin-top: size(16px);
-    margin-bottom: size(16px);
+    margin: size(16px) 0px;
     .avatar {
         margin-left: size(44px);
         margin-right: size(12px);

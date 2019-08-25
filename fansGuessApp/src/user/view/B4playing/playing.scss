@@ -26,10 +26,11 @@
         align-items: center;
         .playing_tit{
             height     : size(56px);
-            font-size  : size(30px);
+            font-size  : size(37px);
+            line-height: size(56px);
             color      : #000000;
             margin-top: size(28px);
-            margin-bottom:size(-18px);
+            
         }
     }
     .playing_content{

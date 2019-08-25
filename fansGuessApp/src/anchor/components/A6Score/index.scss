@@ -13,20 +13,28 @@
   width: 100%;
   color: #ffffff;
   background-color: #2b2b2b;
+  background-size: cover;
+  .a6-title {
+    margin-top: size(16px);
+    font-size: size(38px);
+    color: #000;
+  }
   .totalscore-text {
-    width: size(638px);
-    height: size(470px);
+    width: size(652px);
+    height: size(379px);
     background-size: cover;
   }
 }
 .show-text {
   font-family: 'HYLiLiangHeiJ';
-  font-size: size(34px);
+  -webkit-text-stroke: size(3px) black;
+  font-size: size(48px);
   color: #ffffff;
 }
 
 .btn-container {
   width: size(686px);
+  margin-top: size(16px);
   height: size(88px) !important;
   font-size: size(26px) !important;
   display: flex;

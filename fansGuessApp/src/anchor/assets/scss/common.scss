@@ -5,7 +5,7 @@
 html,
 body {
     position: relative;
-    font-family: "PingFangSC Light", "微软雅黑", "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+    font-family: "FZLTDHJW", "微软雅黑", "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
     margin: 0;
     padding: 0;
     height: 100%;
@@ -14,13 +14,18 @@ body {
 }
 
 @font-face {
-    font-family: "PingFangSC Light";
-    src        : url('../../../common/PingFangSCRegular.ttf');
+    font-family: "FZLTDHJW";
+    src        : url('../../../common/方正兰亭大黑_GBK.ttf');
 }
 
 @font-face {
     font-family: 'HYLiLiangHeiJ';  
     src: url('../HYLiLiangHeiJ.ttf');		
+}
+
+@font-face {
+    font-family: "PingFangSCRegular";
+    src        : url('../../../common/PingFangSCRegular.ttf');
 }
 
 #root, #aroot{

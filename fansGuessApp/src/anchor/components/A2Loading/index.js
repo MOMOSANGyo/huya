@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useInterval } from '../../../utils/useHooks'
 import { getAwaitTime, getAwaitNum, quitGame } from '../../anchorModel'
 import './index.scss'
+import Modal from '../../../common/Modal'
 import {Button} from 'antd'
 import { getGameID } from '../../../utils/util'
 
@@ -10,6 +11,9 @@ const LoadingView = (props) => {
     const [time, setTime] = useState(1);
     const [timer, setTimer] = useState(-1);
     const [userNumber, setUsesrNumber] = useState(0);
+
+    const [modalText, setModalText] = useState("");
+    const [modalVis, setModalVis] = useState(false);
 
     async function init() {
       const gameid = getGameID();
@@ -74,16 +78,38 @@ const LoadingView = (props) => {
       props.history.push('/main');
     }
 
+
+    function handleClick() {
+      if(userNumber >= 1){
+        props.history.push('/prepare');
+
+      }
+      else{
+        setModalText("还没有人加入，请耐心等待");
+        setModalVis(true);
+      }
+    }
+
     return (
       <div className="a2-container">
         <div className="a2-close" onClick={handleClose}></div>
         <div className="img-box">
           <img className="pig-loading" src={require("./images/pig-coin.gif")}></img>
         </div>
-      	<div className="join-text">已有<span className="join-number">{userNumber}</span>人加入游戏</div>
-        {!now && <div className="time-text">距离游戏开始还有<span className="time-number">{`${Math.floor(timer/60)}:${timer%60}`}</span></div>}
-        {now && <Button className="start-btn" onClick={() => {props.history.push('/prepare')}}>现在开始</Button>}
+        <div style={{ zIndex: 1 }}>
+        <div className="join-text">{`已有 `}<span className="join-number">{userNumber}</span>{` 人加入游戏`}</div>
+        {!now && <div className="time-text">距离游戏开始还有 <span className="time-number">{`${Math.floor(timer/60)}:${timer%60}`}</span></div>}
+        </div>
+      	<Button className="start-btn" style={{visibility: now? "visible": "hidden" }} onClick={handleClick}>现在开始</Button>
         <div className="black-bg" style={{ height: `${Math.floor((timer/(time*60))*100)}%` }}></div>
+      
+        <Modal 
+          style={{ zIndex: 20 }}
+          visible={modalVis}
+          text={modalText}
+          btnText="我知道了"
+          onClick={() => {setModalVis(false)}}
+        />
       </div>
     )
 }

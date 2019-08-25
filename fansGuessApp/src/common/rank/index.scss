@@ -73,5 +73,31 @@
                right: size(44px);
             }
         }
+
+        
     }
 }
+
+@keyframes flicker {
+    from { left: 0; }
+    to { left: size(634px);}
+}
+
+.rank_me_list {
+    &::after {
+        content: "";
+        visibility: hidden;
+        position: absolute;
+        width: size(53px);
+        height: size(68px);
+        background-image: url(./list-animation.png);
+        background-size: cover;
+    }
+    &:hover::after,&:focus::after {
+
+        visibility: visible;
+        animation: flicker 0.3s linear;
+        animation-iteration-count: infinite;
+    }
+}
+

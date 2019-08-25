@@ -41,7 +41,10 @@ function CascaderBox(props) {
 
   }
   return(
-    <div className='cascaderbox-container'>
+    <div className='cascaderbox-container' 
+      onMouseEnter={props.onMouseEnter} 
+      onMouseLeave={props.onMouseLeave}
+    >
       <div>
       <div className="class-bg">
         <ul className="class-list">

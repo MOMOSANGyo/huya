@@ -87,14 +87,13 @@ class Home extends Component{
         console.log(props);
         return(
             <div className="home">
-                <div className="home_flex">
-                <img className="home_title" src={require('./title_one.png')}/> 
+                <div></div>
+                <img className="home_title" src={require('../../assets/images/b1_title.png')}/> 
                 <div className="home_p">
                 <p className="home_p1">主播正在邀请你参加猜词游戏</p>
-                <p className="home_p2">已有{this.state.count}人加入游戏，快来参加</p>
+                <p className="home_p2">已有 {this.state.count} 人加入游戏，快来参加</p>
                 </div>
                 <Rule />
-                </div>
                 <div className="btn_one" onClick={this.join}>立即参加</div>
             </div>
         )

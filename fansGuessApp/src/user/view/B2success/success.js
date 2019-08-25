@@ -69,9 +69,9 @@ class Success extends Component {
     render() {
         return (
             <div className="success">
-                <div className="success_flex">
+                    <div></div>
                     <div>
-                        <img className="success_title" src={require('./assets/title_one.png')} />
+                        <img className="success_title" src={require('../../assets/images/b1_title.png')} />
                     </div>
                     <div className="success_p">
                         <img className="success_tick suc_p" src={require('./assets/tick.png')} />
@@ -79,11 +79,11 @@ class Success extends Component {
                         <p className="success_p2 suc_p"><span className="success_p2_time">已有{this.state.num}人加入游戏，等待主播开局</span></p>
                     </div>
                     <Rule />
-                </div>
                 {/* <div className="success_button">
                     <div className="success_btn_one" >分享给好友</div>
                     <div className="success_btn_two">暂时离开</div>
                 </div> */}
+                    <div></div>
             </div>
         )
     }

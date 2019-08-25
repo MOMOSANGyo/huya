@@ -144,7 +144,7 @@ class ResultView extends Component {
                                 <div className="result_header_tit">{this.state.realanswer}</div>
                             </div>
                             <div className="result_header2">
-                                <div className="result_header_index2">我的回答</div>
+                                <div className="result_header_index2">我猜的</div>
                                 <div className="result_header_tit2">{global.info.myanswer}</div>
                             </div>
                         </div>
@@ -164,22 +164,22 @@ class ResultView extends Component {
                         <div className="result_res">
                             <div className="result_res_one">
                                 <div >击败</div>
-                                <div ><span className="result_font">{this.state.right_rate}</span>对手</div>
+                                <div ><span className="result_font">{this.state.right_rate}</span> 对手</div>
                             </div>
                             <div className="result_res_one">
                                 <div>累积得分</div>
-                                <div ><span className="result_font">{this.state.score}</span>分</div>
+                                <div ><span className="result_font">{this.state.score}</span> 分</div>
                             </div>
                         </div>
                         :
                         <div className="result_res">
                             <div className="result_res_one">
                                 <div >手速击败</div>
-                                <div className="result_font"><span>{this.state.speed_rate}</span>对手</div>
+                                <div className="result_font"><span>{this.state.speed_rate}</span> 对手</div>
                             </div>
                             <div className="result_res_one">
                                 <div>累积得分</div>
-                                <div className="result_font"><span>{this.state.score}</span>分</div>
+                                <div className="result_font"><span>{this.state.score}</span> 分</div>
                             </div>
                         </div>
                     }

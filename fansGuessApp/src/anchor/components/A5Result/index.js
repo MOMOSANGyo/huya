@@ -78,10 +78,10 @@ const ResultView = (props) => {
   function renderText() {
     let res = ""
     if(winNum < Math.floor(totalNum/4)) {
-      res = " 人猜对，太少了，不行啊";
+      res = " 人猜对，不行啊";
     }
     else if( winNum > Math.floor((totalNum/4) * 3)) {
-      res = " 人猜对，太多了，不行啊";
+      res = " 人猜对，不行啊";
     }
     else {
       res = " 人猜对，厉害了！"
@@ -113,15 +113,21 @@ const ResultView = (props) => {
         <span className="h-number">{numberText[gameNumber]}</span>
         <span className="h-text">{words}</span>
       </div>
-      <ResultProgress rightPeople={winNum} totle={totalNum} />
-      <div className="result-text" >{`共 `}
-        <span className="result-people"
-          style={{ color: (winNum < Math.floor(totalNum/4) || winNum > Math.floor((totalNum/4) *3))?
-          '#ff6b6b': '#ffde00' }}
-        >{winNum}</span>
-      {renderText()}</div>
-        {success && <EndRank res={listData} fRes={errWords} number={3} fNumber={3} />}
-      <Button className="next-btn" onClick={handleClick}>下一题</Button>
+      <div>
+        <ResultProgress rightPeople={winNum} totle={totalNum} />
+        <div className="result-text" >{`共 `}
+          <span className="result-people"
+            style={{ color: (winNum < Math.floor(totalNum/4) || winNum > Math.floor((totalNum/4) *3))?
+            '#ff6b6b': '#ffde00' }}
+          >{winNum}</span>
+        {renderText()}</div>
+        <div className="result-introduce-text">(20人参与游戏，只有5-15人猜对答案才可获胜)</div>
+      </div>
+      <div>
+        {success && <EndRank res={listData} fRes={errWords} number={7} fNumber={7} />}
+        <Button className="next-btn" onClick={handleClick}>下一题</Button>
+      </div>
+      
     </div>
     )
 }

@@ -3,12 +3,8 @@ import './index.scss'
 
 
 function List(props){
-    console.log('props.res');
-    console.log('props.res');
 
     console.log('props.res');
-    console.log('props.res');
-
     console.log(props.res);
     console.log('======props=====', props);
 

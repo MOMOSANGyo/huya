@@ -37,8 +37,11 @@ const PrepareView = (props) => {
 
     return (
       <div className="a3-container">
-        <div style={{ marginTop: 30}}>请在60秒时间内熟悉熟悉下列10个词语</div>
-      	<TimeProgress theme='purple' style={{ marginTop: 30 }}/>
+        <div>
+          <div style={{ marginTop: 22}}>请在60秒时间内熟悉熟悉下列10个词语</div>
+          <TimeProgress theme='purple' style={{ marginTop: 24 }}/>
+        </div>
+        
         <div className="prepare-words">
           <ul>
           {

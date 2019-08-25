@@ -80,9 +80,11 @@ class LoadingView extends Component {
     render(){
     return (
         <div className="loading">
-            <div className="loading_title">主播正在熟悉词语</div>
-            <TimeProgress theme='purple' left="user" />
-            <div className="loading_content">词语类别：<span>{this.state.category}</span></div>
+            <div className="loading-container">
+                <div className="loading_title">主播正在熟悉词语</div>
+                <TimeProgress theme='purple' left="user" />
+                <div className="loading_content">词语类别：<span>{this.state.category}</span></div>
+            </div>
         </div>
     )
     }

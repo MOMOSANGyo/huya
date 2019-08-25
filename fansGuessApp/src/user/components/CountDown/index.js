@@ -45,7 +45,7 @@ export default class CountDown extends Component {
   }
   render() {
     return (
-      <span>{this.state.minute}:{this.state.second}</span>
+      <span style={{ color: '#f1574f' }}>{this.state.minute}:{this.state.second}</span>
     )
   }
 }

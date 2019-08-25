@@ -37,7 +37,7 @@ class First extends Component {
 
             }
         }).then((res) => {
-    
+            console.log('--data--', res);
             global.info.gameid = res.data.gameid;
             if (res.data.time) {
                 if (res.data.time !== "0") {
@@ -45,7 +45,7 @@ class First extends Component {
                 } else {
                     this.props.history.push('/home')
                 }
-                console.log('--data--', res);
+                
             }
         }).catch(err => {
             hyExt.logger.warn('调用失败', err)
@@ -57,13 +57,15 @@ class First extends Component {
 
         return (
             <div className="first">
-                <img className="first_title" src={require('./title_one.png')} />
+                <div></div>
+                <img className="first_title" src={require('../../assets/images/b1_title.png')} />
                 <div className="first_p">
                     <p className="first_p1">主播还未发出游戏邀请，期待一下吧</p>
                 </div>
                 <div className="first_rule">
                     <Rule />
                 </div>
+                <div style={{ height: 44, marginBottom: 8 }}></div>
             </div>
         )
     }

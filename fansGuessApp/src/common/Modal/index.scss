@@ -1,0 +1,39 @@
+
+@function size($px) {
+  @return $px / 2;
+}
+
+.info-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: size(480px);
+  height: size(240px);
+  background-color: #474747;
+  border-radius: size(8px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+  font-family: 'PingFangSCRegular';
+  .info-text {
+    font-size: size(26px);
+    height: size(160px);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: default;
+  }
+
+  .model-btn{
+    width: size(200px);
+    height: size(64px);
+    line-height: size(64px);
+    background-color: #f1574f;
+    border-radius: size(8px);
+    cursor: pointer;
+  }
+}

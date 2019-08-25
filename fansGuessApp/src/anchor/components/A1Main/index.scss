@@ -11,13 +11,14 @@
   height: 100%;
   width: 100%;
   padding: size(16px) 0px;
-  background-color: #2b2b2b;
+  background-image: url(./images/a1-bg.png);
+  background-size: cover;
 }
 
 .a1-container .title-img {
   background-image: url(./images/title.png);
-  width: size(624px);
-  height: size(428px);
+  width: size(568px);
+  height: size(209px);
   background-size: cover;
 }
 
@@ -25,54 +26,38 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: size(686px);
-  height: size(226px);
-  background-image: linear-gradient(
-		#2b2b2b, 
-		#2b2b2b), 
-	linear-gradient(
-		#000000, 
-		#000000);
-	background-blend-mode: normal, 
-		normal;
-	box-shadow: size(5px) size(8px) size(27px) 0px
-		rgba(11, 14, 14, 0.45);
-	border-style: solid;
-	border-width: size(4px);
-	border-image-source: linear-gradient(90deg, 
-		#f1574f 0%, 
-		#4355ff 100%);
-  border-image-slice: 1;
+  width: size(685px);
+  height: size(328px);
+  background-image: url(./images/introduce.png);
+  background-size: cover;
 }
 
-.a1-introduce .introduce-text {
-  text-align: left;
-  vertical-align: text-top;
-  width: size(624px);
-	height: size(171px);
-	font-family: PingFangSC-Regular;
-	font-size: size(20px);
-	font-weight: normal;
-	font-stretch: normal;
-	line-height: size(30px);
-	letter-spacing: 0px;
-	color: #ffffff;
-}
 
 .select-button {
   color: #ffffff;
-  width: size(462px);
-  height: size(128px);
+  width: size(606px);
+  height: size(224px);
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  .label-word {
+    cursor:default;
+    font-size: size(30px);
+    line-height: size(48px);
+  }
   .select {
     position: relative;
     text-align: center;
     width: size(320px);
-    font-size: size(20px);
+    font-size: size(26px);
     height: size(48px);
     line-height: size(48px);
     border-radius: size(24px);
-    background-color: #474747 !important;
+    outline: none;
+    cursor: pointer;
+    background-color: rgba(0,0,0,0.45) !important;
     color: #ffffff !important;
     .select-icon {
       position: absolute;
@@ -83,17 +68,26 @@
 }
 
 .select-button .category {
-  width: size(462px);
+  width: size(472px);
   display: flex; 
   justify-content: space-between;
+  outline: none;
 }
 
 .select-button .start-time {
-  width: size(462px);
-  margin-top: size(32px);
+  width: size(472px);
   display: flex; 
   justify-content: space-between;
+  outline: none;
 }
+.select-button .word-time {
+  width: size(472px);
+  display: flex; 
+  justify-content: space-between;
+  outline: none;
+}
+
+
 
 .ant-cascader-menus {
   background-color: #474747 !important;
@@ -113,14 +107,42 @@
   background-color: #f1574f !important;
 }
 
-.time-box {
+.wordtime-box {
   position: absolute;
   bottom: 0px;
-  right: 0px;
+  right: size(67px);
+  .select-li{
+    &:hover {
+      background-color: #ff216a;
+    }
+  }
+}
+
+.time-box {
+  position: absolute;
+  bottom: size(88px);
+  right: size(67px);
+  .select-li{
+    &:hover {
+      background-color: #ffea00;
+    }
+  }
 }
 
 .cascader-box {
   position: absolute;
-  bottom: size(80px);
-  right: 0px;
+  bottom: size(176px);
+  right: size(67px);
 }
+.wordtime-tooltip {
+  width: size(606px);
+  height: size(40px);
+  border-radius: size(8px);
+  background-color: rgba(0,0,0,0.6);
+  font-size: size(24px);
+  line-height: size(40px);
+  position: absolute;
+  bottom: size(55px);
+  margin: 0px auto;
+}
+

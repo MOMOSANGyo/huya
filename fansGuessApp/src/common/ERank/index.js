@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import image1 from './btn.png'
-import image2 from './btn2.png'
+import image1 from './arrow.png'
 import './index.scss'
 
 
@@ -10,7 +9,7 @@ function List(props){
             (
                 <div >
                     {props.res.map((item, index) =>
-                        <div key={index} className="erank_con_list" style={{ backgroundColor: item.name === "我" && '#4355ff' }}>
+                        <div key={index} className="erank_con_list" style={{ backgroundColor: item.name === "我" && 'rgba(0,0,0,0.7)' }}>
                             <span className="list_pre">
                             <span className="erank_list_index">{props.currentPage * props.number + (index + 1)}</span>
                             <span>
@@ -105,7 +104,7 @@ class ERank extends Component {
                
                 </div>
                 <div onClick={this.Switch.bind(this)}>
-                    <img className="erank_btn" src={this.props.image ? image1 : image2} />
+                    <img className="erank_btn" src={image1} />
                 </div>
             </div>
             

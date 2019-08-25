@@ -1,7 +1,7 @@
 import '../config'
 import React,{Component} from 'react';
 import ERank from '../../../common/ERank/index'
-import { scoreImg } from './config'
+import { scoreImg, scoreBG } from './config'
 
 
 import './eres.scss';
@@ -64,29 +64,28 @@ class ERes extends Component{
 
         
         return(
-            <div className="eres">
+            <div className="eres" 
+                style={{ backgroundImage: `url(${scoreBG[this.state.score]})` }}
+            >
                 <div className="eres_tit">我的总成绩</div>
-                <div>
-                    <div className="eres_img"
-                        style={{ backgroundImage: `url(${scoreImg[this.state.score]})` }}
-                    >
-                    </div>
-                </div>
+                <img className="eres_img" src={scoreImg[this.state.score]}/>
                 <div className="eres_res">
                     <div className="eres_res_one">
                         <div >排名击败</div>
-                        <div ><span className="eres_font">{this.state.srate}</span>对手</div>
+                        <div ><span className="eres_font">{this.state.srate}</span> 对手</div>
                     </div>
                     <div className="eres_res_one">
                         <div>手速击败</div>
-                        <div ><span className="eres_font">{this.state.vrate}</span>对手</div>
+                        <div ><span className="eres_font">{this.state.vrate}</span> 对手</div>
                     </div>
                 </div>
-                <div className="eres_erank">
-                    {this.state.img && <ERank res={this.state.info} number={7} iamge={true} total={this.state.total}/>}
-                </div>
                 <div>
-                    <div className="eres_btn" onClick={this.toFitstOne}>退出游戏</div>
+                    <div className="eres_erank">
+                        {this.state.img && <ERank res={this.state.info} number={7} iamge={true} total={this.state.total}/>}
+                    </div>
+                    <div>
+                        <div className="eres_btn" onClick={this.toFitstOne}>退出游戏</div>
+                    </div>
                 </div>
             </div>
         )

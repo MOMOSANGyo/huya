@@ -70,9 +70,9 @@ class SuccessTwo extends Component {
     render() {
         return (
             <div className="success">
-                <div className="success_flex">
+                <div></div>
                 <div>
-                    <img className="success_title" src={require('./assets/title_one.png')} />
+                    <img className="success_title" src={require('../../assets/images/b1_title.png')} />
                 </div>
                 <div className="success_p">
                     <img className="success_tick suc_p" src={require('./assets/tick.png')} />
@@ -81,7 +81,7 @@ class SuccessTwo extends Component {
                     {this.state.success ? <CountDown time={this.state.time} /> : <span>00:00</span>}</p>
                 </div>
                 <Rule />
-                </div>
+                <div></div>
                 {/* <div className="success_button">
                     <div className="success_btn_one" >分享给好友</div>
                     <div className="success_btn_two">暂时离开</div>

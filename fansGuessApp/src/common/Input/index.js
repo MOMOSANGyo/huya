@@ -19,18 +19,33 @@ class MyInput extends Component {
                 inputstatus: false
             })
         }
-        this.handleCompositionEnd = (data, index) => {
-            console.log('=========handleCompositionEnd=============');
-            this.setState({
-                inputstatus: true
-            })
+        this.handleCompositionEnd = (e, index) => {
+            console.log('=========handleCompositionEnd=============', e, e.data);
+            let ans = this.state.answer;
+            const data = (e.data.trim() || "").split("");
+            let len = data.length;
             if(data.length >=1){
+                console.log('====data====',data, data.length);
+                data.forEach((item,i) => {
+                    if(index + i < this.inputRefs.length) {
+                        ans[index + i] = item
+                    }
+                    
+                })
+
                 this.inputRefs[index].blur();
             }
             console.log('======inputRefs.length========', index, this.inputRefs.length);
-            if(index < this.inputRefs.length-1) {
-                this.inputRefs[index + 1].focus();
+            if(index + len < this.inputRefs.length) {
+                this.inputRefs[index + len].focus();
             }
+            else {
+                this.inputRefs[this.inputRefs.length - 1].focus();
+            }
+            this.setState({
+                inputstatus: true,
+                answer: ans
+            })
             
         }
     }
@@ -47,9 +62,18 @@ class MyInput extends Component {
     componentDidMount(){
         console.log('===componentDidMount===', this.inputRefs);
         if(this.inputRefs.length && !this.props.disabled) {
+            console.log('=====focus====');
             this.inputRefs[0].focus();
         }
         
+    }
+    handleKeyUp(e, index){
+        console.log('======handleKeyUp=======', e, e.keyCode);
+        if(e.keyCode === 8 || e.keyCode === 46){
+            if(index > 0) {
+                this.inputRefs[index - 1].focus();  
+            }
+        }
     }
     
     onChange(index,e){
@@ -63,14 +87,19 @@ class MyInput extends Component {
             answer:item,
         })
         console.log(e.target.value)
+        if(e.target.value.length >=1) {
+            if(index < this.inputRefs.length-1 && this.state.inputstatus){
+                this.inputRefs[index].blur();
+            }
+            if(index < this.inputRefs.length-1  && this.state.inputstatus) {
+                this.inputRefs[index + 1].focus();
+            }
+            else if(index >= this.inputRefs.length-1 && this.state.inputstatus) {
+                this.inputRefs[this.inputRefs.length-1].focus();
+            }
+        }
         console.log('======this.state.inputstatus========', this.state.inputstatus);
-        if(e.target.value.length >=1 && this.state.inputstatus){
-            this.inputRefs[index].blur();
-        }
         console.log('======inputRefs.length========', index, this.inputRefs.length);
-        if(index < this.inputRefs.length-1  && this.state.inputstatus) {
-            this.inputRefs[index + 1].focus();
-        }
 
         // let item = this.state.answer;
         // console.log(e.target.value)
@@ -95,12 +124,14 @@ class MyInput extends Component {
                         className="input" 
                         maxLength="1" 
                         id={index}
+                        autoComplete="off"
                         disabled={this.props.disabled}
                         ref={(element) => {this.setInputRef(element, index)}}
                         value={item}
+                        onKeyUp={(e) => {this.handleKeyUp(e, index)}}
                         onChange={this.onChange.bind(this,index)}
                         onCompositionStart={this.handleCompositionStart}
-                        onCompositionEnd={(data) => {this.handleCompositionEnd(data, index)}}
+                        onCompositionEnd={(e) => {this.handleCompositionEnd(e, index)}}
                         />
                     )}
                 </div>

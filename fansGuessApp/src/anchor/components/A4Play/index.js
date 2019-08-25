@@ -110,20 +110,26 @@ const PlayView = (props) => {
     <div className="a4-container" 
       style={{ backgroundImage: `url(${gameBg[gameNumber]})` }}
     >
-      <div style={{marginTop: 14, fontSize: 15 }}>{numberText[gameNumber]}</div>
-      <TimeProgress theme="black" style={{marginTop: 11}} onChange={changeTime}/>
-      <div style={{marginTop: 24, whiteSpace: 'pre'}}>类别:{`${category}`}     字数:{`${len}`}</div>
-      <div className="word-container">
-        {
-          words.split('').map((item,i) => {
-            return (<div className="word-box" key={i}>
-              {item}
-            </div>)
-          })
-        }
+      <div>
+        <div style={{ marginTop:6, fontSize: 15 }}>{numberText[gameNumber]}</div>
+        <TimeProgress theme="black" style={{marginTop: 11}} onChange={changeTime}/>
       </div>
+      <div>
+        <div style={{ whiteSpace: 'pre'}}>类别:{`${category}`}     字数:{`${len}`}</div>
+        <div className="word-container">
+          {
+            words.split('').map((item,i) => {
+              return (<div className="word-box" key={i}>
+                {item}
+              </div>)
+            })
+          }
+        </div>
+      </div>
+     <div>
       <ScoreList className="score-list" res={listData} num={userNum} total={totalNum} />
       <div className="tips">只有5-15人猜对答案才能获胜哦</div>
+     </div>
     </div>
     )
 }

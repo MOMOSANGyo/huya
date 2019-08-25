@@ -6,8 +6,8 @@ function ScoreList(props) {
   const [listdata, setListData] = useState(props.res);
   console.log('----listdata---', listdata);
   useEffect(() => {
-    if(props.res.length > 3) {
-      const data = props.res.slice(0, 3);
+    if(props.res.length > 7) {
+      const data = props.res.slice(0, 7);
       setListData(data);
     }
     else

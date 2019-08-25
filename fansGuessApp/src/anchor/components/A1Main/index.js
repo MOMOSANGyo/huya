@@ -4,16 +4,26 @@ import api from '../../../service/api'
 import { Button, Icon, Cascader, Select } from 'antd'
 import SelectBox from '../TabControl/SelectBox'
 import CascaderBox from '../TabControl/CascaderBox'
+
 import { getInitData, setInviteData } from '../../anchorModel'
+
 import { setGameID } from '../../../utils/util'
 const MainView = (props) => {
+  const [isUseBlur, setIsuseBlur] = useState(true);
+
   console.log('==========Main=============',props);
   const [categoryOpt, setCategoryOpt] = useState();
   const [timpOpt, setTimpOpt] = useState();
+  const [wordTimpOpt, setWordTimpOpt] = useState();
   const [time, setTime] = useState();
   const [timeBoxVis, setTimeBoxVis] = useState(false);
   const [category, setCategory] = useState();
   const [classBoxVis, setClassBoxVis] = useState(false);
+  const [wordTime, setWordTime] = useState();
+  const [wordTimeBoxVis, setWordTimeBoxVis] = useState(false);
+  const [wordTimetipVis, setWordTimetipVis] = useState(false);
+
+
 
   async function init() {
     console.log('--request---');
@@ -26,6 +36,9 @@ const MainView = (props) => {
 
     setCategory(category[data[0]][0]);
     setTime(time[0]);
+
+    setWordTimpOpt(['30','45', '60', '90']);
+    setWordTime('60');
   }
   useEffect(() => {
     init();
@@ -37,6 +50,13 @@ const MainView = (props) => {
       setTime(value);
     }
     setTimeBoxVis(false);
+  }
+
+  function handleWordTimeChange(value){
+    if(value){
+      setWordTime(value);
+    }
+    setWordTimeBoxVis(false);
   }
 
   function handleClassChange(value){
@@ -63,29 +83,76 @@ const MainView = (props) => {
 
   return (
     <div className="a1-container">
+      <div></div>
       <div className="title-img"></div>
       <div className="a1-introduce">
-        <div className="introduce-text">如何测试真爱粉？看看粉丝能否猜中你心中所想~<br />
-          在1分钟时间内，主播要描述1个词语，粉丝根据主播的描述猜词<br />
-          主播不能轻易让粉丝猜中，如果25%-75%的粉丝猜中词语，主播胜利，<br />
-          否则主播失败。<br />
-          主播胜利一词得1分，失败不得分。粉丝猜中一词得1分，猜错不得分。<br />
-          每轮游戏10个词语，一轮游戏结束后公布粉丝排名比分。</div>
       </div>
       <div className="select-button">
-        <div className="category">
+        <div className="category" >
             <span className="label-word">词语类别</span>
-            <span className="select category-cascader" onClick={() => {setClassBoxVis(true)}}>{category}<Icon className="select-icon" fill='white' type="caret-down" /></span>
+            <span className="select category-cascader" 
+              onClick={() => {setClassBoxVis(true)}}
+              tabIndex="1" onBlur={() => { isUseBlur && setClassBoxVis(false)}}
+            >
+              {category}
+              <Icon className="select-icon" style={{color: '#00ccff'}} type="caret-down" />
+            </span>
         </div>
         <div className="start-time">
             <span className="label-word">开始时间</span>
-            <span className="select time-select" onClick={() => {setTimeBoxVis(true)}}>{time == "0"? "现在": `${time}分钟` }<Icon className="select-icon" fill="white" type="caret-down" /></span>
+            <span className="select time-select" 
+              onClick={() => {setTimeBoxVis(true)}}
+              tabIndex="2" onBlur={() => { isUseBlur && setTimeBoxVis(false)}}
+            >
+              {time == "0"? "现在": `${time}分钟` }
+              <Icon className="select-icon" style={{color: '#ffea00'}} type="caret-down" />
+            </span>
         </div>  
-        {classBoxVis && <div  className="cascader-box"><CascaderBox option={categoryOpt} onChange={handleClassChange}/></div>}
-        {timeBoxVis && <div  className="time-box"><SelectBox option={timpOpt} onChange={handleTimeChange} /></div>}
+        <div className="word-time">
+            <span 
+              className="label-word"
+              onMouseEnter={() => {setWordTimetipVis(true)}}
+              onMouseLeave={() => {setWordTimetipVis(false)}}
+            >每词时长</span>
+            <span className="select wordtime-select" 
+              tabIndex="3" onBlur={() => { isUseBlur && setWordTimeBoxVis(false)}}
+              onClick={() => {setWordTimeBoxVis(true)}}
+            >
+              {`${wordTime}秒` }
+              <Icon className="select-icon" style={{color: '#ff216a'}} type="caret-down" />
+            </span>
+        </div>  
+        {wordTimetipVis && <div  
+          className="wordtime-tooltip"
+        >
+          设定每个词语出现的时间，观众要在该时间内完成猜词
+        </div>}
+        {classBoxVis && <div  className="cascader-box">
+          <CascaderBox 
+            option={categoryOpt} 
+            onChange={handleClassChange}
+            onMouseEnter={() => {setIsuseBlur(false)}}
+            onMouseLeave={() => {setIsuseBlur(true)}}
+          />
+        </div>}
+        {timeBoxVis && <div  className="time-box">
+          <SelectBox 
+            option={timpOpt} 
+            onChange={handleTimeChange} 
+            onMouseEnter={() => {setIsuseBlur(false)}}
+            onMouseLeave={() => {setIsuseBlur(true)}}
+          />
+        </div>}
+        {wordTimeBoxVis && <div  className="wordtime-box">
+          <SelectBox 
+            option={wordTimpOpt} 
+            onChange={handleWordTimeChange} 
+            onMouseEnter={() => {setIsuseBlur(false)}}
+            onMouseLeave={() => {setIsuseBlur(true)}}
+          />
+        </div>}
       </div> 
       <Button className="start-button" onClick={handleClick}>发出邀请</Button>
-      
     </div>
   )
 }

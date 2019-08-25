@@ -31,6 +31,7 @@
   .img-box {
     z-index: 1;
     width: size(686px);
+    margin-top: size(180px);
     height: size(314px);
   }
   .pig-loading {
@@ -41,19 +42,19 @@
 }
 
 .join-text {
-  z-index: 1;
+  z-index:10;
   font-size: size(28px);
   .join-number {
-    z-index: 1;
+    z-index:10;
     font-size: size(56px);
   }
 }
 
 .time-text{
-  z-index: 1;
+  z-index: 10;
   font-size: size(28px);
   .time-number {
-    z-index: 1;
+    z-index:10;
     font-size: size(56px);
   }
 }

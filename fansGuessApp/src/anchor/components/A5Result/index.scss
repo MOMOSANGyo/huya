@@ -37,9 +37,16 @@
   font-family: 'HYLiLiangHeiJ';
   font-size: size(36px);
   color: #ffffff;
+  -webkit-text-stroke: 1px black;
   .result-people {
     font-size: size(70px);
   }
+}
+
+.result-introduce-text {
+  font-size: size(24px);
+  margin-top: size(32px);
+  color: #ffffff;
 }
 
 .next-btn {

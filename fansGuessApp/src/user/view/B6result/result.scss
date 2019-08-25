@@ -26,18 +26,20 @@
         margin-top: size(16px);
         position: relative;
         .result_header_index{
-            font-size: size(26px);
+            font-size: size(30px);
             text-align: left;
-            width: 40px;
+            height: size(48px);
+            line-height: size(48px);
+            width: 60px;
             position: absolute;
             left: size(36px);
         }
         .result_header_tit{
-            font-size: size(22px);
+            font-size: size(30px);
             width: size(412px);
             height: size(48px);
             line-height: size(48px);
-            background-color: #000000;
+            background-color: #2b2b2b;
             border-radius: size(8px);
             color: #fff;
             display: inline-block;
@@ -49,6 +51,9 @@
     }
     .result_header_f {
     height: size(120px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     .result_header1 {
         height    : size(48px);
@@ -57,16 +62,20 @@
         position  : relative;
 
         .result_header_index {
-            font-size : size(26px);
+            font-size : size(30px);
             text-align: left;
-            width     : 40px;
+            width     : 60px;
+            height: size(48px);
+            line-height: size(48px);
             position  : absolute;
             left      : size(36px);
         }
 
         .result_header_tit {
-            font-size       : size(22px);
+            font-size       : size(30px);
             width           : size(412px);
+            height: size(48px);
+            line-height: size(48px);
             background-color: #000000;
             border-radius   : size(8px);
             color           : #fff;
@@ -82,23 +91,26 @@
     .result_header2 {
         height    : size(48px);
         width     : 375px;
-        margin-top: size(-8px);
         position  : relative;
 
         .result_header_index2 {
-            font-size : size(26px);
+            font-size : size(30px);
             text-align: left;
             width     : 60px;
+            height: size(48px);
+            line-height: size(48px);
             position  : absolute;
             left      : size(36px);
         }
 
         .result_header_tit2 {
-            font-size       : size(22px);
+            font-size       : size(30px);
+            height: size(48px);
+            line-height: size(48px);
             width           : size(412px);
-            background-color: #f1574f;
+            background-color: #ff6b6b;
             border-radius   : size(8px);
-            color           : #fff;
+            color           : #000;
             display         : inline-block;
             position        : absolute;
             left            : 50%;
@@ -114,21 +126,26 @@
     }
     .result_correct{
         font-size: size(40px);
+        color: #fff;
+        -webkit-text-stroke: size(3px) black;
     }
     .result_res{
-        height: size(144px);
+        color: #000;
+        height: size(148px);
         width: size(600px);
-        border-top: 1px solid #000;
-        border-bottom: 1px solid #000;
+        border-top: 4px solid rgba(0,0,0,0.5);
+        border-bottom: 4px solid rgba(0,0,0,0.5);
         @include flex-row();
         .result_res_one{
             width: size(300px);
             @include flex-column();
             justify-content: center;
             align-items: center;
-            font-size: size(28px);
+            font-size: size(36px);
             .result_font{
-                font-size: size(40px);
+                font-size: size(50px);
+                color: #fff;
+                -webkit-text-stroke: size(3px) black;
             }
         }
     }

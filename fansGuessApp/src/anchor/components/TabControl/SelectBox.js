@@ -10,7 +10,10 @@ function SelectBox(props) {
     props.onChange(value);
   }
   return(
-    <div className="selectbox-bg">
+    <div className="selectbox-bg"
+      onMouseEnter={props.onMouseEnter} 
+      onMouseLeave={props.onMouseLeave}
+    >
       <ul className="time-list">
       {
         boxOption.map((item, i) => {

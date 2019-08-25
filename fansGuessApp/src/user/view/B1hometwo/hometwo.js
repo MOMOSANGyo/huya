@@ -88,13 +88,13 @@ class HomeTwo extends Component {
     render() {
         return (
             <div className="hometwo">
-                <div className="hometwo_flex">
-                <img className="hometwo_title" src={require('./title_one.png')} />
+                <div></div>
+                <img className="hometwo_title" src={require('../../assets/images/b1_title.png')} />
                 <div className="hometwo_p">
                     <p className="hometwo_p1">主播正在邀请你参加猜词游戏</p>
                     <p className="hometwo_P2"><span className="hometwo_time">距离游戏开始还有 </span>
                     {this.state.success ? <CountDown time={this.state.time} /> : <span >00:00</span> }</p>
-                    <p className="hometwo_p2">已有{this.state.count}人加入游戏，快来参加</p>
+                    <p className="hometwo_p2">已有 {this.state.count} 人加入游戏，快来参加</p>
                 </div>
                 <Rule />
                 {/* <Modal
@@ -109,7 +109,6 @@ class HomeTwo extends Component {
                     <p>Bla bla ...</p>
                     <p>Bla bla ...</p>
                 </Modal> */}
-                </div>
                 <div className="btn_one" onClick={this.join}>立即参加</div>
             </div>
         )
