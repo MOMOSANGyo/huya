@@ -166,9 +166,9 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
 CELERYBEAT_SCHEDULE = {
-    'schedule-test': {
-        'task': 'newanchor.tasks.process1',
-        'schedule': timedelta(seconds=1),
-        # 'args': (5,)
-    },
+    # 'schedule-test': {
+    #     'task': 'newanchor.tasks.process1',
+    #     'schedule': timedelta(seconds=1),
+    #     # 'args': (5,)
+    # },
 }
