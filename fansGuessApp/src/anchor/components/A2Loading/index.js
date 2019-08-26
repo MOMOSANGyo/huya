@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { useInterval } from '../../../utils/useHooks'
-import { getAwaitTime, getAwaitNum, quitGame } from '../../anchorModel'
+import { getAwaitTime, getAwaitNum, quitGame, joinGame } from '../../anchorModel'
 import './index.scss'
 import Modal from '../../../common/Modal'
 import {Button} from 'antd'
 import { getGameID } from '../../../utils/util'
 
 const LoadingView = (props) => {
-    const [now, setNow] = useState(false);
+    const [now, setNow] = useState(true);
     const [time, setTime] = useState(1);
     const [timer, setTimer] = useState(-1);
     const [userNumber, setUsesrNumber] = useState(0);
@@ -35,6 +35,12 @@ const LoadingView = (props) => {
         setNow(false);
       }
     }
+
+    hyExt.observer.on('waitNum', message => {
+      console.log('==========收到小程序后台推送过来的消息======',message);
+      hyExt.logger.info('收到小程序后台推送过来的消息', message)
+    })
+
     useInterval(async () => {
       const gameid = getGameID();
       console.log('=======a2getGameID===========', gameid);
@@ -81,8 +87,13 @@ const LoadingView = (props) => {
 
     function handleClick() {
       if(userNumber >= 1){
+        const gameid = getGameID();
+        console.log('=======getGameID===========', gameid);
+        const payload = {
+          gameid: gameid
+        }
+        joinGame(payload);
         props.history.push('/prepare');
-
       }
       else{
         setModalText("还没有人加入，请耐心等待");

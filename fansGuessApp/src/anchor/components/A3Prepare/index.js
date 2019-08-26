@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './index.scss'
 import {Button} from 'antd'
 import TimeProgress from '../../../common/TimeProgress'
-import { getGameDetail } from '../../anchorModel'
+import { getGameDetail, prepareOk } from '../../anchorModel'
 import { getGameID } from '../../../utils/util'
 
 const PrepareView = (props) => {
@@ -35,6 +35,16 @@ const PrepareView = (props) => {
     init();
   }, [])
 
+  function handleClick() {
+    const gameid = getGameID();
+    console.log('=======getGameID===========', gameid);
+    const payload = {
+      gameid: gameid
+    }
+    prepareOk(payload);
+    props.history.push('/play');
+    
+  }
     return (
       <div className="a3-container">
         <div>
@@ -51,7 +61,7 @@ const PrepareView = (props) => {
           }
           </ul>
         </div>
-        <Button className="ok-btn" onClick={() => {props.history.push('/play')}}>准备好了</Button>
+        <Button className="ok-btn" onClick={handleClick}>准备好了</Button>
       </div>
     )
 }

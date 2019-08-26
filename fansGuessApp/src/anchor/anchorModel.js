@@ -1,8 +1,23 @@
 import api from '../service/api'
 
+export async function initialPre(){
+  console.log('=======initialPre======');
+  let result = {};
+  await api.request('newanchor/pre/', 'POST').then(res => {
+    console.log('=======initialPre======', res);
+    result = res;
+  }).catch(err => {
+    console.log(err);
+  })
+  console.log('=======initialPre=========', result);
+  return result;
+}
+
+
+
 export async function getInitData() {
   let result = {};
-  await api.request('anchor/index/', 'POST').then(res => {
+  await api.request('newanchor/index/', 'POST').then(res => {
     console.log('=======getInitData=====res===', res);
     result = res;
   }).catch(err => {
@@ -15,7 +30,7 @@ export async function getInitData() {
 export async function setInviteData(params) {
   console.log('=====setInviteData======', params);
   let result = {};
-  await api.request('anchor/ainvite/', 'POST', params).then(res => {
+  await api.request('newanchor/ainvite/', 'POST', params).then(res => {
     result = res;
   }).catch(err => {
     console.log(err);
@@ -26,7 +41,7 @@ export async function setInviteData(params) {
 export async function getAwaitTime(params) {
   console.log('=====getAwaitTime======', params);
   let result = {};
-  await api.request('anchor/await/', 'POST', params).then(res => {
+  await api.request('newanchor/await/', 'POST', params).then(res => {
     result = res;
   }).catch(err => {
     console.log(err);
@@ -38,7 +53,7 @@ export async function getAwaitTime(params) {
 export async function getAwaitNum(params) {
   console.log('=====getAwaitNum======', params);
   let result = {};
-  await api.request('anchor/wait/', 'POST', params).then(res => {
+  await api.request('newanchor/wait/', 'POST', params).then(res => {
     result = res;
   }).catch(err => {
     console.log(err);
@@ -49,7 +64,18 @@ export async function getAwaitNum(params) {
 export async function quitGame(params) {
   console.log('=====quitGame======', params);
   let result = {};
-  await api.request('anchor/quit/', 'POST', params).then(res => {
+  await api.request('newanchor/quit/', 'POST', params).then(res => {
+    result = res;
+  }).catch(err => {
+    console.log(err);
+  })
+  return result;
+}
+
+export async function joinGame(params) {
+  console.log('=====getGameDetail======', params);
+  let result = {};
+  await api.request('newanchor/join/', 'POST', params).then(res => {
     result = res;
   }).catch(err => {
     console.log(err);
@@ -60,7 +86,18 @@ export async function quitGame(params) {
 export async function getGameDetail(params) {
   console.log('=====getGameDetail======', params);
   let result = {};
-  await api.request('anchor/join/', 'POST', params).then(res => {
+  await api.request('newanchor/prepare/', 'POST', params).then(res => {
+    result = res;
+  }).catch(err => {
+    console.log(err);
+  })
+  return result;
+}
+
+export async function prepareOk(params) {
+  console.log('=====getGameDetail======', params);
+  let result = {};
+  await api.request('newanchor/isok/', 'POST', params).then(res => {
     result = res;
   }).catch(err => {
     console.log(err);
@@ -71,7 +108,7 @@ export async function getGameDetail(params) {
 export async function getGameWord(params) {
   console.log('=====getGameWord======', params);
   let result = {};
-  await api.request('anchor/word/', 'POST', params).then(res => {
+  await api.request('newanchor/staticword/', 'POST', params).then(res => {
     result = res;
   }).catch(err => {
     console.log(err);
@@ -82,7 +119,7 @@ export async function getGameWord(params) {
 export async function getGameWordInfo(params) {
   console.log('=====getGameWordInfo======', params);
   let result = {};
-  await api.request('anchor/wordinfo/', 'POST', params).then(res => {
+  await api.request('newanchor/staticwordinfo/', 'POST', params).then(res => {
     result = res;
   }).catch(err => {
     console.log(err);
@@ -93,7 +130,7 @@ export async function getGameWordInfo(params) {
 export async function getGameWordGrade(params) {
   console.log('=====getGameWordGrade======', params);
   let result = {};
-  await api.request('anchor/wordgrade/', 'POST', params).then(res => {
+  await api.request('newanchor/wordgrade/', 'POST', params).then(res => {
     result = res;
   }).catch(err => {
     console.log(err);
@@ -104,7 +141,7 @@ export async function getGameWordGrade(params) {
 export async function getGameLastInfo(params) {
   console.log('=====getGameLastInfo======', params);
   let result = {};
-  await api.request('anchor/last/', 'POST', params).then(res => {
+  await api.request('newanchor/last/', 'POST', params).then(res => {
     result = res;
   }).catch(err => {
     console.log(err);
@@ -115,7 +152,7 @@ export async function getGameLastInfo(params) {
 export async function nextWord(params) {
   console.log('=====nextWord======', params);
   let result = {};
-  await api.request('anchor/next/', 'POST', params).then(res => {
+  await api.request('newanchor/next/', 'POST', params).then(res => {
     result = res;
   }).catch(err => {
     console.log(err);

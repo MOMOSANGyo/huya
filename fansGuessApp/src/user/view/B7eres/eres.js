@@ -81,7 +81,7 @@ class ERes extends Component{
                 </div>
                 <div>
                     <div className="eres_erank">
-                        {this.state.img && <ERank res={this.state.info} number={7} iamge={true} total={this.state.total}/>}
+                        {this.state.img && <ERank res={this.state.info} number={7} total={this.state.total}/>}
                     </div>
                     <div>
                         <div className="eres_btn" onClick={this.toFitstOne}>退出游戏</div>

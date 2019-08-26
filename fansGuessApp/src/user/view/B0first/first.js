@@ -15,9 +15,9 @@ class First extends Component {
 
 
     componentDidMount() {
-        this.timer = setInterval(() => {
-            this.sendData();
-        }, 1000);
+        hyExt.observer.on('invite', message => {
+            console.log('=========收到小程序后台推送过来的消息==========', message);
+          })
     }
 
     componentWillUnmount() {
@@ -53,6 +53,10 @@ class First extends Component {
         });
 
     }
+
+
+
+
     render() {
 
         return (

@@ -5,9 +5,9 @@ import { Button, Icon, Cascader, Select } from 'antd'
 import SelectBox from '../TabControl/SelectBox'
 import CascaderBox from '../TabControl/CascaderBox'
 
-import { getInitData, setInviteData } from '../../anchorModel'
+import { getInitData, setInviteData, initialPre } from '../../anchorModel'
 
-import { setGameID } from '../../../utils/util'
+import { setGameID, setGameWordID } from '../../../utils/util'
 const MainView = (props) => {
   const [isUseBlur, setIsuseBlur] = useState(true);
 
@@ -15,30 +15,57 @@ const MainView = (props) => {
   const [categoryOpt, setCategoryOpt] = useState();
   const [timpOpt, setTimpOpt] = useState();
   const [wordTimpOpt, setWordTimpOpt] = useState();
-  const [time, setTime] = useState();
+  const [time, setTime] = useState("0");
   const [timeBoxVis, setTimeBoxVis] = useState(false);
   const [category, setCategory] = useState();
   const [classBoxVis, setClassBoxVis] = useState(false);
-  const [wordTime, setWordTime] = useState();
+  const [wordTime, setWordTime] = useState("0");
   const [wordTimeBoxVis, setWordTimeBoxVis] = useState(false);
   const [wordTimetipVis, setWordTimetipVis] = useState(false);
 
-
-
   async function init() {
-    console.log('--request---');
-    const initData = await getInitData()
-    console.log('=====getInitData=======', initData);
-    const { category, time } = initData;
-    setCategoryOpt(category);
-    setTimpOpt(time);
-    const data = Object.keys(category || []);
+    const initPre = await initialPre();
+    const status = initPre.status;
+    if(status == 2){
+      const initData = await getInitData();
+      console.log('=====getInitData=======', initData);
+      const { category, time } = initData;
+      setCategoryOpt(category);
+      setTimpOpt(time);
+      const data = Object.keys(category || []);
 
-    setCategory(category[data[0]][0]);
-    setTime(time[0]);
+      setCategory(category[data[0]][0]);
+      setTime(time[0]);
 
-    setWordTimpOpt(['30','45', '60', '90']);
-    setWordTime('60');
+      setWordTimpOpt(['30','45', '60', '90']);
+      setWordTime('60');
+    }
+    else if(status == 0) {
+      const timebool = initPre.timebool;
+      const gametime = initPre.gametime;
+        props.history.push(`/loading/${timebool}/${gametime}`);  
+    }
+    else if(status == 3) {
+      const gameid = initPre.gameid;
+      setGameID(gameid);
+      const gametime = initPre.gametime;
+
+      props.history.push(`/prepare/${gametime}`);
+    }
+    else if(status == 1) {
+      const gameid = initPre.gameid;
+      setGameID(gameid);
+      const gamewordtime = initPre.gamewordtime;
+      props.history.push(`/play/${gamewordtime}`);
+    }
+    else if(status == 4) {
+      const gameid = initPre.gameid;
+      setGameID(gameid);
+      const gamewordid = initPre.gamewordid;
+      setGameWordID(gamewordid);
+      props.history.push('/result');
+    }
+    
   }
   useEffect(() => {
     init();
@@ -76,7 +103,8 @@ const MainView = (props) => {
   function handleClick() {
     const payload = {
       categoryname: category,
-      time: time
+      time: time,
+      questiontime: wordTime
     }
     handleInvite(payload);
   }
