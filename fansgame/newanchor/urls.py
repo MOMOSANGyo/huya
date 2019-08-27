@@ -12,7 +12,8 @@ urlpatterns = [
     url(r'^isok/', views.isok, name='isok'),#zaccc.lzok.top/newanchor/isok/
     url(r'^staticword/', views.staticword, name='staticword'),  # zaccc.lzok.top/newanchor/staticword/
     url(r'^staticwordinfo/', views.staticwordinfo, name='staticwordinfo'),  # zaccc.lzok.top/newanchor/staticwordinfo/
-    url(r'^next/', views.next, name='next'),  # zaccc.lzok.top/newanchor/next/
+    url(r'^next/', views.nexts, name='next'),  # zaccc.lzok.top/newanchor/next/
     url(r'^last/', views.last, name='last'),  # zaccc.lzok.top/newanchor/last/
     url(r'^pre/', views.pre, name='pre'),  # zaccc.lzok.top/newanchor/pre/
+    url(r'^test/', views.test, name='test'),  # zaccc.lzok.top/newanchor/test/
 ]

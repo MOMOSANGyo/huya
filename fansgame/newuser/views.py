@@ -52,7 +52,9 @@ def join(request):
                 info.save()
             else:
                 pass
-
+        if not UserRecord.objects.filter(gameid=pass_data["gameid"], useid=token_data['userId']).exists():
+            userrecord = UserRecord(gameid=pass_data["gameid"], useid=token_data['userId'])
+            userrecord.save()
         data = {}
         print(data)
         return JsonResponse(data)

@@ -8,7 +8,7 @@ import json
 from anchor.models import *
 import jwt
 import time
-from .tasks import a1invit,a2personnum,a3status,a4status,begin,next
+from .tasks import a1invit,a2personnum,a3status,a3begin,a4status,a4userlist,begin,next
 
 
 #主播获取词语类别和等待时间
@@ -18,6 +18,7 @@ def index(request):
         a = request.META.get("HTTP_AUTHORIZATION")
         token_data = jwt.decode(a, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
         print(token_data)
+        print(a)
         category = WordCategory.objects.filter(parentid=0)
         data = {}
         data["category"] = {}
@@ -72,14 +73,14 @@ def invite(request):
                 "gameid": gameid
             }
             print(data)
-            a1invit.delay(gameid=gameid)
+            a1invit.delay(gameid=gameid,waittime = pass_data["time"])
             return JsonResponse(data)
         else:
             data = {
                 "gameid": yanzhengrecord.id
             }
             print(data)
-            a1invit.delay(gameid=yanzhengrecord.id)
+            a1invit.delay(gameid=yanzhengrecord.id,waittime = pass_data["time"])
             return JsonResponse(data)
     return HttpResponse('oka1')
 
@@ -88,6 +89,7 @@ def wait(request):
     if request.method == 'POST':
         a = request.META.get("HTTP_AUTHORIZATION")
         token_data = jwt.decode(a, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
+        print(token_data)
         pass_data = json.loads(request.body)  # 解析前端传过来的参数
         print(pass_data)
         now = int(time.time())
@@ -137,7 +139,7 @@ def prepare(request):
         a = request.META.get("HTTP_AUTHORIZATION")
         token_data = jwt.decode(a, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
         pass_data = json.loads(request.body)  # 解析前端传过来的参数
-        print(pass_data)
+        print(pass_data,token_data)
         record = GameRecord.objects.get(id=pass_data["gameid"])
         wordlist = []
         select_word = SmallCategory.objects.filter(categoryid=record.wordsmallcategoryid)
@@ -183,6 +185,7 @@ def prepare(request):
         gamerecord.a3time = now+60
         gamerecord.save()
         a3status.delay(gameid=pass_data["gameid"])
+        a3begin.delay(gameid=pass_data["gameid"])
         data = {
             "word": wordlist,
             "category": category.categoryname
@@ -242,6 +245,7 @@ def staticword(request):
         gameword.save()
         # print(now+int(categoryid.a1time),type(now+int(categoryid.a1time)))
         a4status.delay(gameid=pass_data["gameid"],gametime=now+int(categoryid.a1time),role=token_data["role"])
+        a4userlist.delay(gameid=pass_data["gameid"],gametime=now+int(categoryid.a1time),role=token_data["role"])
         total = GameRecord.objects.get(id=pass_data["gameid"]).personnum
         data = {
             # "category": category,
@@ -306,7 +310,7 @@ def staticwordinfo(request):
             "rightperson": realnum,
             "winInfo": userinfo,
             "wronganswer": wronglist,
-            # "status": status,
+            "status": status,
             "score": score
         }
         # print(gameuserinfo)
@@ -314,7 +318,7 @@ def staticwordinfo(request):
     return HttpResponse('oka5')
 
 
-def next(request):
+def nexts(request):
     if request.method == 'POST':
         a = request.META.get("HTTP_AUTHORIZATION")
         token_data = jwt.decode(a, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
@@ -378,66 +382,98 @@ def pre(request):
     if request.method == 'POST':
         a = request.META.get("HTTP_AUTHORIZATION")
         token_data = jwt.decode(a, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
-        gameid = GameRecord.objects.filter(anchorid=token_data["profileId"], roomdid=token_data["roomId"]).last()
-        gamestatus = GameStatus.objects.get(gameid=gameid.id).gamestatus
-        print(token_data)
-        data={}
-        now = int(time.time())
-        if gamestatus == 0: #a2页
-            gametime = GameTime.objects.get(id=gameid.gametimeid).time
-            if gametime == 0:
-                data = {
-                    "status":gamestatus,
-                    "time":0,
-                    "timebool":1 #A1开始时间为现在
-                }
-            else:
-                if now <=gameid.a2atime:
-                    gametime = gameid.a2atime-now
+
+        data ={}
+
+
+        if GameRecord.objects.filter(anchorid=token_data["profileId"], roomdid=token_data["roomId"]).exists():
+            gameid = GameRecord.objects.filter(anchorid=token_data["profileId"], roomdid=token_data["roomId"]).last()
+            gamestatus = GameStatus.objects.get(gameid=gameid.id).gamestatus
+            print(token_data)
+
+            now = int(time.time())
+            if gamestatus == 0: #a2页
+                gametime = GameTime.objects.get(id=gameid.gametimeid).time
+                if gametime == 0:
                     data = {
-                        "status": gamestatus,
-                        "gametime": gametime, #秒 此时为等待时间结束前
-                        "timebool": 0  # A1开始时间为不是现在的其他选项
+                        "status":gamestatus,
+                        "gameid":gameid.id,
+                        "time":0,
+                        "timebool":1 #A1开始时间为现在
                     }
                 else:
-                    data = {
-                        "status": gamestatus,
-                        "gametime": 0,  # 秒 此时为等待时间结束后
-                        "timebool": 0  # A1开始时间为不是现在的其他选项
-                    }
-        elif gamestatus ==  3:
-            gametime = gameid.a3time -now
-            if gametime<0:
-                gametime=0
-            data = {
-                "status": gamestatus,
-                "gameid":gameid.id,
-                "gametime":gametime #秒 倒计时剩余时长
-            }
+                    if int(now) <=int(gameid.a2atime):
+                        gametime = int(gameid.a2atime)-int(now)
+                        data = {
+                            "status": gamestatus,
+                            "gameid": gameid.id,
+                            "gametime": gametime, #秒 此时为等待时间结束前
+                            "timebool": 0  # A1开始时间为不是现在的其他选项
+                        }
+                    else:
+                        data = {
+                            "status": gamestatus,
+                            "gameid": gameid.id,
+                            "gametime": 0,  # 秒 此时为等待时间结束后
+                            "timebool": 0  # A1开始时间为不是现在的其他选项
+                        }
+            elif gamestatus ==  3:
+                gametime = int(gameid.a3time) -int(now)
+                if gametime<0:
+                    gametime=0
+                data = {
+                    "status": gamestatus,
+                    "gameid":gameid.id,
+                    "gametime":gametime #秒 倒计时剩余时长
+                }
 
-        elif gamestatus == 1:
-            gameword = GameWord.objects.filter(gameid=gameid.id,used=1).last()
-            gamewordtime = gameword.a4time - now
-            if gamewordtime<0:
-                gamewordtime=0
+            elif gamestatus == 1:
+                gameword = GameWord.objects.filter(gameid=gameid.id,used=1).last()
+                gamewordtime = int(gameword.a4time) - int(now)
+                if gamewordtime<0:
+                    gamewordtime=0
+                data = {
+                    "status": gamestatus,
+                    "gameid": gameid.id,
+                    # "wordnumber":gameword.round, #友情提供
+                    "gamewordtime":gamewordtime  # 秒 该题倒计时剩余时间
+                }
+            elif gamestatus == 4:
+                gameword = GameWord.objects.filter(gameid=gameid.id,used=1).last()
+                data = {
+                    "status": gamestatus,
+                    "gameid": gameid.id,
+                    "gamewordid":gameword.id
+                }
+            elif gamestatus == 2:
+                data = {
+                    "status":gamestatus
+                }
+            else:
+                pass
+        else:
             data = {
-                "status": gamestatus,
-                "gameid": gameid.id,
-                # "wordnumber":gameword.round, #友情提供
-                "gamewordtime":gamewordtime  # 秒 该题倒计时剩余时间
-            }
-        elif gamestatus == 4:
-            gameword = GameWord.objects.filter(gameid=gameid.id,used=1).last()
-            data = {
-                "status": gamestatus,
-                "gameid": gameid.id,
-                "gamewordid":gameword.id
-            }
-        elif gamestatus == 2:
-            data = {
-                "status":gamestatus
+                "status": 2
             }
 
         return JsonResponse(data)
 
     return HttpResponse('ok')
+
+
+def test(request):
+    if request.method == 'POST':
+        a = request.META.get("HTTP_AUTHORIZATION")
+        token_data = jwt.decode(a, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
+        print(token_data)  # 打印解析后的token
+
+        pass_data = json.loads(request.body)  # 解析前端传过来的参数
+        print(pass_data)
+        status = GameStatus.objects.get(gameid=pass_data["gameid"])
+        status.gamestatus = 2
+        status.save()
+        data = {
+            "response": "ok"
+        }
+        print(data)
+        return JsonResponse(data)
