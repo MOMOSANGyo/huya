@@ -14,12 +14,12 @@ const MainView = (props) => {
   console.log('==========Main=============',props);
   const [categoryOpt, setCategoryOpt] = useState();
   const [timpOpt, setTimpOpt] = useState();
-  const [wordTimpOpt, setWordTimpOpt] = useState();
+  const [wordTimpOpt, setWordTimpOpt] = useState(['30','45', '60', '90']);
   const [time, setTime] = useState("0");
   const [timeBoxVis, setTimeBoxVis] = useState(false);
   const [category, setCategory] = useState();
   const [classBoxVis, setClassBoxVis] = useState(false);
-  const [wordTime, setWordTime] = useState("0");
+  const [wordTime, setWordTime] = useState("60");
   const [wordTimeBoxVis, setWordTimeBoxVis] = useState(false);
   const [wordTimetipVis, setWordTimetipVis] = useState(false);
 

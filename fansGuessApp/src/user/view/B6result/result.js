@@ -186,11 +186,11 @@ class ResultView extends Component {
                         <div className="result_res">
                             <div className="result_res_one">
                                 <div >手速击败</div>
-                                <div className="result_font"><span>{this.state.speed_rate}</span> 对手</div>
+                                <div><span className="result_font">{this.state.speed_rate}</span> 对手</div>
                             </div>
                             <div className="result_res_one">
                                 <div>累积得分</div>
-                                <div className="result_font"><span>{this.state.score}</span> 分</div>
+                                <div><span className="result_font">{this.state.score}</span> 分</div>
                             </div>
                         </div>
                     }

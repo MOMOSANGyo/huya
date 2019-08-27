@@ -4,7 +4,7 @@ import {Button} from 'antd'
 import { useInterval } from '../../../utils/useHooks'
 import TimeProgress from '../../../common/TimeProgress'
 import ScoreList from '../ScoreList'
-import { getGameWord, getGameWordInfo } from '../../anchorModel'
+import { getGameWord, getGameWordInfo, a4toa5 } from '../../anchorModel'
 import { getGameID, setGameWordID, getGameWordID } from '../../../utils/util'
 import { gameBg } from '../../assets/imgConfig'
 
@@ -92,17 +92,18 @@ const PlayView = (props) => {
 
   useEffect(() => {
     init();
+    hyExt.observer.on('anchorUserlist', message => {
+      console.log('==========收到小程序后台推送过来的消息======',message);
+      const data = JSON.parse(message);
+      const n = data.num;
+      setUserNum(n);
+      const listdata = res.userlist;
+      setListData(listdata || []);
+      hyExt.logger.info('收到小程序后台推送过来的消息', message)
+    })
   }, [])
 
-  hyExt.observer.on('userList', message => {
-    console.log('==========收到小程序后台推送过来的消息======',message);
-    const data = JSON.parse(message);
-    const n = data.num;
-    setUserNum(n);
-    const listdata = res.userlist;
-    setListData(listdata || []);
-    hyExt.logger.info('收到小程序后台推送过来的消息', message)
-  })
+  
 
   // useInterval(async () => {
   //   const gamewordid = getGameWordID();
@@ -128,6 +129,12 @@ const PlayView = (props) => {
   function changeTime(time) {
     console.log('=======time=======', time);
     if(time >= wordTime) {
+      const gameid = getGameID();
+      console.log('=======getGameID===========', gameid);
+      const payload = {
+        gameid: gameid
+      }
+      a4toa5(payload)
       props.history.push('/result');
     }
   }
@@ -154,7 +161,7 @@ const PlayView = (props) => {
       </div>
      <div>
       <ScoreList className="score-list" res={listData} num={userNum} total={totalNum} />
-      <div className="tips">只有5-15人猜对答案才能获胜哦</div>
+      <div className="tips">{`只有-人猜对答案才能获胜哦`}</div>
      </div>
     </div>
     )

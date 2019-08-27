@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './index.scss'
 import {Button} from 'antd'
 import TimeProgress from '../../../common/TimeProgress'
-import { getGameDetail, prepareOk } from '../../anchorModel'
+import { getGameDetail, prepareOk, a3toa4 } from '../../anchorModel'
 import { getGameID } from '../../../utils/util'
 
 const PrepareView = (props) => {
@@ -45,6 +45,19 @@ const PrepareView = (props) => {
     init();
   }, [])
 
+  function changeTime(value) {
+    console.log('=======time=======', value, time);
+    if(value >= time) {
+      const gameid = getGameID();
+      console.log('=======getGameID===========', gameid);
+      const payload = {
+        gameid: gameid
+      }
+      a3toa4(payload)
+      props.history.push('/play/undefined');
+    }
+  }
+
   function handleClick() {
     const gameid = getGameID();
     console.log('=======getGameID===========', gameid);
@@ -58,7 +71,7 @@ const PrepareView = (props) => {
       <div className="a3-container">
         <div>
           <div style={{ marginTop: 22}}>请在60秒时间内熟悉熟悉下列10个词语</div>
-          <TimeProgress theme='purple' style={{ marginTop: 24 }} time={time}/>
+          <TimeProgress theme='purple' onChange={changeTime} style={{ marginTop: 24 }} time={time}/>
         </div>
         
         <div className="prepare-words">

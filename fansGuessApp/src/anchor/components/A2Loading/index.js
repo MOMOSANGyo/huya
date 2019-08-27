@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useInterval } from '../../../utils/useHooks'
-import { getAwaitTime, getAwaitNum, quitGame, joinGame } from '../../anchorModel'
+import { getAwaitTime, getAwaitNum, quitGame, joinGame, a2toa3 } from '../../anchorModel'
 import './index.scss'
 import Modal from '../../../common/Modal'
 import {Button} from 'antd'
@@ -52,17 +52,9 @@ const LoadingView = (props) => {
           setNow(false);
         }
       }
-
-      
     }
 
-    hyExt.observer.on('waitNum', message => {
-      console.log('==========收到小程序后台推送过来的消息======',message);
-      const data = JSON.parse(message);
-      const num = data.personnum;
-      setUsesrNumber(num);
-      hyExt.logger.info('收到小程序后台推送过来的消息', message)
-    })
+    
 
     // useInterval(async () => {
     //   const gameid = getGameID();
@@ -78,11 +70,25 @@ const LoadingView = (props) => {
 
     useInterval(() => {
       setTimer(timer - 1);
+      if(time == 5 && timer === 1){
+        const gameid = getGameID();
+        console.log('=======getGameID===========', gameid);
+        const payload = {
+          gameid: gameid
+        }
+        a2toa3(payload)
+        props.history.push('/prepare/undefined');
+      }
     }, timer >= 1 ? 1000 : null);
-
 
     useEffect(() => {
       init();
+      hyExt.observer.on('anchorNum', message => {
+        const data = JSON.parse(message);
+        const num = data.personnum;
+        setUsesrNumber(num);
+        hyExt.logger.info('收到小程序后台推送过来的消息', message)
+      })
     }, [])
 
     useEffect(() => {
@@ -109,7 +115,7 @@ const LoadingView = (props) => {
 
 
     function handleClick() {
-      // if(userNumber >= 1){
+      if(userNumber >= 1){
         const gameid = getGameID();
         console.log('=======getGameID===========', gameid);
         const payload = {
@@ -117,11 +123,11 @@ const LoadingView = (props) => {
         }
         joinGame(payload);
         props.history.push('/prepare/undefined');
-      // }
-      // else{
-      //   setModalText("还没有人加入，请耐心等待");
-      //   setModalVis(true);
-      // }
+      }
+      else{
+        setModalText("还没有人加入，请耐心等待");
+        setModalVis(true);
+      }
     }
 
     return (

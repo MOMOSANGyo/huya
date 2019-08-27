@@ -83,6 +83,39 @@ export async function joinGame(params) {
   return result;
 }
 
+export async function a2toa3(params) {
+  console.log('=====getGameDetail======', params);
+  let result = {};
+  await api.request('newanchor/a2status/', 'POST', params).then(res => {
+    result = res;
+  }).catch(err => {
+    console.log(err);
+  })
+  return result;
+}
+
+export async function a3toa4(params) {
+  console.log('=====getGameDetail======', params);
+  let result = {};
+  await api.request('newanchor/a3status/', 'POST', params).then(res => {
+    result = res;
+  }).catch(err => {
+    console.log(err);
+  })
+  return result;
+}
+
+export async function a4toa5(params) {
+  console.log('=====getGameDetail======', params);
+  let result = {};
+  await api.request('newanchor/a4status/', 'POST', params).then(res => {
+    result = res;
+  }).catch(err => {
+    console.log(err);
+  })
+  return result;
+}
+
 export async function getGameDetail(params) {
   console.log('=====getGameDetail======', params);
   let result = {};
