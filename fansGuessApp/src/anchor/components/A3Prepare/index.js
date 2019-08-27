@@ -8,8 +8,12 @@ import { getGameID } from '../../../utils/util'
 const PrepareView = (props) => {
 
   const [listData, setListData] = useState([]); 
+  const [time, setTime] = useState();
 
   async function init() {
+    console.log('====props===', props);
+    const gtime = props.match.params.gametime;
+    console.log('====gtime======', gtime);
     const gameid = getGameID();
     console.log('=======a2getGameID===========', gameid);
     const payload = {
@@ -28,6 +32,12 @@ const PrepareView = (props) => {
       "王者荣耀",
       "王者荣耀"
     ]
+    if(!isNaN(parseInt(gtime))) {
+      setTime(parseInt(gtime));
+    }else{
+      setTime(60);
+    }
+
     setListData(list);
   }
 
@@ -42,14 +52,13 @@ const PrepareView = (props) => {
       gameid: gameid
     }
     prepareOk(payload);
-    props.history.push('/play');
-    
+    props.history.push('/play/undefined');
   }
     return (
       <div className="a3-container">
         <div>
           <div style={{ marginTop: 22}}>请在60秒时间内熟悉熟悉下列10个词语</div>
-          <TimeProgress theme='purple' style={{ marginTop: 24 }}/>
+          <TimeProgress theme='purple' style={{ marginTop: 24 }} time={time}/>
         </div>
         
         <div className="prepare-words">

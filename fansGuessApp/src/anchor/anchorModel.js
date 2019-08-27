@@ -30,7 +30,7 @@ export async function getInitData() {
 export async function setInviteData(params) {
   console.log('=====setInviteData======', params);
   let result = {};
-  await api.request('newanchor/ainvite/', 'POST', params).then(res => {
+  await api.request('newanchor/invite/', 'POST', params).then(res => {
     result = res;
   }).catch(err => {
     console.log(err);
@@ -41,18 +41,6 @@ export async function setInviteData(params) {
 export async function getAwaitTime(params) {
   console.log('=====getAwaitTime======', params);
   let result = {};
-  await api.request('newanchor/await/', 'POST', params).then(res => {
-    result = res;
-  }).catch(err => {
-    console.log(err);
-  })
-  return result;
-}
-
-
-export async function getAwaitNum(params) {
-  console.log('=====getAwaitNum======', params);
-  let result = {};
   await api.request('newanchor/wait/', 'POST', params).then(res => {
     result = res;
   }).catch(err => {
@@ -60,6 +48,18 @@ export async function getAwaitNum(params) {
   })
   return result;
 }
+
+
+// export async function getAwaitNum(params) {
+//   console.log('=====getAwaitNum======', params);
+//   let result = {};
+//   await api.request('newanchor/wait/', 'POST', params).then(res => {
+//     result = res;
+//   }).catch(err => {
+//     console.log(err);
+//   })
+//   return result;
+// }
 
 export async function quitGame(params) {
   console.log('=====quitGame======', params);
@@ -116,21 +116,21 @@ export async function getGameWord(params) {
   return result;
 }
 
-export async function getGameWordInfo(params) {
-  console.log('=====getGameWordInfo======', params);
-  let result = {};
-  await api.request('newanchor/staticwordinfo/', 'POST', params).then(res => {
-    result = res;
-  }).catch(err => {
-    console.log(err);
-  })
-  return result;
-}
+// export async function getGameWordInfo(params) {
+//   console.log('=====getGameWordInfo======', params);
+//   let result = {};
+//   await api.request('newanchor/staticwordinfo/', 'POST', params).then(res => {
+//     result = res;
+//   }).catch(err => {
+//     console.log(err);
+//   })
+//   return result;
+// }
 
 export async function getGameWordGrade(params) {
   console.log('=====getGameWordGrade======', params);
   let result = {};
-  await api.request('newanchor/wordgrade/', 'POST', params).then(res => {
+  await api.request('newanchor/staticwordinfo/', 'POST', params).then(res => {
     result = res;
   }).catch(err => {
     console.log(err);

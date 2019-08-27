@@ -41,6 +41,8 @@ const ResultView = (props) => {
   const [totalNum, setTotalNum] = useState(0);
   const [gameStatus, setGameStatus] = useState(0);
   const [success, setSuccess] = useState(false);
+  const [score, setScore] = useState(true);
+  const [gamewordtime, setGamewordtime] = useState();
 
   async function init() {
     const gameid = getGameID();
@@ -52,13 +54,13 @@ const ResultView = (props) => {
     }
     const res = await getGameWordGrade(payload);
     console.log('====getGameWordGrade=====',res);
-    const questionnum = res.questionnum;
+    const questionnum = res.wordnumber;
     setGameNumber(questionnum);
     const realanswer = res.realanswer;
     setWords(realanswer);
-    const realnum = res.realnum;
+    const realnum = res.rightperson;
     setWinNum(realnum);
-    const total = res.total;
+    const total = res.totalperson;
     setTotalNum(total);
     const status = res.status;
     setGameStatus(status);
@@ -68,6 +70,8 @@ const ResultView = (props) => {
     const wronganswer = res.wronganswer;
     console.log('======wronganswer========', wronganswer);
     setErrWords(wronganswer);
+    const score = res.score === 1? true: false;
+    setScore(score);
     setSuccess(true);
   }
 
@@ -97,7 +101,7 @@ const ResultView = (props) => {
     }
     nextWord(payload);
     if(gameStatus == 0) {
-      props.history.push('/play');
+      props.history.push(`/play/${gamewordtime}`);
     }
     else {
       props.history.push('/score');
@@ -114,7 +118,7 @@ const ResultView = (props) => {
         <span className="h-text">{words}</span>
       </div>
       <div>
-        <ResultProgress rightPeople={winNum} totle={totalNum} />
+        <ResultProgress rightPeople={winNum} totle={totalNum} isWin={score}/>
         <div className="result-text" >{`共 `}
           <span className="result-people"
             style={{ color: (winNum < Math.floor(totalNum/4) || winNum > Math.floor((totalNum/4) *3))?
@@ -124,8 +128,8 @@ const ResultView = (props) => {
         <div className="result-introduce-text">(20人参与游戏，只有5-15人猜对答案才可获胜)</div>
       </div>
       <div>
-        {success && <EndRank res={listData} fRes={errWords} number={7} fNumber={7} />}
-        <Button className="next-btn" onClick={handleClick}>下一题</Button>
+        {success && <EndRank className="result-endrank" res={listData} fRes={errWords} number={7} fNumber={7} />}
+        <Button className="next-btn" onClick={handleClick}>{gameNumber==9?"最终结果":"下一题"}</Button>
       </div>
       
     </div>

@@ -27,7 +27,7 @@ const ScoreView = (props) => {
     setLastScore(score);
     const info = res.info;
     setListData(info);
-    const total = res.total;
+    const total = res.totalperson;
     setTotalNum(total);    
   }
 
@@ -48,7 +48,7 @@ const ScoreView = (props) => {
       res = "还不错，下次高分就是你";
     }
     else if( lastScore >= 6 &&  lastScore <= 7) {
-      res = "哇哦，你好厉害哟";
+      res = "非常可以，干得漂亮";
     }
     else if( lastScore >= 8 &&  lastScore <= 9) {
       res = "你是魔鬼吧";
@@ -65,9 +65,8 @@ const ScoreView = (props) => {
         <div className="a6-title" >我的得分</div>
         <img src={scoreImg[lastScore]} style={{zoom : '50%'}} />
         <div className="show-text">{renderText()}</div>
-
         <div>
-          <ERank res={listData} number={7} total={totalNum} />
+          <ERank className="score-erank" res={listData} number={7} total={totalNum} />
           <div className="btn-container">
             <Button className="again-btn" onClick={() => {props.history.push('/main')}}>再来一局</Button>
             <Button className="quit-btn" onClick={() => {props.history.push('/main')}}>退出游戏</Button>

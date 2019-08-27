@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from "react-router-dom";
-import { Spin } from 'antd'
+import { Spin, message } from 'antd'
 import TimeProgress from '../../../common/TimeProgress'
 import Input from '../../../common/Input/index'
 import './midres.scss'
@@ -41,12 +41,19 @@ class MidRes extends Component {
     }
 
     componentDidMount() {
+        this.getResult();
         this.timer = setInterval(() => {
             this.count();
         }, 1000);
-        this.restimer = setInterval(() => {
-            this.getResult();
-        }, 1000);
+        hyExt.observer.on('userList', message => {
+            console.log('=========收到小程序后台推送过来的消息==========', message);
+            const data = JSON.parse(message);
+            this.setState({
+                infomation: data.userlist,
+                num: data.num
+            })
+        })
+
     }
 
     count() {
@@ -54,7 +61,6 @@ class MidRes extends Component {
         count = count - 1;
         if (count === 0) {
             clearInterval(this.timer);
-            clearInterval(this.restimer);
             this.props.history.push('/res')
         }
         this.setState({
@@ -66,7 +72,7 @@ class MidRes extends Component {
         hyExt.request({
             header: {
             },
-            url: 'http://zaccc.lzok.top/user/displayanswer/',
+            url: 'http://zaccc.lzok.top/newuser/waitnext/',
             method: 'POST',
             dataType: 'json',
             data: {
@@ -86,15 +92,14 @@ class MidRes extends Component {
                 this.setState({
                     questionNum: data.questionNum,
                     answer: answer,
-                    infomation: data.infomation,
-                    num: data.num,
-                    totalnum: data.totalnum,
+                    totalnum: data.totalperson,
                     input: true,
                     loading: false,
                 })
             }
 
         }).catch(err => {
+            message.error(err);
             hyExt.logger.warn('调用失败', err)
         })
     }

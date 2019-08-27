@@ -29,3 +29,5 @@ export function getGameWordID() {
   }
   return resGameWordId;
 }
+
+export const isNaN = (obj) => obj !== obj;

@@ -11,61 +11,76 @@ class Success extends Component {
             num: 0,
             time: 0,
             success: false,
-            status: null
+            // status: null
         }
-        this.init = this.init.bind(this);
+        // this.init = this.init.bind(this);
         // this.showModal = this.showModal.bind(this)
         // this.hideModal = this.hideModal.bind(this)
     }
 
 
     componentDidMount() {
-        this.timer = setInterval(() => {
-            this.init();
-        }, 1000);
+        hyExt.observer.on('begin', message => {
+            console.log('=========收到小程序后台推送过来的消息==========', message);
+            const data = JSON.parse(message);
+            global.info.gameid = data.gameid;
+            if (data.begin == 1) {
+                this.props.history.push('loading')
+            }
+        });
+
+        hyExt.observer.on('waitNum', message => {
+            console.log('=========收到小程序后台推送过来的消息==========', message);
+            const data = JSON.parse(message);
+            console.log('=====message====personnum==timebool===', data.personnum, data.timebool);
+            this.setState({
+                    num: data.personnum
+            })
+        })
+
     }
 
     componentWillUnmount() {
-        clearInterval(this.timer);
+        // clearInterval(this.timer);
     }
 
-    init() {
-        console.log(global.info.gameid);
-        hyExt.request({
-            header: {
-            },
-            url: 'http://zaccc.lzok.top/user/wait/',
-            method: 'POST',
-            dataType: 'json',
-            data: {
-                "gameid": global.info.gameid
-            }
-        }).then((res) => {
-            console.log('--data--', res);
-            this.setState({
-                num: res.data.num,
-                time: res.data.time,
-                success: true,
-                status: res.data.status
-            })
-            // this.props.history.push('/playing')
-            if (res.data.status === 2) {
-                clearInterval(this.timer);
-                hyExt.context.showToast('抱歉，游戏人数不足，暂时无法开局').then(() => {
-                    hyExt.logger.info('显示成功')
-                }).catch(err => {
-                    hyExt.logger.warn('显示失败', err)
-                })
-            } else if (res.data.status === 3) {
-                clearInterval(this.timer);
-                this.props.history.push('loading')
-            }
+    // init() {
+    //     console.log(global.info.gameid);
+    //     hyExt.request({
+    //         header: {
+    //         },
+    //         url: 'http://zaccc.lzok.top/user/wait/',
+    //         method: 'POST',
+    //         dataType: 'json',
+    //         data: {
+    //             "gameid": global.info.gameid
+    //         }
+    //     }).then((res) => {
+    //         console.log('--data--', res);
+    //         this.setState({
+    //             num: res.data.num,
+    //             time: res.data.time,
+    //             success: true,
+    //             status: res.data.status
+    //         })
+    //         // this.props.history.push('/playing')
+    //         if (res.data.status === 2) {
+    //             clearInterval(this.timer);
+    //             hyExt.context.showToast('抱歉，游戏人数不足，暂时无法开局').then(() => {
+    //                 hyExt.logger.info('显示成功')
+    //             }).catch(err => {
+    //                 hyExt.logger.warn('显示失败', err)
+    //             })
+    //         } else if (res.data.status === 3) {
+    //             clearInterval(this.timer);
+    //             this.props.history.push('loading')
+    //         }
 
-        }).catch(err => {
-            hyExt.logger.warn('调用失败', err)
-            console.log('---err--', err);
-        });
-    }
+    //     }).catch(err => {
+    //         hyExt.logger.warn('调用失败', err)
+    //         console.log('---err--', err);
+    //     });
+    // }
     render() {
         return (
             <div className="success">

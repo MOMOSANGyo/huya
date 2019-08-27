@@ -13,43 +13,50 @@ class Home extends Component{
             success: false,
         }
         this.join = this.join.bind(this);
-        this.init = this.init.bind(this);
+        // this.init = this.init.bind(this);
         // this.showModal = this.showModal.bind(this)
         // this.hideModal = this.hideModal.bind(this)
     }
 
 
     componentDidMount() {
-        this.init();
+        // this.init();
+        hyExt.observer.on('waitNum', message => {
+            console.log('=========收到小程序后台推送过来的消息==========', message);
+            const data = JSON.parse(message);
+            console.log('=====message====personnum==timebool===', data.personnum, data.timebool);
+            this.setState({
+                    count: data.personnum
+            })
+        })
     }
     
-    init() {
-        console.log(global.info.gameid);
-        hyExt.request({
-            header: {
-            },
-            url: 'http://zaccc.lzok.top/user/invite/',
-            method: 'POST',
-            dataType: 'json',
-            data: {
-                "gameid": global.info.gameid
-            }
-        }).then((res) => {
-            console.log('--data--', res);
-            this.setState({
-                count: res.data.num,
-                time: res.data.time,
-                success: true
-            })
-            // this.props.history.push('/playing')
-            console.log('--data--', this.state.time);
+    // init() {
+    //     console.log(global.info.gameid);
+    //     hyExt.request({
+    //         header: {
+    //         },
+    //         url: 'http://zaccc.lzok.top/user/invite/',
+    //         method: 'POST',
+    //         dataType: 'json',
+    //         data: {
+    //             "gameid": global.info.gameid
+    //         }
+    //     }).then((res) => {
+    //         console.log('--data--', res);
+    //         this.setState({
+    //             count: res.data.num,
+    //             time: res.data.time,
+    //             success: true
+    //         })
+    //         // this.props.history.push('/playing')
+    //         console.log('--data--', this.state.time);
 
-        }).catch(err => {
-            hyExt.logger.warn('调用失败', err)
-            console.log('---err--', err);
-        });
-    }
-
+    //     }).catch(err => {
+    //         hyExt.logger.warn('调用失败', err)
+    //         console.log('---err--', err);
+    //     });
+    // }
 
     //发送请求
     join() {
@@ -57,7 +64,7 @@ class Home extends Component{
             hyExt.request({
                 header: {
                 },
-                url: 'http://zaccc.lzok.top/user/join/',
+                url: 'http://zaccc.lzok.top/newuser/join/',
                 method: 'POST',
                 dataType: 'json',
                 data: {

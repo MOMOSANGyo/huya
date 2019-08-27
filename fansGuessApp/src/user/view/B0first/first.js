@@ -10,49 +10,59 @@ class First extends Component {
         this.state = {
             count: 0,
         }
-        this.sendData = this.sendData.bind(this)
+   //     this.sendData = this.sendData.bind(this)
     }
 
 
     componentDidMount() {
         hyExt.observer.on('invite', message => {
             console.log('=========收到小程序后台推送过来的消息==========', message);
-          })
+            const data = JSON.parse(message);
+            global.info.gameid = data.gameid;
+            if (data.time) {
+                if (data.time !== "0") {
+                    this.props.history.push('/home2');
+                } else {
+                    this.props.history.push('/home');
+                }
+                
+            }
+        })
     }
 
     componentWillUnmount() {
-        clearInterval(this.timer);
+        // clearInterval(this.timer);
     }
 
 
     //发送请求
-    sendData() {
-        hyExt.request({
-            header: {
-            },
-            url: 'http://zaccc.lzok.top/user/index/',
-            method: 'POST',
-            dataType: 'Text',
-            data: {
+    // sendData() {
+    //     hyExt.request({
+    //         header: {
+    //         },
+    //         url: 'http://zaccc.lzok.top/user/index/',
+    //         method: 'POST',
+    //         dataType: 'Text',
+    //         data: {
 
-            }
-        }).then((res) => {
-            console.log('--data--', res);
-            global.info.gameid = res.data.gameid;
-            if (res.data.time) {
-                if (res.data.time !== "0") {
-                    this.props.history.push('/home2')
-                } else {
-                    this.props.history.push('/home')
-                }
+    //         }
+    //     }).then((res) => {
+    //         console.log('--data--', res);
+    //         global.info.gameid = res.data.gameid;
+    //         if (res.data.time) {
+    //             if (res.data.time !== "0") {
+    //                 this.props.history.push('/home2')
+    //             } else {
+    //                 this.props.history.push('/home')
+    //             }
                 
-            }
-        }).catch(err => {
-            hyExt.logger.warn('调用失败', err)
-            console.log('---err--', err);
-        });
+    //         }
+    //     }).catch(err => {
+    //         hyExt.logger.warn('调用失败', err)
+    //         console.log('---err--', err);
+    //     });
 
-    }
+    // }
 
 
 

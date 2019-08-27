@@ -26,7 +26,7 @@ class ERes extends Component{
         hyExt.request({
             header: {
             },
-            url: 'http://zaccc.lzok.top/user/last/',
+            url: 'http://zaccc.lzok.top/newuser/last/',
             method: 'POST',
             dataType: 'json',
             data: {

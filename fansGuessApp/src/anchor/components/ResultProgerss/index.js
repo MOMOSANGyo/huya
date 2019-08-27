@@ -15,28 +15,26 @@ function ResultProgress(props) {
   useEffect(() => {
     const rightPeople = props.rightPeople;
     const totle = props.totle;
-    if(rightPeople < Math.floor(totle/4) || rightPeople > Math.floor((totle/4) *3)) {
-      setResultBg(defeatedBg);
-      setIconBg(failIcon);
-      setResult(true);
-      
-    }
-    else {
+    if(props.isWin) {
       setResultBg(victoryBg);
       setIconBg(winIcon);
+      setIsWin(true); 
+      setResult(true);   
+    }
+    else {
+      setResultBg(defeatedBg);
+      setIconBg(failIcon);
+      setIsWin(false); 
       setResult(true);
-      setIsWin(true);
     }
 
-
-
-  },[props.totle, props.rightPeople])
+  },[props.isWin])
   return(
     <div style={{ ...props.style, position: 'relative' }}>
       { result && <div className="result-container">
         <img className="result-img" src={resultBg}/>
         <div className="progress-wrap" 
-        style={{ width: Math.floor((props.rightPeople/props.totle)*305) }}
+        style={{ width: !props.totle? 0: Math.floor((props.rightPeople/props.totle)*305) }}
         >
         <div className="progerss-box">
           <div className="result-filler">

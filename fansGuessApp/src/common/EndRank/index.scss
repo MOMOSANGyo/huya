@@ -20,6 +20,7 @@
     width: 100%;
     display: flex;
     justify-content: flex-end;
+    font-family: "PingFangSCRegular";
     .endrank_header{
         @include flex-row();
         height: size(40px);

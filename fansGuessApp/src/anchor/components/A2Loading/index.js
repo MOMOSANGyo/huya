@@ -16,6 +16,12 @@ const LoadingView = (props) => {
     const [modalVis, setModalVis] = useState(false);
 
     async function init() {
+      console.log('====props===', props);
+      const timebool = props.match.params.timebool;
+      console.log('====wtime======', timebool);
+      const gtime = props.match.params.gametime;
+      console.log('====wtime======', gtime);
+
       const gameid = getGameID();
       console.log('=======a2getGameID===========', gameid);
       const payload = {
@@ -25,33 +31,50 @@ const LoadingView = (props) => {
       console.log('=======a2getAwaitTime===========', res);
       const mTime = res.time;
 
-      if(mTime == 0) {
-        setTimer(0);
-        setNow(true);
+      if(!isNaN(parseInt(timebool))){
+        if(mTime == 0 || gtime == 0) {
+          setTimer(0);
+          setNow(true);
+        }
+        else if(parseInt(timebool) == 0 && !isNaN(parseInt(gtime))) {
+          setTime(mTime);
+          setTimer(parseInt(gtime));
+          setNow(false);
+        }
+      }else{
+        if(mTime == 0) {
+          setTimer(0);
+          setNow(true);
+        }
+        else {
+          setTime(mTime);
+          setTimer(parseInt(mTime)*60);
+          setNow(false);
+        }
       }
-      else {
-        setTime(mTime);
-        setTimer(parseInt(mTime)*60);
-        setNow(false);
-      }
+
+      
     }
 
     hyExt.observer.on('waitNum', message => {
       console.log('==========收到小程序后台推送过来的消息======',message);
+      const data = JSON.parse(message);
+      const num = data.personnum;
+      setUsesrNumber(num);
       hyExt.logger.info('收到小程序后台推送过来的消息', message)
     })
 
-    useInterval(async () => {
-      const gameid = getGameID();
-      console.log('=======a2getGameID===========', gameid);
-      const payload = {
-        gameid: gameid
-      }
-      const res = await getAwaitNum(payload);
-      console.log('=======getAwaitNum====res=======', res);
-      const n = res.num;
-      setUsesrNumber(n)
-    }, 1000);
+    // useInterval(async () => {
+    //   const gameid = getGameID();
+    //   console.log('=======a2getGameID===========', gameid);
+    //   const payload = {
+    //     gameid: gameid
+    //   }
+    //   const res = await getAwaitNum(payload);
+    //   console.log('=======getAwaitNum====res=======', res);
+    //   const n = res.num;
+    //   setUsesrNumber(n)
+    // }, 1000);
 
     useInterval(() => {
       setTimer(timer - 1);
@@ -86,19 +109,19 @@ const LoadingView = (props) => {
 
 
     function handleClick() {
-      if(userNumber >= 1){
+      // if(userNumber >= 1){
         const gameid = getGameID();
         console.log('=======getGameID===========', gameid);
         const payload = {
           gameid: gameid
         }
         joinGame(payload);
-        props.history.push('/prepare');
-      }
-      else{
-        setModalText("还没有人加入，请耐心等待");
-        setModalVis(true);
-      }
+        props.history.push('/prepare/undefined');
+      // }
+      // else{
+      //   setModalText("还没有人加入，请耐心等待");
+      //   setModalVis(true);
+      // }
     }
 
     return (

@@ -40,25 +40,24 @@ const MainView = (props) => {
       setWordTimpOpt(['30','45', '60', '90']);
       setWordTime('60');
     }
-    else if(status == 0) {
+    else if(status === 0) {
       const timebool = initPre.timebool;
       const gametime = initPre.gametime;
         props.history.push(`/loading/${timebool}/${gametime}`);  
     }
-    else if(status == 3) {
+    else if(status === 3) {
       const gameid = initPre.gameid;
       setGameID(gameid);
       const gametime = initPre.gametime;
-
       props.history.push(`/prepare/${gametime}`);
     }
-    else if(status == 1) {
+    else if(status === 1) {
       const gameid = initPre.gameid;
       setGameID(gameid);
       const gamewordtime = initPre.gamewordtime;
       props.history.push(`/play/${gamewordtime}`);
     }
-    else if(status == 4) {
+    else if(status === 4) {
       const gameid = initPre.gameid;
       setGameID(gameid);
       const gamewordid = initPre.gamewordid;
@@ -97,7 +96,7 @@ const MainView = (props) => {
     const res = await setInviteData(payload);
     console.log('----invite----', res);
     setGameID(res.gameid);
-    props.history.push('/loading');
+    props.history.push('/loading/undefined/undefined');
   }
 
   function handleClick() {

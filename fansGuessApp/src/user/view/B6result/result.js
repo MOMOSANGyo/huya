@@ -43,19 +43,30 @@ class ResultView extends Component {
     }
 
     componentDidMount() {
-        this.timer = setInterval(() => {
-            this.request();
-        }, 1000);
+
+        this.request();
+        hyExt.observer.on('nextQuestion', message => {
+            console.log('=========收到小程序后台推送过来的消息==========', message);
+            const data = JSON.parse(message);
+            if (data.wordnum <= 8) {
+                console.log(data);
+                console.log('---/playing---')
+                this.props.history.push('/playing')
+            } else if (data.wordnum === 9) {
+                this.props.history.push('/end');
+            }
+        })
+
     }
     componentWillUnmount() {
-        clearInterval(this.timer)
+        // clearInterval(this.timer)
     }
 
     request() {
         hyExt.request({
             header: {
             },
-            url: 'http://zaccc.lzok.top/user/public/',
+            url: 'http://zaccc.lzok.top/newuser/display/',
             method: 'POST',
             dataType: 'json',
             data: {
@@ -74,18 +85,18 @@ class ResultView extends Component {
                         end: true
                     })
                 }
-                if (data.status === 1) {
-                    if (data.questionNum <= 8) {
-                        console.log(data);
-                        console.log('---/playing---')
-                        console.log('---/playing---')
-                        console.log('---/playing---')
-                        console.log('---/playing---')
-                        this.props.history.push('/playing')
-                    } else if (data.questionNum === 9) {
-                        this.props.history.push('/end');
-                    }
-                }
+                // if (data.status === 1) {
+                //     if (data.questionNum <= 8) {
+                //         console.log(data);
+                //         console.log('---/playing---')
+                //         console.log('---/playing---')
+                //         console.log('---/playing---')
+                //         console.log('---/playing---')
+                //         this.props.history.push('/playing')
+                //     } else if (data.questionNum === 9) {
+                //         this.props.history.push('/end');
+                //     }
+                // }
 
 
                 this.setState({

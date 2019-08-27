@@ -45,12 +45,18 @@
 
 .result-introduce-text {
   font-size: size(24px);
-  margin-top: size(32px);
+  margin-top: size(16px);
+  -webkit-text-stroke: size(1px) black;
   color: #ffffff;
+}
+
+.result-endrank {
+  width: size(720px);
 }
 
 .next-btn {
   z-index: 1;
+  margin-top: size(16px) !important;
   width: size(686px);
   height: size(88px) !important;
   font-size: size(26px) !important;

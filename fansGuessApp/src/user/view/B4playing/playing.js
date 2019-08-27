@@ -27,6 +27,7 @@ class Playing extends Component{
             len: 0,
             count:0,
             answer:[],
+            time:60,
             input:false,
         }
         this.count = this.count.bind(this);
@@ -37,7 +38,7 @@ class Playing extends Component{
         hyExt.request({
             header: {
             },
-            url: 'http://zaccc.lzok.top/user/answer/',
+            url: 'http://zaccc.lzok.top/newuser/question/',
             method: 'POST',
             dataType: 'json',
             data: {
@@ -66,6 +67,7 @@ class Playing extends Component{
                     category: data.category,
                     len: data.len,
                     answer:answer,
+                    time: parseInt(data.time),
                     input:true,
                 })
                 global.info.gamewordid = data.gamewordid;
@@ -89,7 +91,7 @@ class Playing extends Component{
     count() {
         let count = this.state.count;
         count = count + 1;
-        if (count === 60) {
+        if (count === this.state.time) {
             clearInterval(this.timer);
             this.submit();
             this.props.history.push('/res')
@@ -109,7 +111,7 @@ class Playing extends Component{
         hyExt.request({
             header: {
             },
-            url: 'http://zaccc.lzok.top/user/push/',
+            url: 'http://zaccc.lzok.top/newuser/answer/',
             method: 'POST',
             dataType: 'json',
             data: {
@@ -148,7 +150,7 @@ class Playing extends Component{
             <div className="playing" style={{ backgroundImage: `url(${gameBg[this.state.questionNum]})` }}>
                 <div className="playing_header">
                     <div className="playing_tit">{numberText[this.state.questionNum]}</div>
-                <TimeProgress theme='black' time={60}/>
+                <TimeProgress theme='black' time={this.state.time}/>
                 </div>
                 <div className="playing_content">
                     <div className="playing_con">
