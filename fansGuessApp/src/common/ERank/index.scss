@@ -19,6 +19,7 @@
 .erank {
     @include flex-row();
     width: 100%;
+    font-family: "PingFangSCRegular";
     display: flex;
     justify-content: flex-end;
     .erank_container {
