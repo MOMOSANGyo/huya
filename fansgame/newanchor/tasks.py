@@ -244,77 +244,79 @@ def a3begin(gameid):
 #         #                 print(response.text)
 @task
 def a4userlist(gameid,gametime,role):
-    gamewordid = GameWord.objects.filter(gameid=gameid, used=1).last().id
-    beginnum = GameUser.objects.filter(gameid=gameid, gamewordid=gamewordid).count()
-    for i in range(10):
-        now = int(time.time())
+    # gamewordid = GameWord.objects.filter(gameid=gameid, used=1).last().id
+    # beginnum = GameUser.objects.filter(gameid=gameid, gamewordid=gamewordid).count()
+    ttime = int(int(gametime)/6)+1
+    print(ttime)
+    for i in range(ttime):
+        # now = int(time.time())
+        # print(gametime)
+        # print(now)
+        # if int(now)<int(gametime):
+        gamewordid = GameWord.objects.filter(gameid=gameid, used=1).last().id
+        token = GameRecord.objects.get(id=gameid).token
+        token_data = jwt.decode(token, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
+        url = "https://apiext.huya.com/message/deliverRoomByProfileId?appId=" + token_data["appId"] + "&extId=" + \
+              token_data["extId"]
+        urlp = "https://apiext.huya.com/message/deliverByProfileId?appId=" + token_data["appId"] + "&extId=" + \
+               token_data[
+                   "extId"]
+        headers = {
+            "authorization": token,
+            "Content-Type": "application/json"
+        }
 
-        print(now)
-        if int(now)<int(gametime):
-            gamewordid = GameWord.objects.filter(gameid=gameid, used=1).last().id
-            token = GameRecord.objects.get(id=gameid).token
-            token_data = jwt.decode(token, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
-            url = "https://apiext.huya.com/message/deliverRoomByProfileId?appId=" + token_data["appId"] + "&extId=" + \
-                  token_data["extId"]
-            urlp = "https://apiext.huya.com/message/deliverByProfileId?appId=" + token_data["appId"] + "&extId=" + \
-                   token_data[
-                       "extId"]
-            headers = {
-                "authorization": token,
-                "Content-Type": "application/json"
+        num = GameUser.objects.filter(gameid=gameid, gamewordid=gamewordid).count()
+        # if num > beginnum:
+        beginnum = num
+        infolist = []
+        user = GameUser.objects.filter(gameid=gameid, gamewordid=gamewordid)
+        for u in user:
+            us = Info.objects.get(userid=u.userid)
+
+            if role == 'P':
+                infolist.append({
+                    "usrid": u.userid,
+                    "url": us.pricture,
+                    "name": us.username,
+                    "time": u.usertime,
+                    "answer": u.useranswer
+                })
+            else:
+                name = us.username
+                if token_data["userId"] == u.userid:
+                    name = "我"
+                infolist.append({
+                    "usrid": u.userid,
+                    "url": us.pricture,
+                    "name": name,
+                    "time": u.usertime,
+                    "answer": u.useranswer
+                })
+
+            data = {
+                "num": num,
+                "userlist": infolist
             }
+            print(data)
 
-            num = GameUser.objects.filter(gameid=gameid, gamewordid=gamewordid).count()
-            if num > beginnum:
-                beginnum = num
-                infolist = []
-                user = GameUser.objects.filter(gameid=gameid, gamewordid=gamewordid)
-                for u in user:
-                    us = Info.objects.get(userid=u.userid)
-
-                    if role == 'P':
-                        infolist.append({
-                            "usrid": u.userid,
-                            "url": us.pricture,
-                            "name": us.username,
-                            "time": u.usertime,
-                            "answer": u.useranswer
-                        })
-                    else:
-                        name = us.username
-                        if token_data["userId"] == u.userid:
-                            name = "我"
-                        infolist.append({
-                            "usrid": u.userid,
-                            "url": us.pricture,
-                            "name": name,
-                            "time": u.usertime,
-                            "answer": u.useranswer
-                        })
-
-                        data = {
-                            "num": num,
-                            "userlist": infolist
-                        }
-                        print(data)
-
-                        payload = json.dumps(data)
-                        message = {
-                            "profileId": token_data['profileId'],
-                            "event": "userList",
-                            "message": payload
-                        }
-                        messagep = {
-                            "profileId": token_data['profileId'],
-                            "event": "anchorUserlist",
-                            "message": payload
-                        }
-                        print(data)
-                        response = requests.request("POST", url=url, headers=headers, data=json.dumps(message))
-                        print(response.text,"a4userlist")
-                        response1 = requests.request("POST", url=urlp, headers=headers, data=json.dumps(messagep))
-                        print(response1.text, "4userlist")
-            sleep(6)
+            payload = json.dumps(data)
+            message = {
+                "profileId": token_data['profileId'],
+                "event": "userList",
+                "message": payload
+            }
+            messagep = {
+                "profileId": token_data['profileId'],
+                "event": "anchorUserlist",
+                "message": payload
+            }
+            print(data)
+            response = requests.request("POST", url=url, headers=headers, data=json.dumps(message))
+            print(response.text,"a4userlist")
+            response1 = requests.request("POST", url=urlp, headers=headers, data=json.dumps(messagep))
+            print(response1.text, "4userlist")
+        sleep(6)
 
 @task
 def begin(gameid):

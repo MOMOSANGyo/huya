@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b6d4fa24-3549-4eab-887d-c8a46e14b694" name="Default Changelist" comment="Default Changelist">
-      <change beforePath="$PROJECT_DIR$/fansgame/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/fansgame/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/newanchor/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/newanchor/tasks.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newanchor/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/newanchor/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/newanchor/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/newanchor/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/newuser/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/newuser/views.py" afterDir="false" />
     </list>
@@ -36,8 +34,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/newuser/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1813">
-              <caret line="306" column="49" selection-start-line="306" selection-start-column="49" selection-end-line="306" selection-end-column="49" />
+            <state relative-caret-position="26">
+              <caret line="212" column="24" selection-start-line="212" selection-start-column="24" selection-end-line="212" selection-end-column="24" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -48,11 +46,14 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/newanchor/tasks.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="302">
-              <caret line="158" lean-forward="true" selection-start-line="158" selection-end-line="158" />
+            <state relative-caret-position="247">
+              <caret line="300" column="23" lean-forward="true" selection-start-line="300" selection-start-column="23" selection-end-line="300" selection-end-column="23" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
-                <element signature="e#2723#2730#0" />
+                <element signature="e#10037#10131#0" />
+                <element signature="e#10539#10809#0" />
+                <element signature="e#10761#11112#0" />
+                <element signature="e#11133#11213#0" />
               </folding>
             </state>
           </provider>
@@ -61,7 +62,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/fansgame/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="99">
+            <state relative-caret-position="3696">
               <caret line="157" column="50" selection-start-line="157" selection-start-column="50" selection-end-line="157" selection-end-column="50" />
               <folding>
                 <element signature="e#309#318#0" expanded="true" />
@@ -74,7 +75,7 @@
         <entry file="file://$PROJECT_DIR$/requirement.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="144">
-              <caret line="6" column="20" lean-forward="true" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
+              <caret line="6" column="20" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -82,8 +83,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/fansgame/celery.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="12" column="47" lean-forward="true" selection-start-line="12" selection-start-column="47" selection-end-line="12" selection-end-column="47" />
+            <state relative-caret-position="216">
+              <caret line="12" column="47" selection-start-line="12" selection-start-column="47" selection-end-line="12" selection-end-column="47" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
               </folding>
@@ -94,14 +95,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/newanchor/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="155">
-              <caret line="157" column="34" lean-forward="true" selection-start-line="157" selection-start-column="34" selection-end-line="157" selection-end-column="34" />
+            <state relative-caret-position="-5560">
+              <caret line="372" lean-forward="true" selection-start-line="372" selection-end-line="372" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
-                <element signature="e#13707#14529#0" />
-                <element signature="e#14573#14822#0" />
-                <element signature="e#14866#15275#0" />
-                <element signature="e#15318#15535#0" />
               </folding>
             </state>
           </provider>
@@ -110,7 +107,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/newanchor/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
+            <state relative-caret-position="432">
               <caret line="20" column="30" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
@@ -130,12 +127,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>userrecord</find>
-      <find>rate</find>
-      <find>status</find>
-      <find>used</find>
-      <find>now</find>
-      <find>delay</find>
       <find>time</find>
       <find>beginnum</find>
       <find>4</find>
@@ -147,12 +138,10 @@
       <find>invite</find>
       <find>a4s</find>
       <find>a3s</find>
-      <find>a3be</find>
       <find>a2</find>
       <find>a2per</find>
       <find>sleep</find>
       <find>a3</find>
-      <find>a4</find>
       <find>a4u</find>
       <find>for</find>
       <find>response1</find>
@@ -160,6 +149,14 @@
       <find>question</find>
       <find>word</find>
       <find>wait</find>
+      <find>a3be</find>
+      <find>begin.del</find>
+      <find>next.del</find>
+      <find>next.de</find>
+      <find>a4</find>
+      <find>nextques</find>
+      <find>a4user</find>
+      <find>delay</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -192,9 +189,9 @@
         <option value="$PROJECT_DIR$/newuser/urls.py" />
         <option value="$PROJECT_DIR$/newanchor/urls.py" />
         <option value="$PROJECT_DIR$/fansgame/settings.py" />
+        <option value="$PROJECT_DIR$/newuser/views.py" />
         <option value="$PROJECT_DIR$/newanchor/tasks.py" />
         <option value="$PROJECT_DIR$/newanchor/views.py" />
-        <option value="$PROJECT_DIR$/newuser/views.py" />
       </list>
     </option>
   </component>
@@ -210,6 +207,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -231,7 +229,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -396,6 +393,7 @@
       <workItem from="1566640739183" duration="4828000" />
       <workItem from="1566647602825" duration="38111000" />
       <workItem from="1566780877148" duration="60847000" />
+      <workItem from="1566958932451" duration="8579000" />
     </task>
     <task id="LOCAL-00001" summary="后端主播页面">
       <created>1563811850915</created>
@@ -408,13 +406,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="430729000" />
+    <option name="totallyTimeSpent" value="439308000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="-4" width="1246" height="859" extended-state="6" />
+    <frame x="65" y="-4" width="1187" height="850" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17317487" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.0795353" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -427,11 +425,11 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.37980086" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="File Transfer" order="10" sideWeight="0.4074703" side_tool="true" visible="true" weight="0.2773925" />
+      <window_info anchor="bottom" id="File Transfer" order="10" sideWeight="0.4079463" side_tool="true" weight="0.17758985" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.75507766" side_tool="true" weight="0.33145276" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.32198143" />
       <window_info anchor="bottom" id="调试" order="13" />
-      <window_info anchor="bottom" id="Terminal" order="14" sideWeight="0.5925297" visible="true" weight="0.2773925" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="14" sideWeight="0.5920537" visible="true" weight="0.31882024" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -613,12 +611,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/newanchor/views.py</url>
-          <line>316</line>
+          <line>317</line>
           <option name="timeStamp" value="39" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/newanchor/views.py</url>
-          <line>401</line>
+          <line>405</line>
           <option name="timeStamp" value="40" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -782,29 +780,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/newanchor/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="20" column="30" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fansgame/celery.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="12" column="47" lean-forward="true" selection-start-line="12" selection-start-column="47" selection-end-line="12" selection-end-column="47" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/fansgame/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
+        <state relative-caret-position="3696">
           <caret line="157" column="50" selection-start-line="157" selection-start-column="50" selection-end-line="157" selection-end-column="50" />
           <folding>
             <element signature="e#309#318#0" expanded="true" />
@@ -812,44 +790,63 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/newanchor/tasks.py">
+    <entry file="file://$PROJECT_DIR$/requirement.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
-          <caret line="158" lean-forward="true" selection-start-line="158" selection-end-line="158" />
+        <state relative-caret-position="144">
+          <caret line="6" column="20" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fansgame/celery.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="12" column="47" selection-start-line="12" selection-start-column="47" selection-end-line="12" selection-end-column="47" />
           <folding>
-            <element signature="e#0#11#0" expanded="true" />
-            <element signature="e#2723#2730#0" />
+            <element signature="e#0#38#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/requirement.txt">
+    <entry file="file://$PROJECT_DIR$/newanchor/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="6" column="20" lean-forward="true" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
+        <state relative-caret-position="432">
+          <caret line="20" column="30" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/newuser/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1813">
-          <caret line="306" column="49" selection-start-line="306" selection-start-column="49" selection-end-line="306" selection-end-column="49" />
+        <state relative-caret-position="26">
+          <caret line="212" column="24" selection-start-line="212" selection-start-column="24" selection-end-line="212" selection-end-column="24" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/newanchor/tasks.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="300" column="23" lean-forward="true" selection-start-line="300" selection-start-column="23" selection-end-line="300" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#10037#10131#0" />
+            <element signature="e#10539#10809#0" />
+            <element signature="e#10761#11112#0" />
+            <element signature="e#11133#11213#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/newanchor/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="157" column="34" lean-forward="true" selection-start-line="157" selection-start-column="34" selection-end-line="157" selection-end-column="34" />
+        <state relative-caret-position="-5560">
+          <caret line="372" lean-forward="true" selection-start-line="372" selection-end-line="372" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
-            <element signature="e#13707#14529#0" />
-            <element signature="e#14573#14822#0" />
-            <element signature="e#14866#15275#0" />
-            <element signature="e#15318#15535#0" />
           </folding>
         </state>
       </provider>

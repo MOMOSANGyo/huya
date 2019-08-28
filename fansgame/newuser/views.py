@@ -210,7 +210,7 @@ def waitnext(request):
 
         data = {
             "answerbool": answerbool,
-            "wordnumber": int(questionnum.round),
+            "questionNum": int(questionnum.round),
             "answer": answer,
             # "infomation": infomation,
             # "num": num,

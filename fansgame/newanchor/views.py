@@ -247,6 +247,7 @@ def prepare(request):
         token_data = jwt.decode(a, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
         pass_data = json.loads(request.body)  # 解析前端传过来的参数
         print(pass_data,token_data)
+        begin.delay(gameid=pass_data["gameid"])
         record = GameRecord.objects.get(id=pass_data["gameid"])
         wordlist = []
         select_word = SmallCategory.objects.filter(categoryid=record.wordsmallcategoryid)
@@ -356,11 +357,13 @@ def a3fanye(request):
 
 def staticword(request):
     if request.method == 'POST':
+
         a = request.META.get("HTTP_AUTHORIZATION")
         token_data = jwt.decode(a, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
         print(token_data)  # 打印解析后的token
 
         pass_data = json.loads(request.body)  # 解析前端传过来的参数
+        a3begin.delay(gameid=pass_data["gameid"])
         print(pass_data)
         #自我状态检查
         if GameStatus.objects.get(gameid=pass_data["gameid"]).gamestatus != 1:
@@ -383,7 +386,7 @@ def staticword(request):
         gameword.save()
         # print(now+int(categoryid.a1time),type(now+int(categoryid.a1time)))
         # a4status.delay(gameid=pass_data["gameid"],gametime=now+int(categoryid.a1time),role=token_data["role"])
-        a4userlist.delay(gameid=pass_data["gameid"],gametime=now+int(categoryid.a1time),role=token_data["role"])
+        a4userlist.delay(gameid=pass_data["gameid"],gametime=int(categoryid.a1time),role=token_data["role"])
         total = GameRecord.objects.get(id=pass_data["gameid"]).personnum
         data = {
             "category": category,
@@ -395,6 +398,7 @@ def staticword(request):
             "time":categoryid.a1time
         }
         print(data)
+        next.delay(gameid=pass_data["gameid"], wordnum=wordnumber)
         return JsonResponse(data)
 
     return HttpResponse('oka4')
@@ -614,7 +618,7 @@ def pre(request):
             data = {
                 "status": 2
             }
-
+        print(data)
         return JsonResponse(data)
 
     return HttpResponse('ok')
