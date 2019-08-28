@@ -11,15 +11,15 @@ class LoadingView extends Component {
             category: '',
         }
         // this.count = this.count.bind(this);
-        this.next = this.next.bind(this);
+        this.wait = this.wait.bind(this);
     }
     // componentWillMount(){
     //     this.next();
     // }
 
     componentDidMount() {
-        this.next();
-        hyExt.observer.on('begin', message => {
+        this.wait();
+        hyExt.observer.on('waitBegin', message => {
             console.log('=========收到小程序后台推送过来的消息==========', message);
             const data = JSON.parse(message);
             global.info.gameid = data.gameid;

@@ -1,4 +1,5 @@
 import api from '../service/api'
+import { message } from 'antd';
 
 export async function initialPre(){
   console.log('=======initialPre======');
@@ -7,6 +8,7 @@ export async function initialPre(){
     console.log('=======initialPre======', res);
     result = res;
   }).catch(err => {
+    message.error(err);
     console.log(err);
   })
   console.log('=======initialPre=========', result);
@@ -21,6 +23,7 @@ export async function getInitData() {
     console.log('=======getInitData=====res===', res);
     result = res;
   }).catch(err => {
+    message.error(err);
     console.log(err);
   })
   console.log('=======getInitData=========', result);
@@ -33,6 +36,7 @@ export async function setInviteData(params) {
   await api.request('newanchor/invite/', 'POST', params).then(res => {
     result = res;
   }).catch(err => {
+    message.error(err);
     console.log(err);
   })
   return result;
@@ -44,6 +48,7 @@ export async function getAwaitTime(params) {
   await api.request('newanchor/wait/', 'POST', params).then(res => {
     result = res;
   }).catch(err => {
+    message.error(err);
     console.log(err);
   })
   return result;
@@ -67,6 +72,7 @@ export async function quitGame(params) {
   await api.request('newanchor/quit/', 'POST', params).then(res => {
     result = res;
   }).catch(err => {
+    message.error(err);
     console.log(err);
   })
   return result;
@@ -78,6 +84,7 @@ export async function joinGame(params) {
   await api.request('newanchor/join/', 'POST', params).then(res => {
     result = res;
   }).catch(err => {
+    message.error(err);
     console.log(err);
   })
   return result;
@@ -89,6 +96,7 @@ export async function a2toa3(params) {
   await api.request('newanchor/a2status/', 'POST', params).then(res => {
     result = res;
   }).catch(err => {
+    message.error(err);
     console.log(err);
   })
   return result;
@@ -100,6 +108,7 @@ export async function a3toa4(params) {
   await api.request('newanchor/a3status/', 'POST', params).then(res => {
     result = res;
   }).catch(err => {
+    message.error(err);
     console.log(err);
   })
   return result;
@@ -111,6 +120,7 @@ export async function a4toa5(params) {
   await api.request('newanchor/a4status/', 'POST', params).then(res => {
     result = res;
   }).catch(err => {
+    message.error(err);
     console.log(err);
   })
   return result;
@@ -122,6 +132,7 @@ export async function getGameDetail(params) {
   await api.request('newanchor/prepare/', 'POST', params).then(res => {
     result = res;
   }).catch(err => {
+    message.error(err);
     console.log(err);
   })
   return result;
@@ -133,6 +144,7 @@ export async function prepareOk(params) {
   await api.request('newanchor/isok/', 'POST', params).then(res => {
     result = res;
   }).catch(err => {
+    message.error(err);
     console.log(err);
   })
   return result;
@@ -144,6 +156,7 @@ export async function getGameWord(params) {
   await api.request('newanchor/staticword/', 'POST', params).then(res => {
     result = res;
   }).catch(err => {
+    message.error(err);
     console.log(err);
   })
   return result;
@@ -166,6 +179,7 @@ export async function getGameWordGrade(params) {
   await api.request('newanchor/staticwordinfo/', 'POST', params).then(res => {
     result = res;
   }).catch(err => {
+    message.error(err);
     console.log(err);
   })
   return result;
@@ -177,6 +191,7 @@ export async function getGameLastInfo(params) {
   await api.request('newanchor/last/', 'POST', params).then(res => {
     result = res;
   }).catch(err => {
+    message.error(err);
     console.log(err);
   })
   return result;
@@ -188,6 +203,7 @@ export async function nextWord(params) {
   await api.request('newanchor/next/', 'POST', params).then(res => {
     result = res;
   }).catch(err => {
+    message.error(err);
     console.log(err);
   })
   return result;

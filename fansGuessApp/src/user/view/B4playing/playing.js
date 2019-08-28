@@ -104,8 +104,8 @@ class Playing extends Component {
                 dataType: 'json',
                 data: {
                     "gameid": global.info.gameid,
-                    "gamewordid": global.info.gamewordid,
-                    "answer": b,
+                    "gamewordid":global.info.gamewordid,
+                    "answer":b,
                     "time": this.state.count,
                 }
             }).then(({ data, statusCode }) => {
@@ -122,7 +122,7 @@ class Playing extends Component {
                         questionNum: data.questionNum,
                         category: data.category,
                         len: data.len,
-                        answer: length
+                        answer:length
                     })
                     this.props.history.push('/res')
                 }

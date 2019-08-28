@@ -93,14 +93,13 @@ const PlayView = (props) => {
   useEffect(() => {
     init();
     hyExt.observer.on('anchorUserlist', message => {
-      console.log('==========收到小程序后台推送过来的消息======',message);
       const data = JSON.parse(message);
-      const n = data.num;
+      const n = parseInt(data.num);
       setUserNum(n);
-      const listdata = res.userlist;
+      const listdata = data.userlist;
       setListData(listdata || []);
       hyExt.logger.info('收到小程序后台推送过来的消息', message)
-    })
+    });
   }, [])
 
   
@@ -161,7 +160,7 @@ const PlayView = (props) => {
       </div>
      <div>
       <ScoreList className="score-list" res={listData} num={userNum} total={totalNum} />
-      <div className="tips">{`只有-人猜对答案才能获胜哦`}</div>
+      <div className="tips">{`20人参与游戏，只有5-15人猜对答案才能获胜哦`}</div>
      </div>
     </div>
     )

@@ -14,7 +14,7 @@ const MainView = (props) => {
   console.log('==========Main=============',props);
   const [categoryOpt, setCategoryOpt] = useState();
   const [timpOpt, setTimpOpt] = useState();
-  const [wordTimpOpt, setWordTimpOpt] = useState(['30','45', '60', '90']);
+  const [wordTimpOpt, setWordTimpOpt] = useState(['15','30','45', '60', '90']);
   const [time, setTime] = useState("0");
   const [timeBoxVis, setTimeBoxVis] = useState(false);
   const [category, setCategory] = useState();
@@ -25,7 +25,10 @@ const MainView = (props) => {
 
   async function init() {
     const initPre = await initialPre();
+    
     const status = initPre.status;
+    alert('=====初始状态====' + status);
+    alert(initPre);
     if(status == 2){
       const initData = await getInitData();
       console.log('=====getInitData=======', initData);
@@ -37,7 +40,7 @@ const MainView = (props) => {
       setCategory(category[data[0]][0]);
       setTime(time[0]);
 
-      setWordTimpOpt(['30','45', '60', '90']);
+      setWordTimpOpt(['15', '30','45', '60', '90']);
       setWordTime('60');
     }
     else if(status === 0) {
