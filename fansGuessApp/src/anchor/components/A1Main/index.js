@@ -27,8 +27,6 @@ const MainView = (props) => {
     const initPre = await initialPre();
     
     const status = initPre.status;
-    alert('=====初始状态====' + status);
-    alert(initPre);
     if(status == 2){
       const initData = await getInitData();
       console.log('=====getInitData=======', initData);
