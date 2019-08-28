@@ -46,7 +46,7 @@ class MidRes extends Component {
             this.count();
         }, 1000);
         hyExt.observer.on('userList', message => {
-            console.log('=========收到小程序后台推送过来的消息==========', message);
+            console.log('=========收到小程序后台推送过来的消息==========' + message);
             const data = JSON.parse(message);
             this.setState({
                 infomation: data.userlist,
@@ -88,12 +88,27 @@ class MidRes extends Component {
 
             if (statusCode == 200) {
                 let answer = [...data.answer]
+                let myinfo = [
+                    {
+                        url:global.info.userAvatarUrl,
+                        name:global.info.userNick,
+                        useranswer:answer,
+                        time:global.info.answertime
+                    }
+                ] 
                 global.info.myanswer = data.answer;
+                
                 this.setState({
                     questionNum: data.questionNum,
                     answer: answer,
                     totalnum: data.totalperson,
                     input: true,
+                    loading: false,
+                    infomation:myinfo,
+                })
+            } else {
+                message.error(`接口错误,${statusCode}`);
+                this.setState({
                     loading: false,
                 })
             }
@@ -177,7 +192,7 @@ class MidRes extends Component {
                                 <span className="midres_span1">我的答案</span>
                             </div>
                             <div className="midres_input">
-                                <Input answer={this.state.answer} disabled={true}/>
+                                <Input answer={this.state.answer} disabled={true} />
                             </div>
                         </div>
                     </div>

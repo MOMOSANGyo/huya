@@ -8,7 +8,7 @@ class Success extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            num: 0,
+            num: 1,
             time: 0,
             success: false,
             // status: null

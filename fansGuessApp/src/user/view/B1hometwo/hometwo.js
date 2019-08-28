@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from "react-router-dom";
-import {Modal} from 'antd'
+import { Modal } from 'antd'
 import Rule from '../../components/Rule/index'
 import CountDown from '../../components/CountDown/index'
 import './hometwo.scss'
@@ -10,8 +10,8 @@ class HomeTwo extends Component {
         super(props);
         this.state = {
             count: 0,
-            time:0,
-            success:false,
+            time: 0,
+            success: false,
         }
         this.join = this.join.bind(this);
         // this.init = this.init.bind(this);
@@ -19,28 +19,28 @@ class HomeTwo extends Component {
         // this.hideModal = this.hideModal.bind(this)
     }
 
-    
+
     componentDidMount() {
         // this.init();
         hyExt.observer.on('waitNum', message => {
             console.log('=========收到小程序后台推送过来的消息==========', message);
             const data = JSON.parse(message);
-            
+
             console.log('=====message====personnum==timebool===', data.personnum, data.timebool);
-            if(data.timebool != 1){
+            if (data.timebool != 1) {
                 const nowtime = +new Date();
 
                 this.setState({
-                    time: data.time-nowtime,
+                    time: data.time - nowtime,
                     success: true
                 })
             }
             this.setState({
-                    count: data.personnum
+                count: data.personnum
             })
         })
     }
-   
+
     // init(){
     //     console.log(global.info.gameid);
     //     hyExt.request({
@@ -61,16 +61,16 @@ class HomeTwo extends Component {
     //         })
     //         // this.props.history.push('/playing')
     //         console.log('--data--',this.state.time);
-            
+
     //     }).catch(err => {
     //         hyExt.logger.warn('调用失败', err)
     //         console.log('---err--', err);
     //     });
     // }
 
-   
 
-    
+
+
     //发送请求
     join() {
         hyExt.context.getUserInfo().then(userInfo => {
@@ -87,6 +87,9 @@ class HomeTwo extends Component {
                 }
             }).then((res) => {
                 hyExt.logger.info('调用成功', res);
+                //存储用户信息
+                global.info.userNick = userInfo.userNick;
+                global.info.userAvatarUrl = userInfo.userAvatarUrl;
                 this.props.history.push('/success2')
             }).catch(err => {
                 hyExt.context.showToast('获取用户信息失败').then(() => {
@@ -99,7 +102,7 @@ class HomeTwo extends Component {
         }).catch(err => {
             hyExt.logger.warn('获取用户信息失败', err)
         })
-        
+
 
     }
     render() {
@@ -110,7 +113,7 @@ class HomeTwo extends Component {
                 <div className="hometwo_p">
                     <p className="hometwo_p1">主播正在邀请你参加猜词游戏</p>
                     <p className="hometwo_P2"><span className="hometwo_time">距离游戏开始还有 </span>
-                    {this.state.success ? <CountDown time={this.state.time} /> : <span >00:00</span> }</p>
+                        {this.state.success ? <CountDown time={this.state.time} /> : <span >00:00</span>}</p>
                     <p className="hometwo_p2">已有 {this.state.count} 人加入游戏，快来参加</p>
                 </div>
                 <Rule />

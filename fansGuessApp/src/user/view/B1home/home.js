@@ -74,6 +74,9 @@ class Home extends Component{
                 }
             }).then((res) => {
                 hyExt.logger.info('调用成功', res);
+                //存储用户信息
+                global.info.userNick = userInfo.userNick;
+                global.info.userAvatarUrl = userInfo.userAvatarUrl;
                 this.props.history.push('/success')
             }).catch(err => {
                 hyExt.context.showToast('获取用户信息失败').then(() => {

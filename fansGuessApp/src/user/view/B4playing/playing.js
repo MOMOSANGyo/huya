@@ -1,5 +1,5 @@
 import '../config.js'
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import TimeProgress from '../../../common/TimeProgress'
 import Input from '../../../common/Input/index'
 import './playing.scss'
@@ -18,22 +18,22 @@ const numberText = [
     '第十题',
 ]
 
-class Playing extends Component{
+class Playing extends Component {
     constructor(props) {
         super(props);
         this.state = {
             questionNum: 0,
             category: '',
             len: 0,
-            count:0,
-            answer:[],
-            time:60,
-            input:false,
+            count: 0,
+            answer: [],
+            time: 60,
+            input: false,
         }
         this.count = this.count.bind(this);
         this.submit = this.submit.bind(this);
     }
-    
+
     componentWillMount() {
         hyExt.request({
             header: {
@@ -45,9 +45,6 @@ class Playing extends Component{
                 "gameid": global.info.gameid
             }
         }).then(({ data, statusCode }) => {
-            console.log('----B4answer----')
-            console.log('----B4answer----')
-            console.log('----B4answer----')
             console.log('----B4answer----')
             console.log(data)
             console.log('statusCode')
@@ -66,9 +63,9 @@ class Playing extends Component{
                     questionNum: data.questionNum,
                     category: data.category,
                     len: data.len,
-                    answer:answer,
+                    answer: answer,
                     time: parseInt(data.time),
-                    input:true,
+                    input: true,
                 })
                 global.info.gamewordid = data.gamewordid;
                 global.info.questionNum = data.questionNum;
@@ -87,20 +84,58 @@ class Playing extends Component{
             this.count();
         }, 1000);
     }
-    
+
     count() {
         let count = this.state.count;
         count = count + 1;
         if (count === this.state.time) {
-            clearInterval(this.timer);
-            this.submit();
-            this.props.history.push('/res')
+            var answer = '';
+            for (let i = 0; i < this.state.len; i++) {
+                let item = document.getElementById(i).value
+                answer = answer + item;
+            }
+            var b = answer.toUpperCase();
+            console.log(answer)
+            hyExt.request({
+                header: {
+                },
+                url: 'http://zaccc.lzok.top/newuser/answer/',
+                method: 'POST',
+                dataType: 'json',
+                data: {
+                    "gameid": global.info.gameid,
+                    "gamewordid": global.info.gamewordid,
+                    "answer": b,
+                    "time": this.state.count,
+                }
+            }).then(({ data, statusCode }) => {
+                clearInterval(this.timer);
+                console.log('this.state.count')
+                global.info.remaintime = this.state.time - this.state.count;
+                global.info.answertime = this.state.count;
+                let length = []
+                for (let i = 0; i < data.len; i++) {
+                    length.push('')
+                }
+                if (statusCode == 200) {
+                    this.setState({
+                        questionNum: data.questionNum,
+                        category: data.category,
+                        len: data.len,
+                        answer: length
+                    })
+                    this.props.history.push('/res')
+                }
+            }).catch(err => {
+                clearInterval(this.timer);
+                hyExt.logger.warn('调用失败', err)
+            })
         }
         this.setState({
             count: count
         })
     }
-    submit(){
+    submit() {
         var answer = '';
         for (let i = 0; i < this.state.len; i++) {
             let item = document.getElementById(i).value
@@ -116,24 +151,27 @@ class Playing extends Component{
             dataType: 'json',
             data: {
                 "gameid": global.info.gameid,
-                "gamewordid":global.info.gamewordid,
-                "answer":b,
+                "gamewordid": global.info.gamewordid,
+                "answer": b,
                 "time": this.state.count,
             }
         }).then(({ data, statusCode }) => {
             clearInterval(this.timer);
             console.log('this.state.count')
-            global.info.remaintime = 60 - this.state.count
+            global.info.remaintime = this.state.time - this.state.count
             let length = []
             for (let i = 0; i < data.len; i++) {
                 length.push('')
             }
+
+            //把自己的信息放到列表上
+
             if (statusCode == 200) {
                 this.setState({
                     questionNum: data.questionNum,
                     category: data.category,
                     len: data.len,
-                    answer:length
+                    answer: length
                 })
                 this.props.history.push('/midres')
             }
@@ -141,26 +179,26 @@ class Playing extends Component{
             clearInterval(this.timer);
             hyExt.logger.warn('调用失败', err)
         })
-       
-        
+
+
     }
-    render(){
-        
-        return(
+    render() {
+
+        return (
             <div className="playing" style={{ backgroundImage: `url(${gameBg[this.state.questionNum]})` }}>
                 <div className="playing_header">
                     <div className="playing_tit">{numberText[this.state.questionNum]}</div>
-                <TimeProgress theme='black' time={this.state.time}/>
+                    <TimeProgress theme='black' time={this.state.time} />
                 </div>
                 <div className="playing_content">
                     <div className="playing_con">
-                    <div className="playing_con_one">
-                        <span className="playing_span1">类别：{this.state.category}</span><span>字数：{this.state.len}</span>
-                    </div>
-                    
-                    <div>
-                        {this.state.input && <Input answer={this.state.answer} /> }
-                    </div>
+                        <div className="playing_con_one">
+                            <span className="playing_span1">类别：{this.state.category}</span><span>字数：{this.state.len}</span>
+                        </div>
+
+                        <div>
+                            {this.state.input && <Input answer={this.state.answer} />}
+                        </div>
 
                     </div>
                 </div>
