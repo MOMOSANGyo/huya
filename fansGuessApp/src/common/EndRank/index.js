@@ -56,7 +56,7 @@ class EndRank extends Component {
             allfRes:[],
             fLength:0,
             fCurrentPage:0,
-            isTrue: props.answerbool,
+            isTrue: props.answerbool || true,
             number:0,
             fNumber:0,
         }
