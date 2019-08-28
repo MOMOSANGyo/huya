@@ -198,7 +198,7 @@ class ResultView extends Component {
 
                         <div className="result_footer_endrank">
                                 <EndRank
-                                    
+                                    answerbool = {this.state.answerbool}
                                     fRes={this.state.wrongAnswer}
                                     fNumber={7}
                                     res={this.state.infomation}
