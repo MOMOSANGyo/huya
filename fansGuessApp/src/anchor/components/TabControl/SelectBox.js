@@ -19,7 +19,7 @@ function SelectBox(props) {
         boxOption.map((item, i) => {
           return(
             <li key={i} className="select-li" value={item} onClick={() => {handleClick(item)}} >
-            {item == "0"? "现在": `${item}分钟`}
+            {item == "0"? "现在": `${item}${props.unit === "min"? '分钟': '秒'}`}
             </li>
           )
         })
