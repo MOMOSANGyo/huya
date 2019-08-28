@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import EndRank from '../../../common/EndRank/index'
-import {Spin} from 'antd'
+import { Spin } from 'antd'
 import correct from './assets/true.png'
 import mistake from './assets/false.png'
 import './result.scss'
@@ -36,7 +36,7 @@ class ResultView extends Component {
             status: null,
             end: false,
             answerbool: 1,
-            loading:true,
+            loading: true,
         }
         this.request = this.request.bind(this)
         this.end = this.end.bind(this)
@@ -111,7 +111,7 @@ class ResultView extends Component {
                     speed_rate: data.speed_rate,
                     status: data.status,
                     answerbool: data.answerbool,
-                    loading:false,
+                    loading: false,
                 })
 
 
@@ -132,11 +132,11 @@ class ResultView extends Component {
         console.log('------global.info.myanswer----')
         console.log(global.info.myanswer)
         if (this.state.loading) {
-            return(
-                <div className="loading" 
-                style={{ backgroundImage: `url(${gameBg[global.info.questionNum]})` }}
+            return (
+                <div className="loading"
+                    style={{ backgroundImage: `url(${gameBg[global.info.questionNum]})` }}
                 >
-                    <Spin tip="loading"/>
+                    <Spin tip="loading" />
                 </div>
             )
         } else {
@@ -197,13 +197,13 @@ class ResultView extends Component {
                     <div className="result_footer">
 
                         <div className="result_footer_endrank">
-                                <EndRank
-                                    answerbool={this.state.answerbool}
-                                    fRes={this.state.wrongAnswer}
-                                    fNumber={7}
-                                    res={this.state.infomation}
-                                    number={this.state.end ? 6 : 7}
-                                    myanswer={global.info.myanswer} />
+                            <EndRank
+                                answerbool={this.state.answerbool}
+                                fRes={this.state.wrongAnswer}
+                                fNumber={7}
+                                res={this.state.infomation}
+                                number={this.state.end ? 6 : 7}
+                                myanswer={global.info.myanswer} />
                         </div>
                         <div className="result_footer_one">共{this.state.totalnum}人参加游戏，{this.state.rightNum}人回答正确</div>
                     </div>
