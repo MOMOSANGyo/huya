@@ -17,7 +17,7 @@ class Rank extends Component{
                                 </div>
                             </span>
                             <span className="list_name">{item.name}</span>
-                            <span className="list_answer">{item.useranswer}</span>
+                            <span className="list_answer">{item.answer}</span>
                             <span className="list_time">{item.time}秒</span>
                         </div>
                     )}

@@ -113,6 +113,7 @@ class Playing extends Component {
                 console.log('this.state.count')
                 global.info.remaintime = this.state.time - this.state.count;
                 global.info.answertime = this.state.count;
+                console.log('====我的回答时间====',global.info.answertime)
                 let length = []
                 for (let i = 0; i < data.len; i++) {
                     length.push('')

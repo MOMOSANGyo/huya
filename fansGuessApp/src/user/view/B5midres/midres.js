@@ -27,7 +27,7 @@ class MidRes extends Component {
             questionNum: null,
             answer: '',
             infomation: [],
-            num: 0,
+            num: 1,
             totalnum: 0,
             count: global.info.remaintime,
             input: false,
@@ -87,6 +87,7 @@ class MidRes extends Component {
             console.log(data)
 
             if (statusCode == 200) {
+                console.log('----global.info.answertime---');
                 let answer = [...data.answer]
                 let myinfo = [
                     {

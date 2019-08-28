@@ -165,7 +165,7 @@ const MainView = (props) => {
         </div>}
         {timeBoxVis && <div  className="time-box">
           <SelectBox 
-            unit="min"
+            unit ={'分钟'}
             option={timpOpt} 
             onChange={handleTimeChange} 
             onMouseEnter={() => {setIsuseBlur(false)}}
@@ -174,7 +174,7 @@ const MainView = (props) => {
         </div>}
         {wordTimeBoxVis && <div  className="wordtime-box">
           <SelectBox 
-            unit="sec"
+            unit = {'秒'}
             option={wordTimpOpt} 
             onChange={handleWordTimeChange} 
             onMouseEnter={() => {setIsuseBlur(false)}}

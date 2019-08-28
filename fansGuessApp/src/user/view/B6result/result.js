@@ -1,217 +1,151 @@
 import React, { Component } from 'react'
-import EndRank from '../../../common/EndRank/index'
-import {Spin} from 'antd'
-import correct from './assets/true.png'
-import mistake from './assets/false.png'
-import './result.scss'
-import '../../assets/scss/loading.scss'
-import '../config'
-import { gameBg } from '../../assets/imgConfig'
+import './index.scss'
 
-const numberText = [
-    '第一题',
-    '第二题',
-    '第三题',
-    '第四题',
-    '第五题',
-    '第六题',
-    '第七题',
-    '第八题',
-    '第九题',
-    '第十题',
-]
-class ResultView extends Component {
+
+function List(props) {
+
+    console.log('props.res');
+    console.log(props.res);
+    console.log('======props=====', props);
+
+    return (
+        (Object.prototype.toString.call(props.res) == "[object Array]") &&
+        (
+            <div >
+                {props.res.map((item, index) =>
+                    <div key={index} className="endrank_con_list" style={{ backgroundColor: item.name === "我" ? 'rgba(0, 0, 0, 0.7)' : 'rgba(0, 0, 0, 0.5)' }}>
+                        <span className="endrank_list_index">{props.currentPage * props.number + (index + 1)}</span>
+                        <span>
+                            <div className="avatar">
+                                <img className="ava_img" src={item.url}></img>
+                            </div>
+                        </span>
+                        <span className="list_name">{item.name}</span>
+                        <span className="list_time">{item.time}秒</span>
+                    </div>
+                )}
+            </div>
+        )
+
+    )
+}
+
+function FalseList(props) {
+    return (
+        (Object.prototype.toString.call(props.res) == "[object Array]") ?
+            (
+                <div >
+                    {props.res.map((item, index) =>
+                        <div key={index} className="endrank_false_list" style={{ backGroundColor: props.myanswer && 'rgba(0, 0, 0, 0.7)' }}>
+                            {item}
+                        </div>
+                    )}
+                </div>
+            ) : (<div>请重新进入</div>)
+    )
+}
+class EndRank extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            questionNum: null,
-            infomation: null,
-            realanswer: null,
-            score: null,
-            rightNum: null,
-            totalnum: null,
-            wrongAnswer: null,
-            right_rate: null,
-            speed_rate: null,
-            status: null,
-            end: false,
-            answerbool: 1,
-            loading:true,
+            res: [],
+            allres: [],
+            currentPage: 0,
+            length: 0,
+            fRes: [],
+            allfRes: [],
+            fLength: 0,
+            fCurrentPage: 0,
+            isTrue: props.answerbool || true,
+            number: 0,
+            fNumber: 0,
         }
-        this.request = this.request.bind(this)
-        this.end = this.end.bind(this)
     }
 
-    componentDidMount() {
-        this.request();
-        hyExt.observer.on('nextQuestion', message => {
-            const data = JSON.parse(message);
-            const num = parseInt(data.wordnum);
-            const qstatus = parseInt(data.status);
-            if (qstatus == 0) {
-                console.log(data);
-                console.log('---/playing---')
-                this.props.history.push('/playing')
-            } else if (qstatus == 1) {
-                this.props.history.push('/end');
-            }
+    componentWillMount() {
+        this.setState({
+            res: this.props.res.slice(0, this.props.number),
+            allres: this.props.res,
+            length: this.props.res.length,
+            fRes: this.props.fRes.slice(0, this.props.fNumber),
+            allfRes: this.props.fRes,
+            fLength: this.props.fRes.length,
+            number: this.props.number,
+            fNumber: this.props.fNumber,
         })
-
-    }
-    componentWillUnmount() {
-        // clearInterval(this.timer)
     }
 
-    request() {
-        hyExt.request({
-            header: {
-            },
-            url: 'http://zaccc.lzok.top/newuser/display/',
-            method: 'POST',
-            dataType: 'json',
-            data: {
-                "gameid": global.info.gameid,
-                "gamewordid": global.info.gamewordid
+    Switch() {
+        if (this.state.isTrue) {
+            if ((this.state.currentPage + 1) * this.state.number < this.state.length) {
+                let startindex = (this.state.currentPage + 1) * this.state.number;
+                let endindex = startindex + this.state.number;
+                let item = this.state.allres.slice(startindex, endindex);
+                console.log(item);
+                this.setState({
+                    currentPage: this.state.currentPage + 1,
+                    res: item,
+                })
             }
-        }).then(({ data, statusCode }) => {
-            console.log('---/resdata---')
-            console.log('---/resdata---')
-            console.log('---/resdata---')
-            console.log('---/resdata---')
-            console.log(data);
-            if (statusCode == 200) {
-                if (data.questionNum === 9) {
-                    this.setState({
-                        end: true
-                    })
-                }
-                // if (data.status === 1) {
-                //     if (data.questionNum <= 8) {
-                //         console.log(data);
-                //         console.log('---/playing---')
-                //         console.log('---/playing---')
-                //         console.log('---/playing---')
-                //         console.log('---/playing---')
-                //         this.props.history.push('/playing')
-                //     } else if (data.questionNum === 9) {
-                //         this.props.history.push('/end');
-                //     }
-                // }
+        } else {
+            if ((this.state.fCurrentPage + 1) * this.state.fNumber < this.state.fLength) {
+                let startindex = (this.state.fCurrentPage + 1) * this.state.fNumber;
+                let endindex = startindex + this.state.fNumber;
 
+                let item = this.state.allfRes.slice(startindex, endindex);
 
                 this.setState({
-                    questionNum: data.questionNum,
-                    infomation: data.info,
-                    realanswer: data.realanswer,
-                    score: data.score,
-                    rightNum: data.rightNum,
-                    totalnum: data.totalnum,
-                    wrongAnswer: data.wrongAnswer,
-                    right_rate: data.right_rate,
-                    speed_rate: data.speed_rate,
-                    status: data.status,
-                    answerbool: data.answerbool,
-                    loading:false,
+                    fCurrentPage: this.state.fCurrentPage + 1,
+                    fRes: item,
                 })
-
-
             }
-        }).catch(err => {
-            console.log(err);
+        }
+    }
+
+    changeTrue() {
+        this.setState({
+            isTrue: true,
         })
     }
 
-    end() {
-        this.props.history.push('end')
+    changeFalse() {
+        this.setState({
+            isTrue: false,
+        })
     }
+
     render() {
-        console.log('------global.info.myanswer----')
-        console.log('------global.info.myanswer----')
+        console.log('==render==', this.state);
+        return (
+            <div className="endrank">
 
-        console.log('------global.info.myanswer----')
-        console.log('------global.info.myanswer----')
-        console.log(global.info.myanswer)
-        if (this.state.loading) {
-            return(
-                <div className="loading" 
-                style={{ backgroundImage: `url(${gameBg[global.info.questionNum]})` }}
-                >
-                    <Spin tip="loading"/>
-                </div>
-            )
-        } else {
-            return (
-                <div className="result"
-                    style={{ backgroundImage: `url(${gameBg[this.state.questionNum]})` }}>
-                    {this.state.answerbool ?
-                        <div className="result_header">
-                            <div className="result_header_index">{numberText[this.state.questionNum]}</div>
-                            <div className="result_header_tit">{this.state.realanswer}</div>
-                        </div>
-                        :
-                        <div className="result_header_f">
-                            <div className="result_header1">
-                                <div className="result_header_index">{numberText[this.state.questionNum]}</div>
-                                <div className="result_header_tit">{this.state.realanswer}</div>
-                            </div>
-                            <div className="result_header2">
-                                <div className="result_header_index2">我猜的</div>
-                                <div className="result_header_tit2">{global.info.myanswer}</div>
-                            </div>
-                        </div>
-                    }
-                    {this.state.answerbool ?
-                        <div>
-                            <img className="result_img" src={this.state.answerbool ? correct : mistake} />
-                            <div className="result_correct">回答正确</div>
-                        </div>
-                        :
-                        <div>
-                            <img className="result_img" src={mistake} />
-                            <div className="result_correct">猜错了</div>
-                        </div>
-                    }
-                    {this.state.answerbool ?
-                        <div className="result_res">
-                            <div className="result_res_one">
-                                <div >击败</div>
-                                <div ><span className="result_font">{this.state.right_rate}</span> 对手</div>
-                            </div>
-                            <div className="result_res_one">
-                                <div>累积得分</div>
-                                <div ><span className="result_font">{this.state.score}</span> 分</div>
-                            </div>
-                        </div>
-                        :
-                        <div className="result_res">
-                            <div className="result_res_one">
-                                <div >手速击败</div>
-                                <div><span className="result_font">{this.state.speed_rate}</span> 对手</div>
-                            </div>
-                            <div className="result_res_one">
-                                <div>累积得分</div>
-                                <div><span className="result_font">{this.state.score}</span> 分</div>
-                            </div>
-                        </div>
-                    }
-                    <div className="result_footer">
+                <div className="endrank_container">
+                    <div className="endrank_header">
+                        <div className="header_t"
+                            style={{ backgroundColor: this.state.isTrue ? '#4355ff' : '#000000', zIndex: this.state.isTrue ? '99' : '0' }}
+                            onClick={this.changeTrue.bind(this)}>答对排名</div>
 
-                        <div className="result_footer_endrank">
-                                <EndRank
-                                    answerbool={this.state.answerbool}
-                                    fRes={this.state.wrongAnswer}
-                                    fNumber={7}
-                                    res={this.state.infomation}
-                                    number={this.state.end ? 6 : 7}
-                                    myanswer={global.info.myanswer} />
-                        </div>
-                        <div className="result_footer_one">共{this.state.totalnum}人参加游戏，{this.state.rightNum}人回答正确</div>
+                        <div className="header_f"
+                            style={{ backgroundColor: this.state.isTrue ? '#000000' : '#f1574f', zIndex: this.state.isTrue ? '0' : '99' }}
+                            onClick={this.changeFalse.bind(this)}>错误回答</div>
                     </div>
-                    {this.state.end && <div className="result_btn_one" onClick={this.end}>最终结果</div>}
+                    <div className="endrank_con" style={{ height: this.state.isTrue ? (this.state.number * 33 + 8 + 'px') : this.state.fNumber * 33 + 'px' }}>
+                        {this.state.isTrue ?
+                            <List res={this.state.res}
+                                currentPage={this.state.currentPage}
+                                number={this.state.number}
+                            /> :
+                            <FalseList res={this.state.fRes} number="props.fNumber" />}
+                    </div>
+
                 </div>
-            )
-        }
+                <div onClick={this.Switch.bind(this)}>
+                    <img className="endrank_btn" src={require("./btn.png")} />
+                </div>
+            </div>
+
+        )
     }
 }
 
-export default ResultView;
+export default EndRank;
