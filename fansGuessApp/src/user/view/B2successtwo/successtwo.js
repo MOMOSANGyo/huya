@@ -23,6 +23,14 @@ class SuccessTwo extends Component {
         // this.timer = setInterval(() => {
         //     this.init();
         // }, 1000);
+        hyExt.observer.on('begin', message => {
+            console.log('=========收到小程序后台推送过来的消息==========', message);
+            const data = JSON.parse(message);
+            global.info.gameid = data.gameid;
+            if (data.begin == 1) {
+                this.props.history.push('loading')
+            }
+        });
         hyExt.observer.on('waitNum', message => {
             console.log('=========收到小程序后台推送过来的消息==========', message);
             const data = JSON.parse(message); 

@@ -46,9 +46,6 @@ class Playing extends Component{
             }
         }).then(({ data, statusCode }) => {
             console.log('----B4answer----')
-            console.log('----B4answer----')
-            console.log('----B4answer----')
-            console.log('----B4answer----')
             console.log(data)
             console.log('statusCode')
             console.log(statusCode)
@@ -123,7 +120,7 @@ class Playing extends Component{
         }).then(({ data, statusCode }) => {
             clearInterval(this.timer);
             console.log('this.state.count')
-            global.info.remaintime = 60 - this.state.count
+            global.info.remaintime = this.state.time - this.state.count
             let length = []
             for (let i = 0; i < data.len; i++) {
                 length.push('')

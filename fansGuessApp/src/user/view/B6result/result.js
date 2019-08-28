@@ -43,16 +43,17 @@ class ResultView extends Component {
     }
 
     componentDidMount() {
-
         this.request();
         hyExt.observer.on('nextQuestion', message => {
-            console.log('=========收到小程序后台推送过来的消息==========', message);
+            alert('=========收到小程序后台推送过来的消息=========='+ message);
             const data = JSON.parse(message);
-            if (data.wordnum <= 8) {
+            const num = parseInt(data.wordnum);
+            const qstatus = parseInt(data.status);
+            if (qstatus == 0) {
                 console.log(data);
                 console.log('---/playing---')
                 this.props.history.push('/playing')
-            } else if (data.wordnum === 9) {
+            } else if (qstatus == 1) {
                 this.props.history.push('/end');
             }
         })
