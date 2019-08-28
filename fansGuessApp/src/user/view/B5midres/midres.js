@@ -46,7 +46,7 @@ class MidRes extends Component {
             this.count();
         }, 1000);
         hyExt.observer.on('userList', message => {
-            console.log('=========收到小程序后台推送过来的消息==========', message);
+            console.log('=========收到小程序后台推送过来的消息==========' + message);
             const data = JSON.parse(message);
             this.setState({
                 infomation: data.userlist,
@@ -94,6 +94,11 @@ class MidRes extends Component {
                     answer: answer,
                     totalnum: data.totalperson,
                     input: true,
+                    loading: false,
+                })
+            }else{
+                message.error(`接口错误,${statusCode}`);
+                this.setState({
                     loading: false,
                 })
             }

@@ -54,20 +54,20 @@ const ResultView = (props) => {
     }
     const res = await getGameWordGrade(payload);
     console.log('====getGameWordGrade=====',res);
-    const questionnum = res.wordnumber;
+    const questionnum = res.wordnumber || 0;
     setGameNumber(questionnum);
-    const realanswer = res.realanswer;
+    const realanswer = res.realanswer || "";
     setWords(realanswer);
-    const realnum = res.rightperson;
+    const realnum = res.rightperson || 0;
     setWinNum(realnum);
-    const total = res.totalperson;
+    const total = res.totalperson || 0;
     setTotalNum(total);
-    const status = res.status;
+    const status = res.status || 0;
     setGameStatus(status);
-    const winInfo = res.winInfo;
+    const winInfo = res.winInfo || [];
     console.log('======winInfo========', winInfo);
     setListData(winInfo);
-    const wronganswer = res.wronganswer;
+    const wronganswer = res.wronganswer || [];
     console.log('======wronganswer========', wronganswer);
     setErrWords(wronganswer);
     const score = res.score === 1? true: false;

@@ -89,9 +89,46 @@ class Playing extends Component{
         let count = this.state.count;
         count = count + 1;
         if (count === this.state.time) {
-            clearInterval(this.timer);
-            this.submit();
-            this.props.history.push('/res')
+            var answer = '';
+            for (let i = 0; i < this.state.len; i++) {
+                let item = document.getElementById(i).value
+                answer = answer + item;
+            }
+            var b = answer.toUpperCase();
+            console.log(answer)
+            hyExt.request({
+                header: {
+                },
+                url: 'http://zaccc.lzok.top/newuser/answer/',
+                method: 'POST',
+                dataType: 'json',
+                data: {
+                    "gameid": global.info.gameid,
+                    "gamewordid":global.info.gamewordid,
+                    "answer":b,
+                    "time": this.state.count,
+                }
+            }).then(({ data, statusCode }) => {
+                clearInterval(this.timer);
+                console.log('this.state.count')
+                global.info.remaintime = this.state.time - this.state.count
+                let length = []
+                for (let i = 0; i < data.len; i++) {
+                    length.push('')
+                }
+                if (statusCode == 200) {
+                    this.setState({
+                        questionNum: data.questionNum,
+                        category: data.category,
+                        len: data.len,
+                        answer:length
+                    })
+                    this.props.history.push('/res')
+                }
+            }).catch(err => {
+                clearInterval(this.timer);
+                hyExt.logger.warn('调用失败', err)
+            })
         }
         this.setState({
             count: count

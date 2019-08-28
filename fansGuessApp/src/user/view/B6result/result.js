@@ -45,7 +45,6 @@ class ResultView extends Component {
     componentDidMount() {
         this.request();
         hyExt.observer.on('nextQuestion', message => {
-            alert('=========收到小程序后台推送过来的消息=========='+ message);
             const data = JSON.parse(message);
             const num = parseInt(data.wordnum);
             const qstatus = parseInt(data.status);
