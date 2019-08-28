@@ -101,7 +101,7 @@ def question(request):
             length = len(word.word)
 
             data = {
-                "questionNum": gameword.round,
+                "questionNum": int(gameword.round),
                 "category": category.categoryname,
                 "len": length,
                 "gamewordid": gameword.id,
@@ -210,7 +210,7 @@ def waitnext(request):
 
         data = {
             "answerbool": answerbool,
-            "wordnumber": questionnum.round,
+            "wordnumber": int(questionnum.round),
             "answer": answer,
             # "infomation": infomation,
             # "num": num,
@@ -304,7 +304,7 @@ def display(request):
         srate = str(int((1 - srate) * 100)) + "%"
 
         data = {
-            "questionNum": questionnum.round,
+            "questionNum": int(questionnum.round),
             "answerbool": answerbool,
             "realanswer": realanswer,
             "info": info,

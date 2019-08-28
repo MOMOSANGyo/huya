@@ -164,7 +164,8 @@ CeLERY_TIMEZONE = TIME_ZONE
 CELERY_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-
+CELERYD_PREFETCH_MULTIPLIER = 1
+CELERY_ACKS_LATE = True
 CELERYBEAT_SCHEDULE = {
     # 'schedule-test': {
     #     'task': 'newanchor.tasks.process1',

@@ -1,3 +1,4 @@
+import requests
 from django.shortcuts import render
 
 # Create your views here.
@@ -8,7 +9,8 @@ import json
 from anchor.models import *
 import jwt
 import time
-from .tasks import a1invit,a2personnum,a3status,a3begin,a4status,a4userlist,begin,next
+from time import sleep
+from .tasks import a1invit,a2personnum,a3begin,a4userlist,begin,next
 
 
 #主播获取词语类别和等待时间
@@ -73,14 +75,59 @@ def invite(request):
                 "gameid": gameid
             }
             print(data)
-            a1invit.delay(gameid=gameid,waittime = pass_data["time"])
+            # a1invit.delay(gameid=gameid,waittime = pass_data["time"])
+
+            url = "https://apiext.huya.com/message/deliverRoomByProfileId?appId=" + token_data["appId"] + "&extId=" + \
+                  token_data["extId"]
+            headers = {
+                "authorization": a,
+                "Content-Type": "application/json"
+            }
+            data = {
+                "gameid": gameid,
+                "time": pass_data["time"]
+            }
+            payload = json.dumps(data)
+            message = {
+                "profileId": token_data['profileId'],
+                "event": "invite",
+                "message": payload
+            }
+            print(data)
+            response = requests.request("POST", url=url, headers=headers, data=json.dumps(message))
+            print(response.text)
+
+
             return JsonResponse(data)
         else:
             data = {
                 "gameid": yanzhengrecord.id
             }
             print(data)
-            a1invit.delay(gameid=yanzhengrecord.id,waittime = pass_data["time"])
+
+
+            # a1invit.delay(gameid=yanzhengrecord.id,waittime = pass_data["time"])
+            url = "https://apiext.huya.com/message/deliverRoomByProfileId?appId=" + token_data["appId"] + "&extId=" + \
+                  token_data["extId"]
+            headers = {
+                "authorization": a,
+                "Content-Type": "application/json"
+            }
+            data = {
+                "gameid": yanzhengrecord.id,
+                "time": pass_data["time"]
+            }
+            payload = json.dumps(data)
+            message = {
+                "profileId": token_data['profileId'],
+                "event": "invite",
+                "message": payload
+            }
+            print(data)
+            response = requests.request("POST", url=url, headers=headers, data=json.dumps(message))
+            print(response.text)
+
+
             return JsonResponse(data)
     return HttpResponse('oka1')
 
@@ -107,7 +154,50 @@ def wait(request):
         gamerecord.save()
         print(data)
         param = int(gametime.time) * 60
-        a2personnum.delay(gametime=param, gameid=pass_data["gameid"],time=now)
+        a2personnum.delay(gametime=param, gameid=pass_data["gameid"],waittime=gametime.time)
+        # waittime = gametime.time
+        # if int(waittime)<1:
+        #     waittime =1
+        # beginnum = GameRecord.objects.get(id=pass_data["gameid"]).personnum
+        # for t in range(int(waittime)*60):
+        #     record = GameRecord.objects.get(id=pass_data["gameid"])
+        #     record.personnum = UserRecord.objects.filter(gameid=pass_data["gameid"]).values("useid").distinct().count()
+        #     record.save()
+        #     num = GameRecord.objects.get(id=pass_data["gameid"]).personnum
+        #     if num > beginnum:
+        #         beginnum = num
+        #         print(num)
+        #         print(beginnum)
+        #
+        #         url = "https://apiext.huya.com/message/deliverRoomByProfileId?appId=" + token_data[
+        #             "appId"] + "&extId=" + token_data["extId"]
+        #         headers = {
+        #             "authorization": a,
+        #             "Content-Type": "application/json"
+        #         }
+        #
+        #         if param == 0:
+        #             timebool = 1
+        #         else:
+        #             timebool = 0
+        #
+        #         data = {
+        #             "personnum": beginnum,
+        #             "time": over,
+        #             "timebool": timebool  # 1 为立即开始
+        #         }
+        #         payload = json.dumps(data)
+        #         message = {
+        #             "profileId": token_data['profileId'],
+        #             "event": "waitNum",
+        #             "message": payload
+        #         }
+        #         print(data)
+        #         response = requests.request("POST", url=url, headers=headers, data=json.dumps(message))
+        #         print(response.text)
+        #     sleep(6)
+
+
         return JsonResponse(data)
 
     return HttpResponse('oka2')
@@ -133,6 +223,23 @@ def join(request):
 
     return HttpResponse('oka2')
 
+def a2status(request):
+    if request.method == 'POST':
+        a = request.META.get("HTTP_AUTHORIZATION")
+        token_data = jwt.decode(a, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
+        print(token_data)  # 打印解析后的token
+
+        pass_data = json.loads(request.body)  # 解析前端传过来的参数
+        print(pass_data)
+        status = GameStatus.objects.get(gameid=pass_data["gameid"])
+        status.gamestatus = 3
+        status.save()
+        data = {
+            "response": "ok"
+        }
+        print(data)
+        begin.delay(gameid=pass_data["gameid"])
+        return JsonResponse(data)
 
 def prepare(request):
     if request.method == 'POST':
@@ -184,8 +291,19 @@ def prepare(request):
         gamerecord = GameRecord.objects.get(id=pass_data["gameid"])
         gamerecord.a3time = now+60
         gamerecord.save()
-        a3status.delay(gameid=pass_data["gameid"])
-        a3begin.delay(gameid=pass_data["gameid"])
+        # a3status.delay(gameid=pass_data["gameid"])
+        # a3begin.delay(gameid=pass_data["gameid"])
+
+        # a3time = GameRecord.objects.get(id=pass_data["gameid"]).a3time
+        # chatime = a3time-now+5
+        # for i in range(chatime):
+        #     sleep(1)
+        #     print(now)
+        #     if int(now) >= int(a3time):
+        #         print(a3time, "1")
+        #         status = GameStatus.objects.get(gameid=pass_data["gameid"])
+        #         status.gamestatus = 1
+        #         status.save()
         data = {
             "word": wordlist,
             "category": category.categoryname
@@ -211,10 +329,30 @@ def isok(request):
             "response": "ok"
         }
         print(data)
+        a3begin.delay(gameid=pass_data["gameid"])
         return JsonResponse(data)
 
     return HttpResponse('oka3')
 
+def a3fanye(request):
+    if request.method == 'POST':
+        a = request.META.get("HTTP_AUTHORIZATION")
+        token_data = jwt.decode(a, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
+        print(token_data)  # 打印解析后的token
+
+        pass_data = json.loads(request.body)  # 解析前端传过来的参数
+        print(pass_data)
+        status = GameStatus.objects.get(gameid=pass_data["gameid"])
+        status.gamestatus = 1
+        status.save()
+        data = {
+            "response": "ok"
+        }
+        print(data)
+        a3begin.delay(gameid=pass_data["gameid"])
+        return JsonResponse(data)
+
+    return HttpResponse('oka3')
 
 def staticword(request):
     if request.method == 'POST':
@@ -244,11 +382,11 @@ def staticword(request):
         gameword.a4time = now+int(categoryid.a1time)
         gameword.save()
         # print(now+int(categoryid.a1time),type(now+int(categoryid.a1time)))
-        a4status.delay(gameid=pass_data["gameid"],gametime=now+int(categoryid.a1time),role=token_data["role"])
+        # a4status.delay(gameid=pass_data["gameid"],gametime=now+int(categoryid.a1time),role=token_data["role"])
         a4userlist.delay(gameid=pass_data["gameid"],gametime=now+int(categoryid.a1time),role=token_data["role"])
         total = GameRecord.objects.get(id=pass_data["gameid"]).personnum
         data = {
-            # "category": category,
+            "category": category,
             "length": length,
             "wordnumber": wordnumber,
             "wordtext": wordtext,
@@ -257,6 +395,26 @@ def staticword(request):
             "time":categoryid.a1time
         }
         print(data)
+        return JsonResponse(data)
+
+    return HttpResponse('oka4')
+
+def a4fanye(request):
+    if request.method == 'POST':
+        a = request.META.get("HTTP_AUTHORIZATION")
+        token_data = jwt.decode(a, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
+        print(token_data)  # 打印解析后的token
+
+        pass_data = json.loads(request.body)  # 解析前端传过来的参数
+        print(pass_data)
+        status = GameStatus.objects.get(gameid=pass_data["gameid"])
+        status.gamestatus = 4
+        status.save()
+        data = {
+            "response": "ok"
+        }
+        print(data)
+        a3begin.delay(gameid=pass_data["gameid"])
         return JsonResponse(data)
 
     return HttpResponse('oka4')
@@ -316,6 +474,7 @@ def staticwordinfo(request):
         # print(gameuserinfo)
         return JsonResponse(data)
     return HttpResponse('oka5')
+
 
 
 def nexts(request):
@@ -469,6 +628,7 @@ def test(request):
 
         pass_data = json.loads(request.body)  # 解析前端传过来的参数
         print(pass_data)
+
         status = GameStatus.objects.get(gameid=pass_data["gameid"])
         status.gamestatus = 2
         status.save()
@@ -477,3 +637,5 @@ def test(request):
         }
         print(data)
         return JsonResponse(data)
+
+

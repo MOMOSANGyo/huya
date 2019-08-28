@@ -21,6 +21,8 @@ def a1invit(gameid,waittime):
     token_data = jwt.decode(token, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
     url = "https://apiext.huya.com/message/deliverRoomByProfileId?appId=" + token_data["appId"] + "&extId=" + \
           token_data["extId"]
+    urlp = "https://apiext.huya.com/message/deliverByProfileId?appId="+ token_data["appId"] + "&extId=" + \
+          token_data["extId"]
     headers = {
         "authorization": token,
         "Content-Type": "application/json"
@@ -37,13 +39,21 @@ def a1invit(gameid,waittime):
     }
     print(data)
     response = requests.request("POST", url=url, headers=headers, data=json.dumps(message))
-    print(response.text)
+    print(response.text,"a1invit")
+    # response1 = requests.request("POST", url=urlp, headers=headers, data=json.dumps(message))
+    # print(response1.text, "a1invit")
+
 
 @task
-def a2personnum(gametime,gameid,time):
-
+def a2personnum(gametime,gameid,waittime):
+    if int(waittime)<1:
+        waittime =1
     beginnum = GameRecord.objects.get(id= gameid).personnum
-    for time in range(85):
+
+    for time in range(int(waittime)*60):
+        gamestatus = GameStatus.objects.get(gameid=gameid).gamestatus
+        if gamestatus ==3 :
+            return
         record = GameRecord.objects.get(id=gameid)
         record.personnum = UserRecord.objects.filter(gameid=gameid).values("useid").distinct().count()
         record.save()
@@ -56,6 +66,7 @@ def a2personnum(gametime,gameid,time):
             token = GameRecord.objects.get(id= gameid).token
             token_data = jwt.decode(token, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
             url = "https://apiext.huya.com/message/deliverRoomByProfileId?appId="+token_data["appId"]+"&extId="+token_data["extId"]
+            urlp = "https://apiext.huya.com/message/deliverByProfileId?appId=" + token_data["appId"]+"&extId="+token_data["extId"]
             headers = {
                 "authorization":token,
                 "Content-Type": "application/json"
@@ -77,23 +88,30 @@ def a2personnum(gametime,gameid,time):
                 "event": "waitNum",
                 "message": payload
             }
+            messagep = {
+                "profileId": token_data['profileId'],
+                "event": "anchorNum",
+                "message": payload
+            }
             print(data)
             response = requests.request("POST", url=url, headers=headers, data=json.dumps(message))
-            print(response.text)
+            print(response.text,"a2personnum")
+            response1 = requests.request("POST", url=urlp, headers=headers, data=json.dumps(messagep))
+            print(response1.text, "a2personnum")
         sleep(6)
 
-@task
-def a3status(gameid):
-    a3time = GameRecord.objects.get(id = gameid).a3time
-    for i in range(120):
-        now = int(time.time())
-        sleep(1)
-        print(now)
-        if int(now)>=int(a3time):
-            print(a3time,"1")
-            status = GameStatus.objects.get(gameid=gameid)
-            status.gamestatus = 1
-            status.save()
+# @task
+# def a3status(gameid):
+#     a3time = GameRecord.objects.get(id = gameid).a3time
+#     for i in range(120):
+#         now = int(time.time())
+#         sleep(1)
+#         print(now)
+#         if int(now)>=int(a3time):
+#             print(a3time,"1")
+#             status = GameStatus.objects.get(gameid=gameid)
+#             status.gamestatus = 1
+#             status.save()
     #
     # token = GameRecord.objects.get(id=gameid).token
     # token_data = jwt.decode(token, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
@@ -132,6 +150,8 @@ def a3begin(gameid):
     token_data = jwt.decode(token, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
     url = "https://apiext.huya.com/message/deliverRoomByProfileId?appId=" + token_data["appId"] + "&extId=" + \
           token_data["extId"]
+    urlp = "https://apiext.huya.com/message/deliverByProfileId?appId=" + token_data["appId"] + "&extId=" + token_data[
+        "extId"]
     headers = {
         "authorization": token,
         "Content-Type": "application/json"
@@ -147,100 +167,98 @@ def a3begin(gameid):
         "event": "waitBegin",
         "message": payload
     }
-    for i in range(120):
-        now = int(time.time())
 
-        print(now)
-        status = GameStatus.objects.get(gameid=gameid)
-        if status.gamestatus == 1:
-            print(data)
-            response = requests.request("POST", url=url, headers=headers, data=json.dumps(message))
-            print(response.text)
-        sleep(6)
+    response = requests.request("POST", url=url, headers=headers, data=json.dumps(message))
+    print(response.text,"a3begin")
+    # response1 = requests.request("POST", url=urlp, headers=headers, data=json.dumps(message))
+    # print(response1.text, "a3begin")
 
 
-@task
-def a4status(gameid,gametime,role):
-    # gamewordid = GameWord.objects.filter(gameid="gameid", used=1).last().id
-    # beginnum = GameUser.objects.filter(gameid=gameid, gamewordid=gamewordid).count()
-    for i in range(120):
-        now = int(time.time())
-        sleep(1)
-        print(now)
-        if int(now) >= int(gametime):
-            # print(gametime, "2")
-            status = GameStatus.objects.get(gameid=gameid)
-            status.gamestatus = 4
-            status.save()
-        # else:
-        #     gamewordid = GameWord.objects.filter(gameid="gameid", used=1).last().id
-        #     token = GameRecord.objects.get(id=gameid).token
-        #     token_data = jwt.decode(token, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
-        #     url = "https://apiext.huya.com/message/deliverRoomByProfileId?appId=" + token_data["appId"] + "&extId=" + \
-        #           token_data["extId"]
-        #     headers = {
-        #         "authorization": token
-        #     }
-        #
-        #     num = GameUser.objects.filter(gameid=gameid, gamewordid=gamewordid).count()
-        #     if num>beginnum:
-        #         beginnum =num
-        #         infolist = []
-        #         user = GameUser.objects.filter(gameid=gameid, gamewordid=gamewordid)
-        #         for u in user:
-        #             us = Info.objects.get(userid=u.userid)
-        #
-        #             if role == 'P':
-        #                 infolist.append({
-        #                     "usrid": u.userid,
-        #                     "url": us.pricture,
-        #                     "name": us.username,
-        #                     "time": u.usertime,
-        #                     "answer": u.useranswer
-        #                 })
-        #             else:
-        #                 name = us.username
-        #                 if token_data["userId"] == u.userid:
-        #                     name="我"
-        #                 infolist.append({
-        #                     "usrid": u.userid,
-        #                     "url": us.pricture,
-        #                     "name": name,
-        #                     "time": u.usertime,
-        #                     "answer":u.useranswer
-        #                 })
-        #
-        #
-        #
-        #                 data = {
-        #                     "num": num,
-        #                     "userlist": infolist
-        #                 }
-        #                 print(data)
-        #
-        #                 payload = json.dumps(data)
-        #                 message = {
-        #                     "profileId": token_data['profileId'],
-        #                     "event": "userList",
-        #                     "message": payload
-        #                 }
-        #                 print(data)
-        #                 response = requests.request("POST", url=url, headers=headers, data=message)
-        #                 print(response.text)
+# @task
+# def a4status(gameid,gametime,role):
+#     # gamewordid = GameWord.objects.filter(gameid="gameid", used=1).last().id
+#     # beginnum = GameUser.objects.filter(gameid=gameid, gamewordid=gamewordid).count()
+#     for i in range(120):
+#         now = int(time.time())
+#         sleep(1)
+#         print(now)
+#         if int(now) >= int(gametime):
+#             # print(gametime, "2")
+#             status = GameStatus.objects.get(gameid=gameid)
+#             status.gamestatus = 4
+#             status.save()
+#         # else:
+#         #     gamewordid = GameWord.objects.filter(gameid="gameid", used=1).last().id
+#         #     token = GameRecord.objects.get(id=gameid).token
+#         #     token_data = jwt.decode(token, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
+#         #     url = "https://apiext.huya.com/message/deliverRoomByProfileId?appId=" + token_data["appId"] + "&extId=" + \
+#         #           token_data["extId"]
+#         #     headers = {
+#         #         "authorization": token
+#         #     }
+#         #
+#         #     num = GameUser.objects.filter(gameid=gameid, gamewordid=gamewordid).count()
+#         #     if num>beginnum:
+#         #         beginnum =num
+#         #         infolist = []
+#         #         user = GameUser.objects.filter(gameid=gameid, gamewordid=gamewordid)
+#         #         for u in user:
+#         #             us = Info.objects.get(userid=u.userid)
+#         #
+#         #             if role == 'P':
+#         #                 infolist.append({
+#         #                     "usrid": u.userid,
+#         #                     "url": us.pricture,
+#         #                     "name": us.username,
+#         #                     "time": u.usertime,
+#         #                     "answer": u.useranswer
+#         #                 })
+#         #             else:
+#         #                 name = us.username
+#         #                 if token_data["userId"] == u.userid:
+#         #                     name="我"
+#         #                 infolist.append({
+#         #                     "usrid": u.userid,
+#         #                     "url": us.pricture,
+#         #                     "name": name,
+#         #                     "time": u.usertime,
+#         #                     "answer":u.useranswer
+#         #                 })
+#         #
+#         #
+#         #
+#         #                 data = {
+#         #                     "num": num,
+#         #                     "userlist": infolist
+#         #                 }
+#         #                 print(data)
+#         #
+#         #                 payload = json.dumps(data)
+#         #                 message = {
+#         #                     "profileId": token_data['profileId'],
+#         #                     "event": "userList",
+#         #                     "message": payload
+#         #                 }
+#         #                 print(data)
+#         #                 response = requests.request("POST", url=url, headers=headers, data=message)
+#         #                 print(response.text)
 @task
 def a4userlist(gameid,gametime,role):
-    gamewordid = GameWord.objects.filter(gameid="gameid", used=1).last().id
+    gamewordid = GameWord.objects.filter(gameid=gameid, used=1).last().id
     beginnum = GameUser.objects.filter(gameid=gameid, gamewordid=gamewordid).count()
-    for i in range(20):
+    for i in range(10):
         now = int(time.time())
 
         print(now)
         if int(now)<int(gametime):
-            gamewordid = GameWord.objects.filter(gameid="gameid", used=1).last().id
+            gamewordid = GameWord.objects.filter(gameid=gameid, used=1).last().id
             token = GameRecord.objects.get(id=gameid).token
             token_data = jwt.decode(token, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
             url = "https://apiext.huya.com/message/deliverRoomByProfileId?appId=" + token_data["appId"] + "&extId=" + \
                   token_data["extId"]
+            urlp = "https://apiext.huya.com/message/deliverByProfileId?appId=" + token_data["appId"] + "&extId=" + \
+                   token_data[
+                       "extId"]
             headers = {
                 "authorization": token,
                 "Content-Type": "application/json"
@@ -286,9 +304,16 @@ def a4userlist(gameid,gametime,role):
                             "event": "userList",
                             "message": payload
                         }
+                        messagep = {
+                            "profileId": token_data['profileId'],
+                            "event": "anchorUserlist",
+                            "message": payload
+                        }
                         print(data)
                         response = requests.request("POST", url=url, headers=headers, data=json.dumps(message))
-                        print(response.text)
+                        print(response.text,"a4userlist")
+                        response1 = requests.request("POST", url=urlp, headers=headers, data=json.dumps(messagep))
+                        print(response1.text, "4userlist")
             sleep(6)
 
 @task
@@ -297,6 +322,9 @@ def begin(gameid):
     token_data = jwt.decode(token, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
     url = "https://apiext.huya.com/message/deliverRoomByProfileId?appId=" + token_data["appId"] + "&extId=" + \
           token_data["extId"]
+    urlp = "https://apiext.huya.com/message/deliverByProfileId?appId=" + token_data["appId"] + "&extId=" + \
+           token_data[
+               "extId"]
     headers = {
         "authorization": token,
         "Content-Type": "application/json"
@@ -313,7 +341,9 @@ def begin(gameid):
     }
     print(data)
     response = requests.request("POST", url=url, headers=headers, data=json.dumps(message))
-    print(response.text)
+    print(response.text,"begin")
+    # response1 = requests.request("POST", url=urlp, headers=headers, data=json.dumps(message))
+    # print(response1.text, "begin")
 #第九题点下一题wordnum转到-1 status变为1
 
 @task
@@ -322,6 +352,8 @@ def next(gameid,wordnum,status=0):
     token_data = jwt.decode(token, 'e0a5dd2bcf8b1f6b3449a491964b08ef', algorithms='HS256')
     url = "https://apiext.huya.com/message/deliverRoomByProfileId?appId=" + token_data["appId"] + "&extId=" + \
           token_data["extId"]
+    urlp = "https://apiext.huya.com/message/deliverByProfileId?appId=" + token_data["appId"] + "&extId=" + \
+           token_data["extId"]
     headers = {
         "authorization": token,
         "Content-Type": "application/json"
@@ -338,4 +370,6 @@ def next(gameid,wordnum,status=0):
     }
     print(data)
     response = requests.request("POST", url=url, headers=headers, data=json.dumps(message))
-    print(response.text)
+    print(response.text,"next")
+    # response1 = requests.request("POST", url=urlp, headers=headers, data=json.dumps(message))
+    # print(response1.text, "next")

@@ -16,4 +16,7 @@ urlpatterns = [
     url(r'^last/', views.last, name='last'),  # zaccc.lzok.top/newanchor/last/
     url(r'^pre/', views.pre, name='pre'),  # zaccc.lzok.top/newanchor/pre/
     url(r'^test/', views.test, name='test'),  # zaccc.lzok.top/newanchor/test/
+    url(r'^a2status/', views.a2status, name='a2status'),  # zaccc.lzok.top/newanchor/a2status/
+    url(r'^a3status/', views.a3fanye, name='a3status'),  # zaccc.lzok.top/newanchor/a3status/
+    url(r'^a3status/', views.a4fanye, name='a3status'),  # zaccc.lzok.top/newanchor/a4status/
 ]
