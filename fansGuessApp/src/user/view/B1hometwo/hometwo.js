@@ -21,20 +21,32 @@ class HomeTwo extends Component {
 
 
     componentDidMount() {
+        hyExt.observer.on('beforeinvite', message => {
+            console.log('=========收到小程序后台推送过来的消息==========', message);
+            const data = JSON.parse(message);
+            global.info.gameid = data.gameid;
+            const now = +new Date();
+            const end = parseInt(data.time);
+            if(data.time) {
+                this.setState({
+                    time: end - now,
+                    success: true
+                })
+            }
+        })
         // this.init();
         hyExt.observer.on('waitNum', message => {
             console.log('=========收到小程序后台推送过来的消息==========', message);
             const data = JSON.parse(message);
 
             console.log('=====message====personnum==timebool===', data.personnum, data.timebool);
-            if (data.timebool != 1) {
-                const nowtime = +new Date();
+            // if (data.timebool != 1) {
+            //     const nowtime = +new Date();
 
-                this.setState({
-                    time: data.time - nowtime,
-                    success: true
-                })
-            }
+            //     this.setState({
+            //         time: data.time - nowtime
+            //     })
+            // }
             this.setState({
                 count: data.personnum
             })

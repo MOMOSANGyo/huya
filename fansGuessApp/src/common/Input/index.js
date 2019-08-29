@@ -22,7 +22,7 @@ class MyInput extends Component {
         this.handleCompositionEnd = (e, index) => {
             console.log('=========handleCompositionEnd=============', e, e.data);
             let ans = this.state.answer;
-            const data = (e.data.trim() || "").split("");
+            const data = ans[index] + (e.data.trim() || "").split("");
             let len = data.length;
             if(data.length >=1){
                 console.log('====data====',data, data.length);
