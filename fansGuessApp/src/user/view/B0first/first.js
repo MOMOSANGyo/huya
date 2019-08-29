@@ -15,8 +15,9 @@ class First extends Component {
 
 
     componentDidMount() {
-        hyExt.observer.on('invite', message => {
-            console.log('=========收到小程序后台推送过来的消息==========', message);
+        let handler = message => {
+            console.log('收到小程序后台推送过来的消息', message)
+            hyExt.observer.off('invite', handler);
             const data = JSON.parse(message);
             global.info.gameid = data.gameid;
             if (data.time) {
@@ -25,9 +26,10 @@ class First extends Component {
                 } else {
                     this.props.history.push('/home');
                 }
-                
             }
-        })
+
+          }
+        hyExt.observer.on('invite', handler);
     }
 
     componentWillUnmount() {
