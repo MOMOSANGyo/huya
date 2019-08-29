@@ -128,7 +128,9 @@ const ResultView = (props) => {
         <div className="result-introduce-text">(20人参与游戏，只有5-15人猜对答案才可获胜)</div>
       </div>
       <div>
-        {success && <EndRank className="result-endrank" res={listData} fRes={errWords} number={7} fNumber={7} />}
+        <div className="result-endrank">
+          {success && <EndRank res={listData} fRes={errWords} number={7} fNumber={7} />}
+        </div>
         <Button className="next-btn" onClick={handleClick}>{gameNumber==9?"最终结果":"下一题"}</Button>
       </div>
       

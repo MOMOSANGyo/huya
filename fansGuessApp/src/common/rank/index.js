@@ -10,7 +10,7 @@ class Rank extends Component{
             (
                 <div >
                     {list.map((item, index) =>
-                        <div key={index} className={`rank_con_list ${item.name === "我"?"rank_me_list":""}`} style={{ backgroundColor: item.name === "我" ? 'rgba(0, 0, 0, 0.7)': 'rgba(0, 0, 0, 0.5)'}}>
+                        <div key={index} className={`rank_con_list ${item.name === global.info.userNick?"rank_me_list":""}`} style={{ backgroundColor: item.name === global.info.userNick ? 'rgba(0, 0, 0, 0.7)': 'rgba(0, 0, 0, 0.5)'}}>
                             <span>
                                 <div className="avatar">
                                     <img className="ava_img" src={item.url}></img>

@@ -66,8 +66,10 @@ const ScoreView = (props) => {
         <img src={scoreImg[lastScore]} style={{zoom : '50%'}} />
         <div className="show-text">{renderText()}</div>
         <div>
-          <ERank className="score-erank" res={listData} number={7} total={totalNum} />
-          <div className="btn-container">
+          <div className="score-erank">
+            <ERank res={listData} number={7} total={totalNum} />
+          </div>
+           <div className="btn-container">
             <Button className="again-btn" onClick={() => {props.history.push('/main')}}>再来一局</Button>
             <Button className="quit-btn" onClick={() => {props.history.push('/main')}}>退出游戏</Button>
           </div>
