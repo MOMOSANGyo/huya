@@ -69,7 +69,7 @@ export async function getAwaitTime(params) {
 export async function quitGame(params) {
   console.log('=====quitGame======', params);
   let result = {};
-  await api.request('newanchor/quit/', 'POST', params).then(res => {
+  await api.request('newanchor/test/', 'POST', params).then(res => {
     result = res;
   }).catch(err => {
     message.error(err);
