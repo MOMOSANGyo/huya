@@ -26,10 +26,14 @@ class HomeTwo extends Component {
             const data = JSON.parse(message);
             global.info.gameid = data.gameid;
             const now = +new Date();
+            const nowSec = Math.floor(now/1000);
             const end = parseInt(data.time);
+            console.log('===now===end=', nowSec, end);
+            console.log('===time==', end- nowSec);
+
             if(data.time) {
                 this.setState({
-                    time: end - now,
+                    time: end - nowSec,
                     success: true
                 })
             }
