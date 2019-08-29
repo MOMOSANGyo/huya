@@ -42,6 +42,8 @@ const MainView = (props) => {
       setWordTime('60');
     }
     else if(status === 0) {
+      const gameid = initPre.gameid;
+      setGameID(gameid);
       const timebool = initPre.timebool;
       const gametime = initPre.gametime;
         props.history.push(`/loading/${timebool}/${gametime}`);  
