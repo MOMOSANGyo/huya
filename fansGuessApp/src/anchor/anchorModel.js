@@ -197,7 +197,7 @@ export async function getGameLastInfo(params) {
   return result;
 }
 
-export async function nextWord(params) {
+export function nextWord(params) {
   // console.log('=====nextWord======', params);
-  return await api.request('newanchor/next/', 'POST', params)
+  return api.request('newanchor/next/', 'POST', params)
 }

@@ -98,8 +98,7 @@ const ResultView = (props) => {
       gameid: gameid,
     }
     nextWord(payload).then(res => {
-      alert(res);
-      if(res.success == 1){
+      if(res.success == '1') {
         if(gameStatus == 0) {
           props.history.push(`/play/${gamewordtime}`);
         }
