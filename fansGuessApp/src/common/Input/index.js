@@ -14,18 +14,18 @@ class MyInput extends Component {
             this.inputRefs[index] = element;
         }
         this.handleCompositionStart = () => {
-            console.log('=========handleCompositionStart=============');
+            // console.log('=========handleCompositionStart=============');
             this.setState({
                 inputstatus: false
             })
         }
         this.handleCompositionEnd = (e, index) => {
-            console.log('=========handleCompositionEnd=============', e, e.data);
+            // console.log('=========handleCompositionEnd=============', e, e.data);
             let ans = this.state.answer;
             const data = (e.data.trim() || "").split("");
             let len = data.length;
             if(data.length >=1){
-                console.log('====data====',data, data.length);
+                // console.log('====data====',data, data.length);
                 data.forEach((item,i) => {
                     if(index + i < this.inputRefs.length) {
                         ans[index + i] = item
@@ -35,7 +35,7 @@ class MyInput extends Component {
 
                 this.inputRefs[index].blur();
             }
-            console.log('======inputRefs.length========', index, this.inputRefs.length);
+            // console.log('======inputRefs.length========', index, this.inputRefs.length);
             if(index + len < this.inputRefs.length) {
                 this.inputRefs[index + len].focus();
             }
@@ -52,7 +52,7 @@ class MyInput extends Component {
 
     
     componentWillMount() {
-        console.log('=======MyInput=props========', this.props);
+        // console.log('=======MyInput=props========', this.props);
         
         this.setState({
             answer:this.props.answer
@@ -60,15 +60,15 @@ class MyInput extends Component {
     }
 
     componentDidMount(){
-        console.log('===componentDidMount===', this.inputRefs);
+        // console.log('===componentDidMount===', this.inputRefs);
         if(this.inputRefs.length && !this.props.disabled) {
-            console.log('=====focus====');
+            // console.log('=====focus====');
             this.inputRefs[0].focus();
         }
         
     }
     handleKeyUp(e, index){
-        console.log('======handleKeyUp=======', e, e.keyCode);
+        // console.log('======handleKeyUp=======', e, e.keyCode);
         if(e.keyCode === 8 || e.keyCode === 46){
             if(index > 0) {
                 this.inputRefs[index - 1].focus();  
@@ -86,7 +86,7 @@ class MyInput extends Component {
         this.setState({
             answer:item,
         })
-        console.log(e.target.value)
+        // console.log(e.target.value)
         if(e.target.value.length >=1) {
             if(index < this.inputRefs.length-1 && this.state.inputstatus){
                 this.inputRefs[index].blur();
@@ -98,11 +98,11 @@ class MyInput extends Component {
                 this.inputRefs[this.inputRefs.length-1].focus();
             }
         }
-        console.log('======this.state.inputstatus========', this.state.inputstatus);
-        console.log('======inputRefs.length========', index, this.inputRefs.length);
+        // console.log('======this.state.inputstatus========', this.state.inputstatus);
+        // console.log('======inputRefs.length========', index, this.inputRefs.length);
 
         // let item = this.state.answer;
-        // console.log(e.target.value)
+        // // console.log(e.target.value)
         // for(let i = 0;i < e.target.value.length;i++)
         // {
         //     item[i] = e.target.value.charAt(i);

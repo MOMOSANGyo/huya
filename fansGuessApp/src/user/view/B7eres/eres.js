@@ -34,10 +34,10 @@ class ERes extends Component{
                 "gamewordid": global.info.gamewordid,
             }
         }).then(({ data, statusCode }) => {
-            console.log('----eres---')
-            console.log('----eres---')
-            console.log('----eres---')
-            console.log(data);
+            // console.log('----eres---')
+            // console.log('----eres---')
+            // console.log('----eres---')
+            // console.log(data);
             let myScoreUrl = `./assets/${data.score}pb.png`;
             if (statusCode == 200) {
                 this.setState({

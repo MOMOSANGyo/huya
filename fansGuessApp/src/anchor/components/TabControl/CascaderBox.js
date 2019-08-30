@@ -14,7 +14,7 @@ function CascaderBox(props) {
   
   useEffect(() => {
     const data = Object.keys(boxOption || []);
-    console.log('--classKeys--', data);
+    // console.log('--classKeys--', data);
     setClassKeys(data);
     setDetailKeys(boxOption[data[0]]);
 
@@ -22,7 +22,7 @@ function CascaderBox(props) {
 
 
   function handleClick(value) {
-    console.log('-v---', value);
+    // console.log('-v---', value);
     props.onChange(value);
   }
 

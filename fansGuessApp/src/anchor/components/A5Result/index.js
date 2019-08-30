@@ -47,13 +47,13 @@ const ResultView = (props) => {
   async function init() {
     const gameid = getGameID();
     const gamewordid = getGameWordID();
-    console.log('=======a5getGameID===========', gameid, gamewordid);
+
     const payload = {
       gameid: gameid,
       gamewordid: gamewordid
     }
     const res = await getGameWordGrade(payload);
-    console.log('====getGameWordGrade=====',res);
+
     const questionnum = res.wordnumber || 0;
     setGameNumber(questionnum);
     const realanswer = res.realanswer || "";
@@ -65,10 +65,9 @@ const ResultView = (props) => {
     const status = res.status || 0;
     setGameStatus(status);
     const winInfo = res.winInfo || [];
-    console.log('======winInfo========', winInfo);
+
     setListData(winInfo);
     const wronganswer = res.wronganswer || [];
-    console.log('======wronganswer========', wronganswer);
     setErrWords(wronganswer);
     const score = res.score === 1? true: false;
     setScore(score);
@@ -95,7 +94,6 @@ const ResultView = (props) => {
 
   function handleClick() {
     const gameid = getGameID();
-    console.log('=======handleClick===========', gameid);
     const payload = {
       gameid: gameid,
     }
@@ -107,7 +105,6 @@ const ResultView = (props) => {
       props.history.push('/score');
     }
   }
-  console.log('------result-----', listData, errWords);
 
   return (
     <div className="a5-container" 

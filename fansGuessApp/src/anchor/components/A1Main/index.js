@@ -11,7 +11,6 @@ import { setGameID, setGameWordID } from '../../../utils/util'
 const MainView = (props) => {
   const [isUseBlur, setIsuseBlur] = useState(true);
 
-  console.log('==========Main=============',props);
   const [categoryOpt, setCategoryOpt] = useState();
   const [timpOpt, setTimpOpt] = useState();
   const [wordTimpOpt, setWordTimpOpt] = useState(['15','30','45', '60', '90']);
@@ -29,7 +28,6 @@ const MainView = (props) => {
     const status = initPre.status;
     if(status == 2){
       const initData = await getInitData();
-      console.log('=====getInitData=======', initData);
       const { category, time } = initData;
       setCategoryOpt(category);
       setTimpOpt(time);
@@ -97,7 +95,6 @@ const MainView = (props) => {
 
   async function handleInvite(payload) {
     const res = await setInviteData(payload);
-    console.log('----invite----', res);
     setGameID(res.gameid);
     props.history.push('/loading/undefined/undefined');
   }

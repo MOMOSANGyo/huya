@@ -5,7 +5,7 @@ import './index.scss'
 import classnames from 'classnames'
 import { useInterval } from '../../utils/useHooks'
 function TimeProgress(props) {
-  console.log()
+  // console.log()
   const {onChange} = props;
   const [time, setTime] = useState();
   const [count, setCount] = useState(0);
@@ -19,7 +19,7 @@ function TimeProgress(props) {
   useEffect(() => {
     setTime(props.time);
   },[props.time]);
-console.log('==============state time============', time, typeof time);
+// console.log('==============state time============', time, typeof time);
 
   return(
     <div style={{ ...props.style, position: 'relative' }}>

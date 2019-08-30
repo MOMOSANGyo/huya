@@ -3,7 +3,7 @@ import './index.scss'
 
 const ButtonOne = () =>{
     return(
-        <div className="btn_one" onClick={console.log('333')}>立即参加</div>
+        <div className="btn_one" onClick={// console.log('333')}>立即参加</div>
     )
 }
 

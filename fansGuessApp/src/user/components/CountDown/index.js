@@ -9,8 +9,8 @@ export default class CountDown extends Component {
     }
   }
   componentDidMount() {
-      console.log('this.props.time')
-      console.log(this.props.time)
+      // console.log('this.props.time')
+      // console.log(this.props.time)
       this.countFun(this.props.time);
   }
   //组件卸载取消倒计时

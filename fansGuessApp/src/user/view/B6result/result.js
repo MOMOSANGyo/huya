@@ -49,8 +49,8 @@ class ResultView extends Component {
             const num = parseInt(data.wordnum);
             const qstatus = parseInt(data.status);
             if (qstatus == 0) {
-                console.log(data);
-                console.log('---/playing---')
+                // console.log(data);
+                // console.log('---/playing---')
                 this.props.history.push('/playing')
             } else if (qstatus == 1) {
                 this.props.history.push('/end');
@@ -74,11 +74,11 @@ class ResultView extends Component {
                 "gamewordid": global.info.gamewordid
             }
         }).then(({ data, statusCode }) => {
-            console.log('---/resdata---')
-            console.log('---/resdata---')
-            console.log('---/resdata---')
-            console.log('---/resdata---')
-            console.log(data);
+            // console.log('---/resdata---')
+            // console.log('---/resdata---')
+            // console.log('---/resdata---')
+            // console.log('---/resdata---')
+            // console.log(data);
             if (statusCode == 200) {
                 if (data.questionNum === 9) {
                     this.setState({
@@ -87,11 +87,11 @@ class ResultView extends Component {
                 }
                 // if (data.status === 1) {
                 //     if (data.questionNum <= 8) {
-                //         console.log(data);
-                //         console.log('---/playing---')
-                //         console.log('---/playing---')
-                //         console.log('---/playing---')
-                //         console.log('---/playing---')
+                //         // console.log(data);
+                //         // console.log('---/playing---')
+                //         // console.log('---/playing---')
+                //         // console.log('---/playing---')
+                //         // console.log('---/playing---')
                 //         this.props.history.push('/playing')
                 //     } else if (data.questionNum === 9) {
                 //         this.props.history.push('/end');
@@ -117,7 +117,7 @@ class ResultView extends Component {
 
             }
         }).catch(err => {
-            console.log(err);
+            // console.log(err);
         })
     }
 
@@ -125,12 +125,12 @@ class ResultView extends Component {
         this.props.history.push('end')
     }
     render() {
-        console.log('------global.info.myanswer----')
-        console.log('------global.info.myanswer----')
+        // console.log('------global.info.myanswer----')
+        // console.log('------global.info.myanswer----')
 
-        console.log('------global.info.myanswer----')
-        console.log('------global.info.myanswer----')
-        console.log(global.info.myanswer)
+        // console.log('------global.info.myanswer----')
+        // console.log('------global.info.myanswer----')
+        // console.log(global.info.myanswer)
         if (this.state.loading) {
             return (
                 <div className="loading"

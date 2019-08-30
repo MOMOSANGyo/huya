@@ -17,14 +17,26 @@ class SuccessTwo extends Component {
         // this.showModal = this.showModal.bind(this)
         // this.hideModal = this.hideModal.bind(this)
     }
-
+    componentWillMount() {
+        const nowtime = +new Date();
+        const nowSec = parseInt(nowtime/1000);
+        const end = this.props.match.params.endtime;
+        const endSec = parseInt(end);
+        console.log('=====date=end===now=', endSec, nowSec);
+        if(!isNaN(endSec) && !isNaN(nowSec)){
+            this.setState({
+                time: endSec-nowSec,
+                success: true
+            })
+        }  
+    }
 
     componentDidMount() {
         // this.timer = setInterval(() => {
         //     this.init();
         // }, 1000);
         hyExt.observer.on('begin', message => {
-            console.log('=========收到小程序后台推送过来的消息==========', message);
+            // console.log('=========收到小程序后台推送过来的消息==========', message);
             const data = JSON.parse(message);
             global.info.gameid = data.gameid;
             if (data.begin == 1) {
@@ -32,14 +44,15 @@ class SuccessTwo extends Component {
             }
         });
         hyExt.observer.on('waitNum', message => {
-            console.log('=========收到小程序后台推送过来的消息==========', message);
+            // console.log('=========收到小程序后台推送过来的消息==========', message);
             const data = JSON.parse(message); 
-            console.log('=====message====personnum==timebool===', data.personnum, data.timebool);
+            // console.log('=====message====personnum==timebool===', data.personnum, data.timebool);
             if(data.timebool != 1){
                 const nowtime = +new Date();
-
+                const nowSec = parseInt(nowtime/1000);
+                const end = parseInt(data.time);
                 this.setState({
-                    time: data.time-nowtime,
+                    time: end-nowSec,
                     success: true
                 })
             }
@@ -54,7 +67,7 @@ class SuccessTwo extends Component {
     }
 
 //    init(){
-//        console.log(global.info.gameid);
+//        // console.log(global.info.gameid);
 //        hyExt.request({
 //            header: {
 //            },
@@ -65,7 +78,7 @@ class SuccessTwo extends Component {
 //                "gameid": global.info.gameid
 //            }
 //        }).then((res) => {
-//            console.log('--data--', res);
+//            // console.log('--data--', res);
 //            this.setState({
 //                num: res.data.num,
 //                time: res.data.time,
@@ -88,7 +101,7 @@ class SuccessTwo extends Component {
 
 //        }).catch(err => {
 //            hyExt.logger.warn('调用失败', err)
-//            console.log('---err--', err);
+//            // console.log('---err--', err);
 //        });
 //     }
     render() {

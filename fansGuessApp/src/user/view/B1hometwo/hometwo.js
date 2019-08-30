@@ -11,6 +11,7 @@ class HomeTwo extends Component {
         this.state = {
             count: 0,
             time: 0,
+            endTime: 0,
             success: false,
         }
         this.join = this.join.bind(this);
@@ -22,28 +23,29 @@ class HomeTwo extends Component {
 
     componentDidMount() {
         hyExt.observer.on('beforeinvite', message => {
-            console.log('=========收到小程序后台推送过来的消息==========', message);
+            // console.log('=========收到小程序后台推送过来的消息==========', message);
             const data = JSON.parse(message);
             global.info.gameid = data.gameid;
             const now = +new Date();
             const nowSec = Math.floor(now/1000);
             const end = parseInt(data.time);
             console.log('===now===end=', nowSec, end);
-            console.log('===time==', end- nowSec);
+            // console.log('===time==', end- nowSec);
 
             if(data.time) {
                 this.setState({
                     time: end - nowSec,
+                    endTime: end,
                     success: true
                 })
             }
         })
         // this.init();
         hyExt.observer.on('waitNum', message => {
-            console.log('=========收到小程序后台推送过来的消息==========', message);
+            // console.log('=========收到小程序后台推送过来的消息==========', message);
             const data = JSON.parse(message);
 
-            console.log('=====message====personnum==timebool===', data.personnum, data.timebool);
+            // console.log('=====message====personnum==timebool===', data.personnum, data.timebool);
             // if (data.timebool != 1) {
             //     const nowtime = +new Date();
 
@@ -58,7 +60,7 @@ class HomeTwo extends Component {
     }
 
     // init(){
-    //     console.log(global.info.gameid);
+    //     // console.log(global.info.gameid);
     //     hyExt.request({
     //         header: {
     //         },
@@ -69,18 +71,18 @@ class HomeTwo extends Component {
     //             "gameid": global.info.gameid
     //         }
     //     }).then((res) => {
-    //         console.log('--data--', res);
+    //         // console.log('--data--', res);
     //         this.setState({
     //             count:res.data.num,
     //             time:res.data.time,
     //             success:true
     //         })
     //         // this.props.history.push('/playing')
-    //         console.log('--data--',this.state.time);
+    //         // console.log('--data--',this.state.time);
 
     //     }).catch(err => {
     //         hyExt.logger.warn('调用失败', err)
-    //         console.log('---err--', err);
+    //         // console.log('---err--', err);
     //     });
     // }
 
@@ -106,14 +108,14 @@ class HomeTwo extends Component {
                 //存储用户信息
                 global.info.userNick = userInfo.userNick;
                 global.info.userAvatarUrl = userInfo.userAvatarUrl;
-                this.props.history.push('/success2')
+                this.props.history.push(`/success2/${this.state.endTime}`)
             }).catch(err => {
                 hyExt.context.showToast('获取用户信息失败').then(() => {
                     hyExt.logger.info('显示成功')
                 }).catch(err => {
                     hyExt.logger.warn('显示失败', err)
                 })
-                console.log('---err--', err);
+                // console.log('---err--', err);
             });
         }).catch(err => {
             hyExt.logger.warn('获取用户信息失败', err)

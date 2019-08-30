@@ -21,7 +21,7 @@ class Success extends Component {
 
     componentDidMount() {
         hyExt.observer.on('begin', message => {
-            console.log('=========收到小程序后台推送过来的消息==========', message);
+            // console.log('=========收到小程序后台推送过来的消息==========', message);
             const data = JSON.parse(message);
             global.info.gameid = data.gameid;
             if (data.begin == 1) {
@@ -30,9 +30,9 @@ class Success extends Component {
         });
 
         hyExt.observer.on('waitNum', message => {
-            console.log('=========收到小程序后台推送过来的消息==========', message);
+            // console.log('=========收到小程序后台推送过来的消息==========', message);
             const data = JSON.parse(message);
-            console.log('=====message====personnum==timebool===', data.personnum, data.timebool);
+            // console.log('=====message====personnum==timebool===', data.personnum, data.timebool);
             this.setState({
                     num: data.personnum
             })
@@ -45,7 +45,7 @@ class Success extends Component {
     }
 
     // init() {
-    //     console.log(global.info.gameid);
+    //     // console.log(global.info.gameid);
     //     hyExt.request({
     //         header: {
     //         },
@@ -56,7 +56,7 @@ class Success extends Component {
     //             "gameid": global.info.gameid
     //         }
     //     }).then((res) => {
-    //         console.log('--data--', res);
+    //         // console.log('--data--', res);
     //         this.setState({
     //             num: res.data.num,
     //             time: res.data.time,
@@ -78,7 +78,7 @@ class Success extends Component {
 
     //     }).catch(err => {
     //         hyExt.logger.warn('调用失败', err)
-    //         console.log('---err--', err);
+    //         // console.log('---err--', err);
     //     });
     // }
     render() {

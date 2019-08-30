@@ -28,7 +28,7 @@ render(
         <Route path="/home" component={Home} />
         <Route path="/home2" component={HomeTwo} />
         <Route path="/success" component={Success} />
-        <Route path="/success2" component={SuccessTwo} />
+        <Route path="/success2/:endtime" component={SuccessTwo} />
         <Route path="/loading" component={Loading} />
         <Route path="/playing" component={Playing} />
         <Route path="/midres" component={MidRes} />

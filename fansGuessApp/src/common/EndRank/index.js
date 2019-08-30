@@ -4,9 +4,9 @@ import './index.scss'
 
 function List(props){
 
-    console.log('props.res');
-    console.log(props.res);
-    console.log('======props=====', props);
+    // console.log('props.res');
+    // console.log(props.res);
+    // console.log('======props=====', props);
 
     return(
         (Object.prototype.toString.call(props.res) == "[object Array]") &&
@@ -82,7 +82,7 @@ class EndRank extends Component {
             let startindex = (this.state.currentPage + 1) * this.state.number;
             let endindex = startindex + this.state.number;
             let item = this.state.allres.slice(startindex, endindex);
-            console.log(item);
+            // console.log(item);
             this.setState({
                 currentPage: this.state.currentPage + 1,
                 res: item,
@@ -116,7 +116,6 @@ class EndRank extends Component {
     }
     
     render() {
-        console.log('==render==', this.state);
         return (
             <div className="endrank">
                

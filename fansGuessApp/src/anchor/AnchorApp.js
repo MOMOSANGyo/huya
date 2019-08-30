@@ -10,7 +10,6 @@ import ScoreView from './components/A6Score'
 import 'antd/dist/antd.css'
 import './assets/scss/common.scss'
 import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-console.log('=====22222222====')
 class AnchorApp extends React.Component {
 
   render() {

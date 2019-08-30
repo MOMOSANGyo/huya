@@ -16,7 +16,7 @@ class First extends Component {
 
     componentDidMount() {
         let handler = message => {
-            console.log('收到小程序后台推送过来的消息', message)
+            // console.log('收到小程序后台推送过来的消息', message)
             hyExt.observer.off('invite', handler);
             const data = JSON.parse(message);
             global.info.gameid = data.gameid;
@@ -49,7 +49,7 @@ class First extends Component {
 
     //         }
     //     }).then((res) => {
-    //         console.log('--data--', res);
+    //         // console.log('--data--', res);
     //         global.info.gameid = res.data.gameid;
     //         if (res.data.time) {
     //             if (res.data.time !== "0") {
@@ -61,7 +61,7 @@ class First extends Component {
     //         }
     //     }).catch(err => {
     //         hyExt.logger.warn('调用失败', err)
-    //         console.log('---err--', err);
+    //         // console.log('---err--', err);
     //     });
 
     // }

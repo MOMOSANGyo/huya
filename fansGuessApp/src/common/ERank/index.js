@@ -57,7 +57,7 @@ class ERank extends Component {
     }
 
     static getDerivedStateFromProps(props, state) {
-        console.log('===getDerivedStateFromProps===', props);
+        // console.log('===getDerivedStateFromProps===', props);
         if(state.allres !== props.res){
             return{
                 res: props.res.slice(0, props.number),
@@ -76,7 +76,7 @@ class ERank extends Component {
             let startindex = (this.state.currentPage + 1) * this.state.number;
             let endindex = startindex + this.state.number;
             let item = this.state.allres.slice(startindex, endindex);
-            console.log(item);
+            // console.log(item);
             this.setState({
                 currentPage: this.state.currentPage + 1,
                 res: item,

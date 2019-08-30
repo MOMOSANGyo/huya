@@ -46,7 +46,7 @@ class MidRes extends Component {
             this.count();
         }, 1000);
         hyExt.observer.on('userList', message => {
-            console.log('=========收到小程序后台推送过来的消息==========' + message);
+            // console.log('=========收到小程序后台推送过来的消息==========' + message);
             const data = JSON.parse(message);
             this.setState({
                 infomation: data.userlist,
@@ -80,14 +80,14 @@ class MidRes extends Component {
                 "gamewordid": global.info.gamewordid
             }
         }).then(({ data, statusCode }) => {
-            console.log('----B5data----')
-            console.log('----B5data----')
-            console.log('----B5data----')
-            console.log('----B5data----')
-            console.log(data)
+            // console.log('----B5data----')
+            // console.log('----B5data----')
+            // console.log('----B5data----')
+            // console.log('----B5data----')
+            // console.log(data)
 
             if (statusCode == 200) {
-                console.log('----global.info.answertime---');
+                // console.log('----global.info.answertime---');
                 let answer = [...data.answer]
                 let myinfo = [
                     {
@@ -167,8 +167,8 @@ class MidRes extends Component {
         //         'useranswer': "满血把你送回家"
         //     }
         // ]
-        console.log('global.info.remaintime');
-        console.log(global.info.remaintime);
+        // console.log('global.info.remaintime');
+        // console.log(global.info.remaintime);
 
         if (this.state.loading) {
             return (

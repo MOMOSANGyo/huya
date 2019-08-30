@@ -16,19 +16,19 @@ const LoadingView = (props) => {
     const [modalVis, setModalVis] = useState(false);
 
     async function init() {
-      console.log('====props===', props);
+      // console.log('====props===', props);
       const timebool = props.match.params.timebool;
-      console.log('====wtime======', timebool);
+      // console.log('====wtime======', timebool);
       const gtime = props.match.params.gametime;
-      console.log('====wtime======', gtime);
+      // console.log('====wtime======', gtime);
 
       const gameid = getGameID();
-      console.log('=======a2getGameID===========', gameid);
+      // console.log('=======a2getGameID===========', gameid);
       const payload = {
         gameid: gameid
       }
       const res = await getAwaitTime(payload);
-      console.log('=======a2getAwaitTime===========', res);
+      // console.log('=======a2getAwaitTime===========', res);
       const mTime = res.time;
 
       if(!isNaN(parseInt(timebool))){
@@ -58,12 +58,12 @@ const LoadingView = (props) => {
 
     // useInterval(async () => {
     //   const gameid = getGameID();
-    //   console.log('=======a2getGameID===========', gameid);
+    //   // console.log('=======a2getGameID===========', gameid);
     //   const payload = {
     //     gameid: gameid
     //   }
     //   const res = await getAwaitNum(payload);
-    //   console.log('=======getAwaitNum====res=======', res);
+    //   // console.log('=======getAwaitNum====res=======', res);
     //   const n = res.num;
     //   setUsesrNumber(n)
     // }, 1000);
@@ -72,7 +72,7 @@ const LoadingView = (props) => {
       setTimer(timer - 1);
       if(time == 5 && timer === 1){
         const gameid = getGameID();
-        console.log('=======getGameID===========', gameid);
+        // console.log('=======getGameID===========', gameid);
         const payload = {
           gameid: gameid
         }
@@ -92,7 +92,7 @@ const LoadingView = (props) => {
     }, [])
 
     useEffect(() => {
-      console.log('=====timer===', timer, now);
+      // console.log('=====timer===', timer, now);
       if(timer <= 0) {
         setNow(true);
       }
@@ -105,7 +105,7 @@ const LoadingView = (props) => {
       e.stopPropagation();
       e.preventDefault();
       const gameid = getGameID();
-      console.log('=======a2getGameID===========', gameid);
+      // console.log('=======a2getGameID===========', gameid);
       const payload = {
         gameid: gameid
       }
@@ -117,7 +117,7 @@ const LoadingView = (props) => {
     function handleClick() {
       if(userNumber >= 1){
         const gameid = getGameID();
-        console.log('=======getGameID===========', gameid);
+        // console.log('=======getGameID===========', gameid);
         const payload = {
           gameid: gameid
         }

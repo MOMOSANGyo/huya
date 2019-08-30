@@ -4,7 +4,6 @@ import './index.scss'
 
 function ScoreList(props) {
   const [listdata, setListData] = useState(props.res);
-  console.log('----listdata---', listdata);
   useEffect(() => {
     if(props.res.length > 7) {
       const data = props.res.slice(0, 7);

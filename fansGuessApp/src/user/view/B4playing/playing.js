@@ -45,20 +45,20 @@ class Playing extends Component {
                 "gameid": global.info.gameid
             }
         }).then(({ data, statusCode }) => {
-            console.log('----B4answer----')
-            console.log(data)
-            console.log('statusCode')
-            console.log(statusCode)
+            // console.log('----B4answer----')
+            // console.log(data)
+            // console.log('statusCode')
+            // console.log(statusCode)
 
             if (statusCode == 200) {
-                console.log('---200--')
+                // console.log('---200--')
                 //通过正确答案渲染输入框个数
                 let answer = [];
                 for (let i = 0; i < data.len; i++) {
                     answer.push('');
                 }
-                console.log('---answer--')
-                console.log(answer);
+                // console.log('---answer--')
+                // console.log(answer);
                 this.setState({
                     questionNum: data.questionNum,
                     category: data.category,
@@ -71,11 +71,11 @@ class Playing extends Component {
                 global.info.questionNum = data.questionNum;
             }
         }).catch(err => {
-            console.log('----answer----')
-            console.log('----answer----')
-            console.log('----answer----')
-            console.log('----answer----')
-            console.log(err)
+            // console.log('----answer----')
+            // console.log('----answer----')
+            // console.log('----answer----')
+            // console.log('----answer----')
+            // console.log(err)
             hyExt.logger.warn('调用失败', err)
         })
     }
@@ -95,7 +95,7 @@ class Playing extends Component {
                 answer = answer + item;
             }
             var b = answer.toUpperCase();
-            console.log(answer)
+            // console.log(answer)
             hyExt.request({
                 header: {
                 },
@@ -110,10 +110,10 @@ class Playing extends Component {
                 }
             }).then(({ data, statusCode }) => {
                 clearInterval(this.timer);
-                console.log('this.state.count')
+                // console.log('this.state.count')
                 global.info.remaintime = this.state.time - this.state.count;
                 global.info.answertime = this.state.count;
-                console.log('====我的回答时间====',global.info.answertime)
+                // console.log('====我的回答时间====',global.info.answertime)
                 let length = []
                 for (let i = 0; i < data.len; i++) {
                     length.push('')
@@ -143,7 +143,7 @@ class Playing extends Component {
             answer = answer + item;
         }
         var b = answer.toUpperCase();
-        console.log(answer)
+        // console.log(answer)
         hyExt.request({
             header: {
             },
@@ -158,7 +158,7 @@ class Playing extends Component {
             }
         }).then(({ data, statusCode }) => {
             clearInterval(this.timer);
-            console.log('this.state.count')
+            // console.log('this.state.count')
             global.info.remaintime = this.state.time - this.state.count
             let length = []
             for (let i = 0; i < data.len; i++) {

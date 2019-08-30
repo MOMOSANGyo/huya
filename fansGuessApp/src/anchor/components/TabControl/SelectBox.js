@@ -6,7 +6,7 @@ function SelectBox(props) {
   const boxOption = props.option || ["0", "1", "2", "5"];
 
   function handleClick(value) {
-    console.log('-v---', value);
+    // console.log('-v---', value);
     props.onChange(value);
   }
   return(

@@ -22,9 +22,9 @@ class Home extends Component{
     componentDidMount() {
         // this.init();
         hyExt.observer.on('waitNum', message => {
-            console.log('=========收到小程序后台推送过来的消息==========', message);
+            // console.log('=========收到小程序后台推送过来的消息==========', message);
             const data = JSON.parse(message);
-            console.log('=====message====personnum==timebool===', data.personnum, data.timebool);
+            // console.log('=====message====personnum==timebool===', data.personnum, data.timebool);
             this.setState({
                     count: data.personnum
             })
@@ -32,7 +32,7 @@ class Home extends Component{
     }
     
     // init() {
-    //     console.log(global.info.gameid);
+    //     // console.log(global.info.gameid);
     //     hyExt.request({
     //         header: {
     //         },
@@ -43,18 +43,18 @@ class Home extends Component{
     //             "gameid": global.info.gameid
     //         }
     //     }).then((res) => {
-    //         console.log('--data--', res);
+    //         // console.log('--data--', res);
     //         this.setState({
     //             count: res.data.num,
     //             time: res.data.time,
     //             success: true
     //         })
     //         // this.props.history.push('/playing')
-    //         console.log('--data--', this.state.time);
+    //         // console.log('--data--', this.state.time);
 
     //     }).catch(err => {
     //         hyExt.logger.warn('调用失败', err)
-    //         console.log('---err--', err);
+    //         // console.log('---err--', err);
     //     });
     // }
 
@@ -84,7 +84,7 @@ class Home extends Component{
                 }).catch(err => {
                     hyExt.logger.warn('显示失败', err)
                 })
-                console.log('---err--', err);
+                // console.log('---err--', err);
             });
         }).catch(err => {
             hyExt.logger.warn('获取用户信息失败', err)
@@ -94,7 +94,7 @@ class Home extends Component{
     }
     render() {
         let props = this.props;
-        console.log(props);
+        // console.log(props);
         return(
             <div className="home">
                 <div></div>

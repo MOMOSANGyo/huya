@@ -56,16 +56,12 @@ const PlayView = (props) => {
   const [startPolling, setStartPolling] = useState(false);
 
   async function init() {
-    console.log('====props===', props);
     const wtime = props.match.params.gamewordtime;
-    console.log('====wtime======', wtime);
     const gameid = getGameID();
-    console.log('=======A4init=====gameid======', gameid);
     const payload = {
       gameid: gameid
     }
     const res = await getGameWord(payload);
-    console.log('====A4init===gamewordid==',res);
     const gamewordid = res.gamewordid;
     setGameWordID(gamewordid);
     const categoryValue = res.category;
@@ -76,7 +72,6 @@ const PlayView = (props) => {
     const total = res.totalperson;
 
     if(!isNaN(parseInt(wtime))){
-      console.log('===ifwtime========', wtime);
       setWordTime(parseInt(wtime));
     }
     else{
@@ -108,13 +103,13 @@ const PlayView = (props) => {
   //   const gamewordid = getGameWordID();
   //   if(gamewordid) {
   //     const gameid = getGameID();
-  //     console.log('=======a4 getGameID= gamewordid==========', gameid, gamewordid);
+  //     // console.log('=======a4 getGameID= gamewordid==========', gameid, gamewordid);
   //     const payload = {
   //       gameid: gameid,
   //       gamewordid: gamewordid
   //     }
   //     const res = await getGameWordInfo(payload);
-  //     console.log('=======getGameWordInfo====res=======', res);
+  //     // console.log('=======getGameWordInfo====res=======', res);
 
   //     const n = res.num;
   //     setUserNum(n);
@@ -126,10 +121,9 @@ const PlayView = (props) => {
   // }, startPolling? 1000: null);
 
   function changeTime(time) {
-    console.log('=======time=======', time);
+
     if(time >= wordTime) {
       const gameid = getGameID();
-      console.log('=======getGameID===========', gameid);
       const payload = {
         gameid: gameid
       }

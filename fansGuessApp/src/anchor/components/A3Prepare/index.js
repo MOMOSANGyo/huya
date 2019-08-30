@@ -11,11 +11,8 @@ const PrepareView = (props) => {
   const [time, setTime] = useState();
 
   async function init() {
-    console.log('====props===', props);
     const gtime = props.match.params.gametime;
-    console.log('====gtime======', gtime);
     const gameid = getGameID();
-    console.log('=======a2getGameID===========', gameid);
     const payload = {
       gameid: gameid
     }
@@ -46,10 +43,8 @@ const PrepareView = (props) => {
   }, [])
 
   function changeTime(value) {
-    console.log('=======time=======', value, time);
     if(value >= time) {
       const gameid = getGameID();
-      console.log('=======getGameID===========', gameid);
       const payload = {
         gameid: gameid
       }
@@ -60,7 +55,6 @@ const PrepareView = (props) => {
 
   function handleClick() {
     const gameid = getGameID();
-    console.log('=======getGameID===========', gameid);
     const payload = {
       gameid: gameid
     }

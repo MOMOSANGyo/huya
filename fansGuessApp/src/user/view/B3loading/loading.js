@@ -20,7 +20,7 @@ class LoadingView extends Component {
     componentDidMount() {
         this.wait();
         hyExt.observer.on('waitBegin', message => {
-            console.log('=========收到小程序后台推送过来的消息==========', message);
+            // console.log('=========收到小程序后台推送过来的消息==========', message);
             const data = JSON.parse(message);
             global.info.gameid = data.gameid;
             if (data.begin == 1) {
@@ -62,14 +62,14 @@ class LoadingView extends Component {
 
             }
         }).then((res) => {
-            console.log('---loading---')
-            console.log(res)
+            // console.log('---loading---')
+            // console.log(res)
             this.setState({
                 category: res.data.wordcategory
             })
         }).catch(err => {
             hyExt.logger.warn('调用失败', err)
-            console.log('---err--', err);
+            // console.log('---err--', err);
         });
     }
     render(){

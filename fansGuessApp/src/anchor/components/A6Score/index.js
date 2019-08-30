@@ -16,13 +16,13 @@ const ScoreView = (props) => {
   async function init() {
     const gameid = getGameID();
     const gamewordid = getGameWordID();
-    console.log('=======a6getGameID===========', gameid, gamewordid);
+    // console.log('=======a6getGameID===========', gameid, gamewordid);
     const payload = {
       gameid: gameid,
       gamewordid: gamewordid
     }
     const res = await getGameLastInfo(payload);
-    console.log('====getGameLastInfo=====',res);
+    // console.log('====getGameLastInfo=====',res);
     const score = res.score;
     setLastScore(score);
     const info = res.info;
