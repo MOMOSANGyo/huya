@@ -13,7 +13,7 @@ const MainView = (props) => {
 
   const [categoryOpt, setCategoryOpt] = useState();
   const [timpOpt, setTimpOpt] = useState();
-  const [wordTimpOpt, setWordTimpOpt] = useState(['15','30','45', '60', '90']);
+  const [wordTimpOpt, setWordTimpOpt] = useState(['20','25','30', '60', '90']);
   const [time, setTime] = useState("0");
   const [timeBoxVis, setTimeBoxVis] = useState(false);
   const [category, setCategory] = useState();
@@ -36,7 +36,7 @@ const MainView = (props) => {
       setCategory(category[data[0]][0]);
       setTime(time[0]);
 
-      setWordTimpOpt(['15', '30','45', '60', '90']);
+      setWordTimpOpt(['20', '25','30', '60', '90']);
       setWordTime('60');
     }
     else if(status === 0) {
