@@ -199,14 +199,5 @@ export async function getGameLastInfo(params) {
 
 export async function nextWord(params) {
   // console.log('=====nextWord======', params);
-  let result = {};
-  await api.request('newanchor/next/', 'POST', params).then(res => {
-    result = res;
-  }).catch(err => {
-    message.error(err);
-    // console.log(err);
-  })
-  return result;
+  return await api.request('newanchor/next/', 'POST', params)
 }
-
-

@@ -97,13 +97,17 @@ const ResultView = (props) => {
     const payload = {
       gameid: gameid,
     }
-    nextWord(payload);
-    if(gameStatus == 0) {
-      props.history.push(`/play/${gamewordtime}`);
-    }
-    else {
-      props.history.push('/score');
-    }
+    nextWord(payload).then(res => {
+      alert(res);
+      if(res.success == 1){
+        if(gameStatus == 0) {
+          props.history.push(`/play/${gamewordtime}`);
+        }
+        else {
+          props.history.push('/score');
+        }
+      }
+    });
   }
 
   return (
